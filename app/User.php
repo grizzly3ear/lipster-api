@@ -27,28 +27,24 @@ class User extends Authenticatable
     protected $table = 'Users';
 
 
-    public function getLogByUSer(){
+    public function userLogs(){
 
       return $this->hasMany('App\UserLog');
 
     }
 
 
-    public function getFavLipByStoreAndLipDetail(){
+    public function lipstickDetails(){
 
-      return $this->belongsToMany('App\LipstickDetail', 'FavouriteLipsticks ');
-
-    }
-
-    public function getFavTrendByUserAndTrends(){
- 
-      return $this->belongsToMany('App\Trend', 'FavouriteTrends ');
+      return $this->belongsToMany('App\LipstickDetail');
 
     }
 
-    public function getReviewByStoreAndLipDetail(){
+    public function trends(){
 
-      return $this->belongsToMany('App\LipstickDetail', 'Reviews ');
+      return $this->belongsToMany('App\Trend');
 
     }
+
+  
 }

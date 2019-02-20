@@ -8,7 +8,7 @@ class UserLog extends Model
 {
     protected $table = 'UserLogs';
 
-    public function getUserByLog(){
+    public function user(){
       return $this->belongsTo('App\USer ');
   }
 

@@ -8,7 +8,7 @@ class LipstickImg extends Model
 {
     protected $table = 'LipstickImg';
 
-    public function getLipDetailByLipImg(){
+    public function lipstickDetail(){
     return $this->belongsTo('App\LipstickDetail');
   }
 

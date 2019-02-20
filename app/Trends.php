@@ -8,13 +8,13 @@ class Trends extends Model
 {
     protected $table = 'Trends';
 
-    public function getLipDetailByTrends(){
+    public function lipstickDetail(){
     return $this->belongsTo('App\LipstickDetails');
   }
 
-  public function getFavTrendByUserAndTrends(){
+  public function users(){
 
-    return $this->belongsToMany('App\User', 'FavouriteTrend ');
+    return $this->belongsToMany('App\User');
 
   }
 

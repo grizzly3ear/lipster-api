@@ -9,42 +9,38 @@ class LipstickDetail extends Model
     protected $table = 'LipstickDetails';
     protected $primaryKey = 'id';
 
-    public function getLipColourByLipDetail(){
+    public function lipstickColours(){
 
       return $this->hasMany('App\LipstickColour');
 
     }
 
-    public function getLipImgByLipDetail(){
+    public function lipstickImgs(){
 
       return $this->hasMany('App\LipstickImg');
 
     }
 
-    public function getTrendByLipDetail(){
+    public function trends(){
 
       return $this->hasMany('App\Trend');
 
     }
 
-    public function getFavLipByStoreAndLipDetail(){
+    public function stores(){
 
-      return $this->belongsToMany('App\Store', 'StoreHasLipsticks  ');
-
-    }
-
-
-    public function getUserByLipDetail(){
-
-      return $this->belongsToMany('App\User', 'FavoriteLipsticks');
+      return $this->belongsToMany('App\Store');
 
     }
 
-    public function getReviewByStoreAndLipDetail(){
 
-      return $this->belongsToMany('App\User', 'Reviews ');
+    public function users(){
+
+      return $this->belongsToMany('App\User');
 
     }
+
+    
 
 
 
