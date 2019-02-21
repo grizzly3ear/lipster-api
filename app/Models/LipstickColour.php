@@ -8,9 +8,12 @@ class LipstickColour extends Model
 {
     protected $table = 'LipstickColours';
 
+
     public function lipstickDetail(){
-    return $this->belongsTo('App\LipstickDetail');
-  }
+
+      return $this->belongsTo('App\LipstickDetail');
+
+    }
 
 
 

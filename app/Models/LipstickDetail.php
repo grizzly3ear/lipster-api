@@ -9,15 +9,16 @@ class LipstickDetail extends Model
     protected $table = 'LipstickDetails';
     protected $primaryKey = 'id';
 
+
     public function lipstickColours(){
 
       return $this->hasMany('App\LipstickColour');
 
     }
 
-    public function lipstickImgs(){
+    public function LipstickImages(){
 
-      return $this->hasMany('App\LipstickImg');
+      return $this->hasMany('App\LipstickImage');
 
     }
 
@@ -33,18 +34,11 @@ class LipstickDetail extends Model
 
     }
 
-
     public function users(){
 
       return $this->belongsToMany('App\User');
 
     }
-
-    
-
-
-
-
 
 
 }

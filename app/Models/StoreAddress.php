@@ -6,11 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class StoreAddress extends Model
 {
+
     protected $table = 'StoreAddresses';
 
-    public function getStoreByAddress(){
-    return $this->belongsTo('App\Store');
-  }
+    public function Store(){
+
+      return $this->belongsTo('App\Store');
+      
+    }
 
 
 

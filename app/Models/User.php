@@ -27,9 +27,9 @@ class User extends Authenticatable
     protected $table = 'Users';
 
 
-    public function userLogs(){
+    public function Logs(){
 
-      return $this->hasMany('App\UserLog');
+      return $this->hasMany('App\Log');
 
     }
 
@@ -46,5 +46,5 @@ class User extends Authenticatable
 
     }
 
-  
+
 }
