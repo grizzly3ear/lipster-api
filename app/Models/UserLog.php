@@ -9,6 +9,6 @@ class UserLog extends Model
     protected $table = 'UserLogs';
 
     public function user(){
-      return $this->belongsTo('App\USer ');
+      return $this->belongsTo('App\User');
   }
 }
