@@ -1,12 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class LipstickColour extends Model
+class LipstickImg extends Model
 {
-    protected $table = 'LipstickColours';
+    protected $table = 'LipstickImg';
 
     public function lipstickDetail(){
     return $this->belongsTo('App\LipstickDetail');

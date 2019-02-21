@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,11 +11,4 @@ class UserLog extends Model
     public function user(){
       return $this->belongsTo('App\USer ');
   }
-
-
-
-
-
-
-
 }
