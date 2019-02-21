@@ -14,11 +14,11 @@ class CreateStoreAddressesTable extends Migration
     {
         Schema::create('StoreAddresses', function (Blueprint $table) {
           $table->increments('id');
-        $table->float('latitude');
-        $table->float('longtitude');
-        $table->String('addressDetail');
-        $table->integer('store_id')->unsigned();
-        $table->foreign('store_id')->references('id')->on('Stores');
+          $table->float('latitude');
+          $table->float('longtitude');
+          $table->String('addressDetail');
+          $table->integer('store_id')->unsigned();
+          $table->foreign('store_id')->references('id')->on('Stores');
         });
     }
 

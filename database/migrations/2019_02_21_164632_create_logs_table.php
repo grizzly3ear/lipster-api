@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLipstickImgTable extends Migration
+class CreateLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,13 @@ class CreateLipstickImgTable extends Migration
      */
     public function up()
     {
-        Schema::create('LipstickImg', function (Blueprint $table) {
+        Schema::create('Logs', function (Blueprint $table) {
           $table->increments('id');
-          $table->String('img');
-          $table->integer('lipstickDetail_id')->unsigned();
-          $table->foreign('lipstickDetail_id')->references('id')->on('lipstickdetails');
+          $table->String('action');
+          $table->String('detail');
+          $table->timestamps();
+          $table->integer('User_id')->unsigned();
+          $table->foreign('User_id')->references('id')->on('Users');
         });
     }
 
@@ -27,6 +29,6 @@ class CreateLipstickImgTable extends Migration
      */
     public function down()
     {
-        Schema::drop('LipstickImg');
+        Schema::drop('Logs');
     }
 }
