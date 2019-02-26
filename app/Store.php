@@ -9,7 +9,7 @@ class Store extends Model
     protected $table = 'Stores';
     protected $primaryKey = 'id';
 
-    public function StoreAddresses(){
+     public function StoreAddresses(){
 
       return $this->hasMany('App\StoreAddress');
 

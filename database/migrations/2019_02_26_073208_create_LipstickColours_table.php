@@ -14,10 +14,11 @@ class CreateLipstickColoursTable extends Migration
     {
         Schema::create('LipstickColours', function (Blueprint $table) {
           $table->increments('id');
+          $table->String('colourName');
           $table->String('RGB-HSL');
           $table->String('colorCode');
           $table->integer('lipstickDetail_id')->unsigned();
-          $table->foreign('lipstickDetail_id')->references('id')->on('lipstickdetails');
+          $table->foreign('lipstickDetail_id')->references('id')->on('LipstickDetails');
         });
     }
 

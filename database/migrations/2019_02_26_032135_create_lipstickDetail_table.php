@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLipstickDetailsTable extends Migration
+class CreateLipstickDetailTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,13 @@ class CreateLipstickDetailsTable extends Migration
     {
         Schema::create('LipstickDetails', function (Blueprint $table) {
           $table->increments('id');
-          $table->String('brand');
           $table->String('name');
           $table->double('price');
           $table->String('type');
           $table->Integer('opacity');
           $table->String('moreDetail');
+          $table->integer('lipstickBrand_id')->unsigned();
+          $table->foreign('lipstickBrand_id')->references('id')->on('LipstickBrands');
         });
     }
 
