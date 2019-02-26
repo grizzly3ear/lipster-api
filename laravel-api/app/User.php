@@ -23,4 +23,26 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected $table = 'Users';
+    protected $primaryKey = 'id';
+
+    public function trend(){
+
+      return $this->belongsToMany('App\Trend');
+
+    }
+
+    public function lipstickColor(){
+
+      return $this->belongsToMany('App\LipstickColor');
+
+    }
+
+    public function log(){
+
+      return $this->hasMany('App\Log');
+
+    }
+
 }
