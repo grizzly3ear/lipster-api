@@ -9,9 +9,15 @@ class StoreAddress extends Model
 
     protected $table = 'StoreAddresses';
 
-    public function getStoreByAddress(){
+    public function store(){
 
       return $this->belongsTo('App\Store');
+
+  }
+
+  public function lipstickColours(){
+
+    return $this->belongsToMany('App\LipstickColour');
 
   }
 

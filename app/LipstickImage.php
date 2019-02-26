@@ -9,9 +9,9 @@ class LipstickImage extends Model
 
   protected $table = 'LipstickImages';
 
-  public function lipstickDetail(){
+  public function lipstickColour(){
 
-    return $this->belongsTo('App\LipstickDetail');
+    return $this->belongsTo('App\LipstickColours');
 
   }
 

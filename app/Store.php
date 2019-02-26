@@ -9,18 +9,9 @@ class Store extends Model
     protected $table = 'Stores';
     protected $primaryKey = 'id';
 
-    public function getAddressByStorel(){
+    public function StoreAddresses(){
 
       return $this->hasMany('App\StoreAddress');
 
     }
-
-    public function LipstickDetail(){
-
-      return $this->belongsToMany('App\LipstickDetail');
-
-    }
-
-
-
 }

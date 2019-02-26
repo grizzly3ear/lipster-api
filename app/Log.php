@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Log extends Model
 {
 
-  protected $table = 'UserLogs';
+  protected $table = 'Logs';
 
   public function user(){
 
