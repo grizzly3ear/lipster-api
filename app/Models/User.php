@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable
+{
+    use Notifiable;
+
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    protected $table = 'user';
+    protected $primaryKey = 'id';
+
+    public function logs()
+    {
+        return $this->hasMany(Log::class, 'user_id');
+    }
+
+    public function recommends()
+    {
+        return $this->hasMany(Recommend::class, 'user_id');
+    }
+
+    public function trends()
+    {
+        return $this->belongsToMany(Trend::class, 'favorite_trend', 'user_id', 'trend_id');
+    }
+}
