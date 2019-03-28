@@ -8,4 +8,11 @@ class LipstickBrand extends Model
 {
     protected $table = 'lipstick_brand';
     protected $primaryKey = 'id';
+    protected $fillable = ['brand', 'create_at', 'update_at'];
+
+    public function lipstickDetails(){
+
+        return $this->hasMany(LipstickDetail::class, 'lipstick_brand_id');
+    
+      }
 }

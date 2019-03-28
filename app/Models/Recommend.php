@@ -13,4 +13,9 @@ class Recommend extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function lipstickColor()
+    {
+        return $this->belongsTo(LipstickColor::class, 'lipstick_color_id');
+    }
 }
