@@ -14,12 +14,12 @@ class CreateTrendTable extends Migration
     public function up()
     {
         Schema::create('trend', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('title');
             $table->integer('year')->unsigned();
             $table->string('image');
             $table->string('skin_color');
-            $table->string('lipstick_color_id')->unsigned();
+            $table->integer('lipstick_color_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('lipstick_color_id')->references('id')->on('lipstick_color');

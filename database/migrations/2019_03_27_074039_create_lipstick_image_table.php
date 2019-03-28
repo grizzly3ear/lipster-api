@@ -14,9 +14,9 @@ class CreateLipstickImageTable extends Migration
     public function up()
     {
         Schema::create('lipstick_image', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('image');
-            $table->integer('lipstick_color_id');
+            $table->integer('lipstick_color_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('lipstick_color_id')->references('id')->on('lipstick_color');

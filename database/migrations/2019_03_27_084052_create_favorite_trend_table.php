@@ -14,7 +14,7 @@ class CreateFavoriteTrendTable extends Migration
     public function up()
     {
         Schema::create('favorite_trend', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('trend_id')->unsigned();
             $table->timestamps();

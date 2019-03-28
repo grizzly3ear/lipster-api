@@ -14,7 +14,7 @@ class CreateRecommendTable extends Migration
     public function up()
     {
         Schema::create('recommend', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('content')->nullable();
             $table->integer('user_id')->unsigned();
             $table->integer('lipstick_color_id')->unsigned();

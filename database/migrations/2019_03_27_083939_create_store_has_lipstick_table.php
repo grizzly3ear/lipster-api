@@ -14,7 +14,7 @@ class CreateStoreHasLipstickTable extends Migration
     public function up()
     {
         Schema::create('store_has_lipstick', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('lipstick_color_id')->unsigned();
             $table->integer('store_address_id')->unsigned();
             $table->timestamps();

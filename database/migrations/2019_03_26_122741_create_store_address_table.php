@@ -14,7 +14,7 @@ class CreateStoreAddressTable extends Migration
     public function up()
     {
         Schema::create('store_address', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->bigInteger('latitude');
             $table->bigInteger('longtitude');
             $table->string('address_detail');

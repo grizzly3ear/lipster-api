@@ -14,9 +14,10 @@ class CreateLipstickDetailTable extends Migration
     public function up()
     {
         Schema::create('lipstick_detail', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name');
-            $table->double('price')->unsigned();
+            $table->double('max_price')->unsigned();
+            $table->double('min_price')->unsigned();
             $table->string('type');
             $table->double('opacity')->unsigned();
             $table->string('description');
