@@ -8,7 +8,6 @@ class StoreAddress extends Model
 {
     protected $table = 'store_address';
     protected $primaryKey = 'id';
-    protected $fillable = ['latitude', 'longtitude', 'address_detail', 'store_id', 'created_at', 'updated_at'];
 
     public function store(){
 

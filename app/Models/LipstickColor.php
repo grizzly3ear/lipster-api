@@ -8,8 +8,7 @@ class LipstickColor extends Model
 {
     protected $table = 'lipstick_color';
     protected $primaryKey = 'id';
-    protected $fillable = ['color_name', 'rgb', 'color_code', 'lipstick_detail_id', 'create_at', 'update_at'];
-
+    
     public function lipstickDetail(){
 
         return $this->belongsTo(LipstickDetail::class, 'lipstick_detail_id');
@@ -52,10 +51,5 @@ class LipstickColor extends Model
     
     }
 
-    public function notifications(){
-
-        return $this->morphMany(Notification::class, 'notification');
-  
-    }
 
 }

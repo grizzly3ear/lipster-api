@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class LipstickBrand extends Model
 {
     protected $table = 'lipstick_brand';
-    protected $primaryKey = 'id';
-    protected $fillable = ['brand', 'create_at', 'update_at'];
+    protected $primaryKey = 'id';  
 
     public function lipstickDetails(){
 
