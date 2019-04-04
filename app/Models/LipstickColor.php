@@ -8,6 +8,7 @@ class LipstickColor extends Model
 {
     protected $table = 'lipstick_color';
     protected $primaryKey = 'id';
+    protected $fillable = ['color_name', 'rgb', 'color_code', 'lipstick_detail_id'];
     
     public function lipstickDetail(){
 
