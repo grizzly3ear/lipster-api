@@ -141,7 +141,4 @@ class LipstickController extends Controller
         $lipstick = LipstickImage::find($id);
         $lipstick -> delete();
     }
-
-
-
 }

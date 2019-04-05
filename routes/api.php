@@ -43,3 +43,16 @@ Route::group(['prefix' => 'lipstick'], function () { // localhost/api/lipstick/.
 
 });
 
+Route::group(['prefix' => 'trend'], function () {
+    Route::get('', 'TrendController@getAll');
+    Route::get('{id}', 'TrendController@getTrendById');
+    // Route::get('/title/{title}', 'TrendController@getTrendByTitle');
+    // Route::get('/year/{year}', 'TrendController@getTrendByYear');
+
+    Route::post('', 'TrendController@storeTrend');
+
+    Route::put('{id}', 'TrendController@editTrend');
+    
+    Route::delete('{id}', 'TrendController@deleteTrend');
+
+});
