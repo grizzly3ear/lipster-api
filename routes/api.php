@@ -20,26 +20,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'lipstick'], function () { // localhost/api/lipstick/...
     Route::get('', 'LipstickController@getAll');
     Route::get('{id}', 'LipstickController@getLipstickById');
-    Route::get('/brand/{lipstick_brand_id}', 'LipstickController@getLipstickByBrand');
-    Route::get('/name/{lipstick_detail_id}', 'LipstickController@getLipstickByName');
-    
-    
-    // Route::post('', '....') create lipstick
     Route::post('', 'LipstickController@storeLipstick');
-
-    // ::put edit lipstick
-    // Route::put('{id}', 'LipstickController@editLipstick');
-    Route::put('/brand/{lipstick_brand_id}', 'LipstickController@editLipstickBrand');
-    Route::put('/detail/{lipstick_detail_id}', 'LipstickController@editLipstickDetail');
-    Route::put('/color/{lipstick_color_id}', 'LipstickController@editLipstickColor');
-    Route::put('/image/{lipstick_image_id}', 'LipstickController@editLipstickImage');
-    
-    // delete lipstick
     Route::delete('{id}', 'LipstickController@deleteLipstickId');
+
+
+    Route::get('/brand/{lipstick_brand_id}', 'LipstickController@getLipstickByBrand');
+    Route::put('/brand/{lipstick_brand_id}', 'LipstickController@editLipstickBrand');
     Route::delete('/brand/{lipstick_brand_id}', 'LipstickController@deleteLipstickBrand');
+
+    Route::get('/name/{lipstick_detail_id}', 'LipstickController@getLipstickByName');
+    Route::put('/detail/{lipstick_detail_id}', 'LipstickController@editLipstickDetail');
     Route::delete('/detail/{lipstick_detail_id}', 'LipstickController@deleteLipstickDetail');
+
+    Route::put('/color/{lipstick_color_id}', 'LipstickController@editLipstickColor');
+
+    Route::put('/image/{lipstick_image_id}', 'LipstickController@editLipstickImage');
     Route::delete('/image/{lipstick_image_id}', 'LipstickController@deleteLipstickImage');
-    
 
 });
 
@@ -52,7 +48,7 @@ Route::group(['prefix' => 'trend'], function () {
     Route::post('', 'TrendController@storeTrend');
 
     Route::put('{id}', 'TrendController@editTrend');
-    
+
     Route::delete('{id}', 'TrendController@deleteTrend');
 
 });
