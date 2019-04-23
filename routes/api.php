@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'lipstick'], function () { // localhost/api/lipstick/...
-    Route::get('', 'LipstickController@getAll');
+    Route::get('/123', 'LipstickController@getAll');
     Route::get('{id}', 'LipstickController@getLipstickById');
     Route::post('', 'LipstickController@storeLipstick');
     Route::delete('{id}', 'LipstickController@deleteLipstickId');
