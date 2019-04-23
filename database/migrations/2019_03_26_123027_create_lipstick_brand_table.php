@@ -15,7 +15,7 @@ class CreateLipstickBrandTable extends Migration
     {
         Schema::create('lipstick_brand', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('brand');
+            $table->string('name');
             $table->timestamps();
         });
     }

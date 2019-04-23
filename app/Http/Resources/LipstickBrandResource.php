@@ -16,7 +16,7 @@ class LipstickBrandResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'brand' => $this -> brand,
+            'name' => $this -> name,
             'detail' => LipstickDetailResource::collection($this -> lipstickDetails)
         ];
     }
