@@ -60,8 +60,9 @@ class LipstickController extends Controller
         $detail -> description = $request -> description;
         $detail -> composition = $request -> composition;
         $detail -> apply = $request -> apply;
-        $detail -> lipstick_brand_id = $brand->id;
         $detail -> save();
+        $brand->lipstickDetail()->associated($detail);
+        // $detail -> lipstick_brand_id = $brand->id;
 
         $color = new LipstickColor();
         $color -> color_name = $request -> color_name;
