@@ -20,24 +20,25 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::group(['prefix' => 'lipstick'], function () { // localhost/api/lipstick/...
-    Route::get('', 'LipstickController@getAll');
-    Route::get('{id}', 'LipstickController@getLipstickById');
-    Route::post('', 'LipstickController@storeLipstick');
-    Route::delete('{id}', 'LipstickController@deleteLipstickId');
+    Route::get('', 'LipstickBrandController@getAll');
+    Route::get('{id}', 'LipstickBrandController@getLipstickById');
+    Route::post('', 'LipstickBrandController@storeLipstick');
+    Route::delete('{id}', 'LipstickBrandController@deleteLipstickId');
+    Route::get('/user/{id}', 'LipstickBrandController@getLipstickByUser');
 
 
-    Route::get('/brand/{lipstick_brand_id}', 'LipstickController@getLipstickByBrand');
-    Route::put('/brand/{lipstick_brand_id}', 'LipstickController@editLipstickBrand');
-    Route::delete('/brand/{lipstick_brand_id}', 'LipstickController@deleteLipstickBrand');
+    Route::get('/brand/{lipstick_brand_id}', 'LipstickBrandController@getLipstickByBrand');
+    Route::put('/brand/{lipstick_brand_id}', 'LipstickBrandController@editLipstickBrand');
+    Route::delete('/brand/{lipstick_brand_id}', 'LipstickBrandController@deleteLipstickBrand');
 
-    Route::get('/name/{lipstick_detail_id}', 'LipstickController@getLipstickByName');
-    Route::put('/detail/{lipstick_detail_id}', 'LipstickController@editLipstickDetail');
-    Route::delete('/detail/{lipstick_detail_id}', 'LipstickController@deleteLipstickDetail');
+    Route::get('/detail/{lipstick_detail_id}', 'LipstickBrandController@getLipstickByDetail');
+    Route::put('/detail/{lipstick_detail_id}', 'LipstickBrandController@editLipstickDetail');
+    Route::delete('/detail/{lipstick_detail_id}', 'LipstickBrandController@deleteLipstickDetail');
 
-    Route::put('/color/{lipstick_color_id}', 'LipstickController@editLipstickColor');
+    Route::put('/color/{lipstick_color_id}', 'LipstickBrandController@editLipstickColor');
 
-    Route::put('/image/{lipstick_image_id}', 'LipstickController@editLipstickImage');
-    Route::delete('/image/{lipstick_image_id}', 'LipstickController@deleteLipstickImage');
+    Route::put('/image/{lipstick_image_id}', 'LipstickBrandController@editLipstickImage');
+    Route::delete('/image/{lipstick_image_id}', 'LipstickBrandController@deleteLipstickImage');
 
 });
 
