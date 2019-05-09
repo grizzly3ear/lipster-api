@@ -24,6 +24,7 @@ class LipstickDetailResource extends JsonResource
             'description' => $this-> description, 
             'composition' => $this-> composition, 
             'apply' => $this-> apply, 
+            'lipstick_brand_id' => $this->lipstick_brand_id,
             'colors' => LipstickColorResource::collection($this-> lipstickColors)
         ];
     }
