@@ -19,6 +19,7 @@ class LipstickColorResource extends JsonResource
             'color_name' => $this->color_name,
             'rgb' => $this->rgb,
             'color_code' => $this->color_code,
+            'lipstick_detail_id' => $this->lipstick_detail_id,
             'image' => LipstickImageResource::collection($this->lipstickImages),
             'detail' => $this->lipstickDetail->description
         ];
