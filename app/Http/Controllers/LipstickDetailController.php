@@ -36,23 +36,23 @@ class LipstickDetailController extends Controller
         $lipstick-> delete();
     }
 
-    // public function storeLipstickDetail(Request $request){
-    //     // $brand = new LipstickBrand();
-    //     $brand = LipstickBrand::find($request->lipstick_brand_id);
+    public function storeLipstickDetail(Request $request){
+        // $brand = new LipstickBrand();
+        $brand = LipstickBrand::find($request->lipstick_brand_id);
 
-    //     $detail = new LipstickDetail();
-    //     $detail->name = $request->name;
-    //     $detail->max_price = $request->max_price;
-    //     $detail->min_price = $request->min_price;
-    //     $detail->type = $request->type;
-    //     $detail->opacity = $request->opacity;
-    //     $detail->description = $request->description;
-    //     $detail->composition = $request->composition;
-    //     $detail->apply = $request->apply;
-    //     $detail->lipstickBrand()->associated($brand);
-    //     $detail->save();
-    //     // $detail -> lipstick_brand_id = $brand->id;
+        $detail = new LipstickDetail();
+        $detail->name = $request->name;
+        $detail->max_price = $request->max_price;
+        $detail->min_price = $request->min_price;
+        $detail->type = $request->type;
+        $detail->opacity = $request->opacity;
+        $detail->description = $request->description;
+        $detail->composition = $request->composition;
+        $detail->apply = $request->apply;
+        $detail->lipstickBrand()->associate($brand);
+        $detail->save();
+        // $detail -> lipstick_brand_id = $brand->id;
 
-    //     return $detail;
-    // }
+        return $detail;
+    }
 }
