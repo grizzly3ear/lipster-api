@@ -28,7 +28,7 @@ Route::group(['prefix' => 'lipstick'], function () { // localhost/api/lipstick/.
     Route::put('/brand/{lipstick_brand_id}', 'LipstickBrandController@editLipstickBrand');
     Route::delete('/brand/{lipstick_brand_id}', 'LipstickBrandController@deleteLipstickBrand');
 
-    // Route::post('/detail', 'LipstickDetailController@storeLipstickDetail');
+    Route::post('/detail', 'LipstickDetailController@storeLipstickDetail');
     Route::get('/detail/{lipstick_detail_id}', 'LipstickDetailController@getLipstickByDetail');
     Route::put('/detail/{lipstick_detail_id}', 'LipstickDetailController@editLipstickDetail');
     Route::delete('/detail/{lipstick_detail_id}', 'LipstickDetailController@deleteLipstickDetail');
@@ -46,13 +46,8 @@ Route::group(['prefix' => 'lipstick'], function () { // localhost/api/lipstick/.
 Route::group(['prefix' => 'trend'], function () {
     Route::get('', 'TrendController@getAll');
     Route::get('{id}', 'TrendController@getTrendById');
-    // Route::get('/title/{title}', 'TrendController@getTrendByTitle');
-    // Route::get('/year/{year}', 'TrendController@getTrendByYear');
-
     Route::post('', 'TrendController@storeTrend');
-
     Route::put('{id}', 'TrendController@editTrend');
-
     Route::delete('{id}', 'TrendController@deleteTrend');
 
 });
