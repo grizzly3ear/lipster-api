@@ -20,7 +20,7 @@ class CreateFavoriteLipstickTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('user');
-            $table->foreign('lipstick_color_id')->references('id')->on('lipstick_color');
+            $table->foreign('lipstick_color_id')->references('id')->on('lipstick_color')->onDelete('cascade');
         });
     }
 

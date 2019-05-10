@@ -26,7 +26,7 @@ class CreateLipstickDetailTable extends Migration
             $table->integer('lipstick_brand_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('lipstick_brand_id')->references('id')->on('lipstick_brand');
+            $table->foreign('lipstick_brand_id')->references('id')->on('lipstick_brand')->onDelete('cascade');
         });
     }
 

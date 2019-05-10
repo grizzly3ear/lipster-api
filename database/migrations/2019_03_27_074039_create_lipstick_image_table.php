@@ -19,7 +19,7 @@ class CreateLipstickImageTable extends Migration
             $table->integer('lipstick_color_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('lipstick_color_id')->references('id')->on('lipstick_color');
+            $table->foreign('lipstick_color_id')->references('id')->on('lipstick_color')->onDelete('cascade');
         });
     }
 
