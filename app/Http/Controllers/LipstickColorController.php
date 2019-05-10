@@ -45,22 +45,22 @@ class LipstickColorController extends Controller
         $lipstick->delete();
     }
 
-    // public function storeLipstickColor(Request $request){
+    public function storeLipstickColor(Request $request){
 
-        // $detail = new LipstickDetail();
+        $detail = LipstickDetail::find($request->lipstick_detail_id);
 
-        // $color = new LipstickColor();
-        // $color -> color_name = $request -> color_name;
-        // $color -> rgb = $request -> rgb;
-        // $color -> color_code = $request -> color_code;
-        // $color -> lipstick_detail_id = $detail -> id;
-        // $color -> save();
+        $color = new LipstickColor();
+        $color -> color_name = $request -> color_name;
+        $color -> rgb = $request -> rgb;
+        $color -> color_code = $request -> color_code;
+        $color->lipstickDetail()->associate($detail);
+        $color -> save();
 
-        // $image = new LipstickImage();
-        // $image -> image = $request -> image;
-        // $image -> lipstick_color_id = $color -> id;
-        // $image -> save();
+        $image = new LipstickImage();
+        $image -> image = $request -> image;
+        $image->lipstickColor()->associate($color);
+        $image -> save();
 
-    //     return $color;
-    // }
+        return $color;
+    }
 }
