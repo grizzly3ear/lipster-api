@@ -21,7 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'lipstick'], function () { // localhost/api/lipstick/...
     Route::get('', 'LipstickBrandController@getAll');
-    Route::get('/user/{id}', 'LipstickBrandController@getLipstickByUser');
 
     Route::post('/brand', 'LipstickBrandController@storeLipstickBrand');
     Route::get('/brand/{lipstick_brand_id}', 'LipstickBrandController@getLipstickByBrand');
