@@ -34,11 +34,11 @@ class LipstickColorController extends Controller
 
         return $lipstick;
     }
-    
-    // public function deleteLipstickId($id){
-    //     $lipstick = LipstickColor::find($id);
-    //     $lipstick->storeAddresses()->delete();
-    // }
+
+    public function deleteLipstickId($id){
+        $lipstick = LipstickColor::find($id);
+        $lipstick->storeAddresses()->delete();
+    }
 
     public function deleteLipstickImage($id){
         $lipstick = LipstickImage::find($id);
@@ -56,10 +56,10 @@ class LipstickColorController extends Controller
         $color->lipstickDetail()->associate($detail);
         $color -> save();
 
-        $image = new LipstickImage();
-        $image -> image = $request -> image;
-        $image->lipstickColor()->associate($color);
-        $image -> save();
+        // $image = new LipstickImage();
+        // $image -> image = $request -> image;
+        // $image->lipstickColor()->associate($color);
+        // $image -> save();
 
         return $color;
     }
