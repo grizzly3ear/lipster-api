@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 use App\Models\LipstickColor;
-use App\Http\Resources\LipstickColorResource;
 use App\Models\LipstickDetail;
 use App\Models\LipstickImage;
+use App\Http\Resources\LipstickDetailReverseResource;
+use App\Http\Resources\LipstickColorResource;
 
 class LipstickColorController extends Controller
 {
@@ -63,4 +65,52 @@ class LipstickColorController extends Controller
 
         return $color;
     }
+
+    public function getSimilarColor($rgb1){
+        $partR1 = str::limit($rgb1, 2,'');
+        $r1 = hexdec($partR1);
+
+        $cutG1 = Str::after($rgb1, $partR1);
+        $partG1 = str::limit($cutG1, 2,'');
+        $g1 = hexdec($partG1);
+
+        $cutB1 = Str::after($rgb1, $partR1.$partG1);
+        $partB1 = str::limit($cutB1, 2,'');
+        $b1 = hexdec($partB1);
+
+        $colors = LipstickColor::all();
+        $detail = LipstickDetail::all();
+
+
+        $similarColorList = [];
+
+        foreach($colors as $color){
+            $rgb2 =  $color->rgb;
+
+            $cutR2 = Str::after($rgb2, '#');
+            $partR2 = str::limit($cutR2, 2,'');
+            $r2 = hexdec($partR2);
+
+            $cutG2 = Str::after($rgb2, $partR2);
+            $partG2 = str::limit($cutG2, 2,'');
+            $g2 = hexdec($partG2);
+
+            $cutB2 = Str::after($rgb2, $partR2.$partG2);
+            $partB2 = str::limit($cutB2, 2,'');
+            $b2 = hexdec($partB2);
+
+            $result = sqrt(pow($r1 - $r2, 2) + pow($g1 - $g2, 2) + pow($b1 - $b2, 2));
+            
+            if ($result < 85){                
+
+                $similarColorList[] = [
+                    'detail' => new LipstickDetailReverseResource(LipstickDetail::find($color->lipstickDetail->id)),
+                    'color' => new LipstickColorResource(LipstickColor::find($color->id)) 
+                ];
+            }
+           
+        }
+        return $similarColorList;
+    }
 }
+
