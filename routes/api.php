@@ -90,13 +90,15 @@ Route::group(['prefix' => 'trend'], function () {
 //     Route::get('', 'UserController@getAllUser');
 //     Route::get('{user_id}', 'UserController@getUserById');
 //     Route::post('', 'UserController@createUser');
-//     Route::put('{user_id}', 'UserController@updateUserById');
-//     Route::delete('{user_id}', 'UserController@deleteUserById');
+//     Route::put('{user_id}', 'UserController@updateUser');
+//     Route::delete('{user_id}', 'UserController@deleteUser');
 
-//     Route::post('{user_id}/favorite-lipstick/{lipstick_id}', 'UserController@addLipstickToFavorite');
+//     Route::post('{user_id}/favorite-lipstick', 'UserController@addLipstickToFavorite');
+//     Route::put('{user_id}/favorite-lipstick', 'UserController@syncLipstickToFavorite');
 //     Route::delete('{user_id}/favorite-lipstick/{lipstick_id}', 'UserController@removeLipstickFromFavorite');
 
-//     Route::post('{user_id}/favorite-trend/{trend_id}', 'UserController@addTrendToFavorite');
+//     Route::post('{user_id}/favorite-trend', 'UserController@addTrendToFavorite');
+//     Route::put('{user_id}/favorite-trend', 'UserController@syncTrendToFavorite');
 //     Route::delete('{user_id}/favorite-trend/{trend_id}', 'UserController@removeTrendFromFavorite');
 
 //     Route::post('{user_id}/location', 'UserController@sendUserLocation');
