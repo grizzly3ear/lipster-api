@@ -14,23 +14,33 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function getAllUser() {
-        // $users = $this->userRepository->findAll();
+    public function getAllUser () {
+        $users = $this->$userRepository->findAll();
 
-        // return UserResource::collection($users);
+        return $users;
     }
 
-    public function getUserById($user_id) {
-        // $user = $this->userRepository->findById($user_id);
+    public function getUserById ($user_id) {
+        $user = $this->$userRepository->findById($user_id);
 
-        // return new UserResource($user);
+        return $user;
     }
 
-    public function createUser(Request $request) {
-        // this method for validate the variable
+    public function createUser (Request $request) {
+        $user = $this->$userRepository->store($request->input());
 
-        // $user = $this->userRepository->store(...);
+        return $user;
+    }
 
-        // return new UserResource($user);
+    public function updateUserById (Request $request, $user_id) {
+        $user = $this->$userRepository->update($user_id, $request->input());
+
+        return $user;
+    }
+
+    public function deleteUserById ($user_id) {
+        $user_id = $this->$userRepository->deleteById($user_id);
+
+        return $user_id;
     }
 }

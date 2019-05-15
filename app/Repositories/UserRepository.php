@@ -14,11 +14,11 @@ class UserRepository implements UserRepositoryInterface
         return User::findOrFail($user_id);
     }
 
-    public function store() {
+    public function store($data) {
         // some create logic
     }
 
-    public function update() {
+    public function update($user_id, $data) {
 
     }
 
