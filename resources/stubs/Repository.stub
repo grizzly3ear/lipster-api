@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\{{modelName}};
+
+class {{modelName}}Repository implements {{modelName}}RepositoryInterface
+{
+    public function findAll() {
+        return {{modelName}}::all();
+    }
+
+    public function findById(${{modelNameLowerCase}}_id) {
+        return {{modelName}}::findOrFail(${{modelNameLowerCase}}_id);
+    }
+
+    public function store($data) {
+        // some create logic
+    }
+
+    public function update(${{modelNameLowerCase}}_id, $data) {
+
+    }
+
+    public function deleteById(${{modelNameLowerCase}}_id) {
+        ${{modelNameLowerCase}} = {{modelName}}::findOrFail(${{modelNameLowerCase}}_id);
+
+        ${{modelNameLowerCase}}->delete();
+
+        return ${{modelNameLowerCase}}->id;
+    }
+}

@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Repositories;
+
+interface {{modelName}}RepositoryInterface
+{
+    public function findAll();
+    public function findById(${{modelNameLowerCase}}_id);
+    public function store($data);
+    public function update(${{modelNameLowerCase}}_id, $data);
+    public function deleteById(${{modelNameLowerCase}}_id);
+}

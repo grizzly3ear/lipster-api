@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Repositories\{{modelName}}RepositoryInterface;
+
+class {{modelName}}Controller extends Controller
+{
+    protected ${{modelNameLowerCase}}Repository;
+
+    public function __consturct__({{modelName}}RepositoryInterface ${{modelNameLowerCase}}Repository) {
+        $this->{{modelNameLowerCase}}Repository = ${{modelNameLowerCase}}Repository;
+    }
+
+    public function getAll{{modelName}} () {
+        ${{modelNamePluralLowerCase}} = $this->${{modelNameLowerCase}}Repository->findAll();
+
+        return ${{modelNamePluralLowerCase}};
+    }
+
+    public function get{{modelName}}ById (${{modelNameLowerCase}}_id) {
+        ${{modelNameLowerCase}} = $this->${{modelNameLowerCase}}Repository->findById(${{modelNameLowerCase}}_id);
+
+        return ${{modelNameLowerCase}};
+    }
+
+    public function create{{modelName}} (Request $request) {
+        ${{modelNameLowerCase}} = $this->${{modelNameLowerCase}}Repository->store($request->input());
+
+        return ${{modelNameLowerCase}};
+    }
+
+    public function update{{modelName}}ById (Request $request, ${{modelNameLowerCase}}_id) {
+        ${{modelNameLowerCase}} = $this->${{modelNameLowerCase}}Repository->update(${{modelNameLowerCase}}_id, $request->input());
+
+        return ${{modelNameLowerCase}};
+    }
+
+    public function delete{{modelName}}ById (${{modelNameLowerCase}}_id) {
+        ${{modelNameLowerCase}}_id = $this->${{modelNameLowerCase}}Repository->deleteById(${{modelNameLowerCase}}_id);
+
+        return ${{modelNameLowerCase}}_id;
+    }
+}
