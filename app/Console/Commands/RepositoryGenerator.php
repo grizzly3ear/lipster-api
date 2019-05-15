@@ -105,7 +105,7 @@ class RepositoryGenerator extends Command
     protected function appendRoutes($name) {
         $lowerName = lcfirst($name);
 
-        $route = "Route::group(['prefix' => ''], function () {";
+        $route = "\nRoute::group(['prefix' => ''], function () {";
         $route = $route."\n\tRoute::get('', '{$name}Controller@getAll{$name}');";
         $route = $route."\n\tRoute::get('{{$lowerName}}_id}', '{$name}Controller@get{$name}ById');";
         $route = $route."\n\tRoute::post('', '{$name}Controller@create{$name}');";
