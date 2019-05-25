@@ -78,6 +78,8 @@ class LipstickColorController extends Controller
         $partB1 = str::limit($cutB1, 2,'');
         $b1 = hexdec($partB1);
 
+        $hsl1 = $this->rgb2hsl($r1, $g1, $b1);
+
         $colors = LipstickColor::all();
         $detail = LipstickDetail::all();
 
@@ -99,18 +101,46 @@ class LipstickColorController extends Controller
             $partB2 = str::limit($cutB2, 2,'');
             $b2 = hexdec($partB2);
 
-            $result = sqrt(pow($r1 - $r2, 2) + pow($g1 - $g2, 2) + pow($b1 - $b2, 2));
-            
-            if ($result < 85){                
+            $hsl2 = $this->rgb2hsl($r2, $g2, $b2);
 
-                $similarColorList[] = [
-                    'detail' => new LipstickDetailReverseResource(LipstickDetail::find($color->lipstickDetail->id)),
-                    'color' => new LipstickColorResource(LipstickColor::find($color->id)) 
-                ];
+            if ($hsl1["h"] == $hsl2["h"] && abs($hsl1["s"] - $hsl2["s"]) < 10 && abs($hsl1["l"] - $hsl2["l"]) < 10) {
+
+                array_push($similarColorList, new LipstickColorResource($color));
             }
-           
+
         }
         return $similarColorList;
+    }
+
+    public function rgb2hsl ($r, $g, $b) {
+        $r /= 255;
+        $g /= 255;
+        $b /= 255;
+        $max = max($r, $g, $b);
+        $min = min($r, $g, $b);
+        $l = ($max + $min) / 2;
+        if ($max == $min) {
+            $h = $s = 0;
+        } else {
+            $d = $max - $min;
+            $s = $l > 0.5 ? $d / (2 - $max - $min) : $d / ($max + $min);
+            switch ($max) {
+                case $r:
+                    $h = ($g - $b) / $d + ($g < $b ? 6 : 0);
+                    break;
+                case $g:
+                    $h = ($b - $r) / $d + 2;
+                    break;
+                case $b:
+                    $h = ($r - $g) / $d + 4;
+                    break;
+            }
+            $h /= 6;
+        }
+        $h = floor($h * 360);
+        $s = floor($s * 100);
+        $l = floor($l * 100);
+        return ['h' => $h, 's' => $s, 'l' => $l];
     }
 }
 
