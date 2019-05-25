@@ -47,4 +47,9 @@ class TrendController extends Controller{
         $trend -> delete();
     }
 
+    public function destroyMany(Request $request){
+        $ids = $request->trend_ids;
+        Trend::destroy($ids);
+    }
+
 }
