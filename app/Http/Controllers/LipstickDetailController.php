@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\LipstickDetail;
 use App\Http\Resources\LipstickDetailResource;
+use App\Http\Resources\LipstickTypeResource;
 use App\Models\LipstickBrand;
 
 class LipstickDetailController extends Controller
@@ -13,6 +14,11 @@ class LipstickDetailController extends Controller
     public function getLipstickByDetail($detail_id){
         $detail = LipstickDetail::find($detail_id);
         return new LipstickDetailResource($detail);
+    }
+
+    public function getType(){
+        $lipstick_type = LipstickDetail::select('type')->groupBy('type')->get();
+        return LipstickTypeResource::collection($lipstick_type);
     }
 
     public function editLipstickDetail(Request $request,$id){

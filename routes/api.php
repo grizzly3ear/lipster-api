@@ -22,6 +22,7 @@ Route::group(['prefix' => 'lipstick'], function () { // localhost/api/lipstick/.
 
     Route::post('detail', 'LipstickDetailController@storeLipstickDetail');
     Route::get('detail/{lipstick_detail_id}', 'LipstickDetailController@getLipstickByDetail');
+    Route::get('type', 'LipstickDetailController@getType');
     Route::put('detail/{lipstick_detail_id}', 'LipstickDetailController@editLipstickDetail');
     Route::delete('detail/{lipstick_detail_id}', 'LipstickDetailController@deleteLipstickDetail');
     Route::delete('detail', 'LipstickDetailController@destroyMany');
