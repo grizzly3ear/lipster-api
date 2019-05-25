@@ -17,24 +17,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-
 Route::group(['prefix' => 'lipstick'], function () { // localhost/api/lipstick/...
     Route::get('', 'LipstickBrandController@getAll');
 
-    Route::post('/detail', 'LipstickDetailController@storeLipstickDetail');
-    Route::get('/detail/{lipstick_detail_id}', 'LipstickDetailController@getLipstickByDetail');
-    Route::put('/detail/{lipstick_detail_id}', 'LipstickDetailController@editLipstickDetail');
-    Route::delete('/detail/{lipstick_detail_id}', 'LipstickDetailController@deleteLipstickDetail');
+    Route::post('detail', 'LipstickDetailController@storeLipstickDetail');
+    Route::get('detail/{lipstick_detail_id}', 'LipstickDetailController@getLipstickByDetail');
+    Route::put('detail/{lipstick_detail_id}', 'LipstickDetailController@editLipstickDetail');
+    Route::delete('detail/{lipstick_detail_id}', 'LipstickDetailController@deleteLipstickDetail');
 
-    Route::post('/', 'LipstickColorController@storeLipstickColor');
+    Route::post('', 'LipstickColorController@storeLipstickColor');
     Route::get('{id}', 'LipstickColorController@getLipstickById');
-    Route::put('/color/{lipstick_color_id}', 'LipstickColorController@editLipstickColor');
+    Route::get('color/{rgb}', 'LipstickColorController@getSimilarColor');
+    Route::put('color/{lipstick_color_id}', 'LipstickColorController@editLipstickColor');
     Route::delete('{id}', 'LipstickColorController@deleteLipstickId');
-    Route::get('/color/{rgb}', 'LipstickColorController@getSimilarColor');
-
-    Route::put('/image/{lipstick_image_id}', 'LipstickColorController@editLipstickImage');
-    Route::delete('/image/{lipstick_image_id}', 'LipstickColorController@deleteLipstickImage');
+    
+    Route::put('image/{lipstick_image_id}', 'LipstickColorController@editLipstickImage');
+    Route::delete('image/{lipstick_image_id}', 'LipstickColorController@deleteLipstickImage');
 
 });
 
