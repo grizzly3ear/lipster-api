@@ -39,7 +39,7 @@ class LipstickColorController extends Controller
 
     public function deleteLipstickId($id){
         $lipstick = LipstickColor::find($id);
-        $lipstick->storeAddresses()->delete();
+        $lipstick->delete();
     }
 
     public function deleteLipstickImage($id){
