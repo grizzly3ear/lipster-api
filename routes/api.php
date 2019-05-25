@@ -30,6 +30,7 @@ Route::group(['prefix' => 'lipstick'], function () { // localhost/api/lipstick/.
     Route::get('color/{rgb}', 'LipstickColorController@getSimilarColor');
     Route::put('color/{lipstick_color_id}', 'LipstickColorController@editLipstickColor');
     Route::delete('{id}', 'LipstickColorController@deleteLipstickId');
+    Route::delete('', 'LipstickColorController@destroyMany');
     
     Route::put('image/{lipstick_image_id}', 'LipstickColorController@editLipstickImage');
     Route::delete('image/{lipstick_image_id}', 'LipstickColorController@deleteLipstickImage');
