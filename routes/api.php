@@ -22,11 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'lipstick'], function () { // localhost/api/lipstick/...
     Route::get('', 'LipstickBrandController@getAll');
 
-    Route::post('/brand', 'LipstickBrandController@storeLipstickBrand');
-    Route::get('/brand/{lipstick_brand_id}', 'LipstickBrandController@getLipstickByBrand');
-    Route::put('/brand/{lipstick_brand_id}', 'LipstickBrandController@editLipstickBrand');
-    Route::delete('/brand/{lipstick_brand_id}', 'LipstickBrandController@deleteLipstickBrand');
-
     Route::post('/detail', 'LipstickDetailController@storeLipstickDetail');
     Route::get('/detail/{lipstick_detail_id}', 'LipstickDetailController@getLipstickByDetail');
     Route::put('/detail/{lipstick_detail_id}', 'LipstickDetailController@editLipstickDetail');
@@ -50,6 +45,13 @@ Route::group(['prefix' => 'trend'], function () {
     Route::put('{id}', 'TrendController@editTrend');
     Route::delete('{id}', 'TrendController@deleteTrend');
 
+});
+
+Route::group(['prefix' => 'brand'], function() {
+    Route::post('', 'LipstickBrandController@storeLipstickBrand');
+    Route::get('{lipstick_brand_id}', 'LipstickBrandController@getLipstickByBrand');
+    Route::put('{lipstick_brand_id}', 'LipstickBrandController@editLipstickBrand');
+    Route::delete('{lipstick_brand_id}', 'LipstickBrandController@deleteLipstickBrand');
 });
 
 
