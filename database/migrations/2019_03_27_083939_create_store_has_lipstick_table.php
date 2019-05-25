@@ -20,7 +20,7 @@ class CreateStoreHasLipstickTable extends Migration
             $table->timestamps();
 
             $table->foreign('lipstick_color_id')->references('id')->on('lipstick_color')->onDelete('cascade');
-            $table->foreign('store_address_id')->references('id')->on('store_address');
+            $table->foreign('store_address_id')->references('id')->on('store_address')->onDelete('cascade');
         });
     }
 

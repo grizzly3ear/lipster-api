@@ -22,8 +22,8 @@ class CreateReviewTable extends Migration
             $table->integer('lipstick_color_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('user');
-            $table->foreign('lipstick_color_id')->references('id')->on('lipstick_color');
+            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
+            $table->foreign('lipstick_color_id')->references('id')->on('lipstick_color')->onDelete('cascade');
         });
     }
 

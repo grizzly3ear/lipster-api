@@ -21,7 +21,7 @@ class CreateStoreAddressTable extends Migration
             $table->integer('store_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('store_id')->references('id')->on('store');
+            $table->foreign('store_id')->references('id')->on('store')->onDelete('cascade');
         });
     }
 

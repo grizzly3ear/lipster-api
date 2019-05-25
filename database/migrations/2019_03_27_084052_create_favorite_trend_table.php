@@ -19,8 +19,8 @@ class CreateFavoriteTrendTable extends Migration
             $table->integer('trend_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('user');
-            $table->foreign('trend_id')->references('id')->on('trend');
+            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
+            $table->foreign('trend_id')->references('id')->on('trend')->onDelete('cascade');
         });
     }
 
