@@ -36,6 +36,11 @@ class LipstickDetailController extends Controller
         $lipstick-> delete();
     }
 
+    public function destroyMany(Request $request){
+        $ids = $request->lipstick_ids;
+        LipstickDetail::destroy($ids);
+    }
+
     public function storeLipstickDetail(Request $request){
         // $brand = new LipstickBrand();
         $brand = LipstickBrand::find($request->lipstick_brand_id);
