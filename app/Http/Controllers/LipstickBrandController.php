@@ -84,4 +84,9 @@ class LipstickBrandController extends Controller
         $lipstick = LipstickBrand::find($id);
         $lipstick->delete();
     }
+
+    public function destroyMany(Request $request){
+        $ids = $request->lipstick_ids;
+        LipstickBrand::destroy($ids);
+    }
 }
