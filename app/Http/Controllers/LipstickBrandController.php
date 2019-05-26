@@ -31,7 +31,7 @@ class LipstickBrandController extends Controller
     public function editLipstickBrand(Request $request, $id){
         $lipstick = LipstickBrand::find($id);
         $lipstick->name = $request->name;
-        $brand->image = $request->image;
+        $lipstick->image = $request->image;
         $lipstick -> save();
 
         return $lipstick;
