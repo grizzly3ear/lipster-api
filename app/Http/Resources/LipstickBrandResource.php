@@ -17,6 +17,7 @@ class LipstickBrandResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'image' => $this->image,
             'detail' => LipstickDetailResource::collection($this->lipstickDetails)
         ];
     }
