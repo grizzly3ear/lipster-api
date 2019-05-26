@@ -10,8 +10,8 @@ use App\Http\Resources\TrendResource;
 class TrendController extends Controller{
 
     public function getAll() {
-        $trend = Trend::all();
-        return TrendResource::collection(Trend::all());
+        $trends = Trend::all();
+        return TrendResource::collection($trends);
     }
 
     public function getTrendById($id) {
@@ -20,36 +20,40 @@ class TrendController extends Controller{
 
     public function storeTrend(Request $request){
         $trend = new Trend();
-        $trend-> title = $request -> title;
-        $trend-> year = $request -> year;
-        $trend-> image = $request -> image;
-        $trend -> skin_color = $request -> skin_color;
-        $trend-> lipstick_color_id = $request -> lipstick_color_id;
-        $trend -> save();
+        $trend->title = $request->title;
+        $trend->year = $request-> year;
+        $trend->image = $request->image;
+        $trend->skin_color = $request->skin_color;
+        $trend->lipstick_color_id = $request->lipstick_color_id;
+        $trend->save();
 
         return new TrendResource($trend);
     }
 
     public function editTrend(Request $request, $id){
         $trend = Trend::find($id);
-        $trend-> title = $request -> title;
-        $trend-> year = $request -> year;
-        $trend-> image = $request -> image;
-        $trend -> skin_color = $request -> skin_color;
-        $trend-> lipstick_color_id = $request -> lipstick_color_id;
-        $trend -> save();
+        $trend->title = $request->title;
+        $trend->year = $request->year;
+        $trend->image = $request->image;
+        $trend->skin_color = $request->skin_color;
+        $trend->lipstick_color_id = $request->lipstick_color_id;
+        $trend->save();
 
         return $trend;
     }
 
     public function deleteTrend($id){
         $trend = Trend::find($id);
-        $trend -> delete();
+        $trend->delete();
+
+        return $trend->id;
     }
 
     public function destroyMany(Request $request){
         $ids = $request->trend_ids;
         Trend::destroy($ids);
+
+        return $ids;
     }
 
 }

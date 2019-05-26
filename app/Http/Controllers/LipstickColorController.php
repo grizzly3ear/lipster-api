@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 use App\Models\LipstickColor;
 use App\Models\LipstickDetail;
 use App\Models\LipstickImage;
-use App\Http\Resources\LipstickDetailReverseResource;
 use App\Http\Resources\LipstickColorResource;
 
 class LipstickColorController extends Controller
@@ -19,11 +18,11 @@ class LipstickColorController extends Controller
 
     public function editLipstickColor(Request $request, $id){
         $lipstick = LipstickColor::find($id);
-        $lipstick -> color_name = $request -> color_name;
-        $lipstick -> rgb = $request -> rgb;
-        $lipstick -> color_code = $request -> color_code;
-        $lipstick -> lipstick_detail_id = $request -> lipstick_detail_id;
-        $lipstick -> save();
+        $lipstick->color_name = $request->color_name;
+        $lipstick->rgb = $request->rgb;
+        $lipstick->color_code = $request->color_code;
+        $lipstick->lipstick_detail_id = $request->lipstick_detail_id;
+        $lipstick->save();
 
         return $lipstick;
     }
@@ -40,16 +39,22 @@ class LipstickColorController extends Controller
     public function deleteLipstickId($id){
         $lipstick = LipstickColor::find($id);
         $lipstick->delete();
+
+        return $lipstick->id;
     }
 
     public function deleteLipstickImage($id){
-        $lipstick = LipstickImage::find($id);
-        $lipstick->delete();
+        $lipstickImage = LipstickImage::find($id);
+        $lipstickImage->delete();
+
+        return $lipstickImage->id;
     }
 
     public function destroyMany(Request $request){
         $ids = $request->lipstick_ids;
         LipstickColor::destroy($ids);
+
+        return $ids;
     }
 
     public function storeLipstickColor(Request $request){
@@ -57,16 +62,11 @@ class LipstickColorController extends Controller
         $detail = LipstickDetail::find($request->lipstick_detail_id);
 
         $color = new LipstickColor();
-        $color -> color_name = $request -> color_name;
-        $color -> rgb = $request -> rgb;
-        $color -> color_code = $request -> color_code;
+        $color->color_name = $request->color_name;
+        $color->rgb = $request->rgb;
+        $color->color_code = $request->color_code;
         $color->lipstickDetail()->associate($detail);
         $color -> save();
-
-        // $image = new LipstickImage();
-        // $image -> image = $request -> image;
-        // $image->lipstickColor()->associate($color);
-        // $image -> save();
 
         return $color;
     }
@@ -86,8 +86,6 @@ class LipstickColorController extends Controller
         $hsl1 = $this->rgb2hsl($r1, $g1, $b1);
 
         $colors = LipstickColor::all();
-        $detail = LipstickDetail::all();
-
 
         $similarColorList = [];
 

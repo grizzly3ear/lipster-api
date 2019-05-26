@@ -11,13 +11,15 @@ use App\Models\LipstickBrand;
 
 class LipstickDetailController extends Controller
 {
-    public function getLipstickByDetail($detail_id){
+    public function getLipstickById($detail_id){
         $detail = LipstickDetail::find($detail_id);
+
         return new LipstickDetailResource($detail);
     }
 
     public function getType(){
         $lipstick_type = LipstickDetail::select('type')->groupBy('type')->get();
+
         return LipstickTypeResource::collection($lipstick_type);
     }
 
@@ -40,11 +42,15 @@ class LipstickDetailController extends Controller
     public function deleteLipstickDetail($id){
         $lipstick = LipstickDetail::find($id);
         $lipstick-> delete();
+
+        return $lipstick->id;
     }
 
     public function destroyMany(Request $request){
         $ids = $request->lipstick_ids;
         LipstickDetail::destroy($ids);
+
+        return $ids;
     }
 
     public function storeLipstickDetail(Request $request){
