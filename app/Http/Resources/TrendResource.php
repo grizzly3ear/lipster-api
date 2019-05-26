@@ -9,12 +9,13 @@ class TrendResource extends JsonResource{
     public function toArray($request)
     {
         return [
-            'id' => $this-> id,
-            'title' => $this-> title,
-            'year' =>  $this-> year,
+            'id' => $this->id,
+            'title' => $this->title,
+            'year' =>  $this->year,
             'image' => $this->image,
-            'skin_color' => $this-> skin_color,
-            'color' => new LipstickColorResource($this -> lipstickColors),
+            'skin_color' => $this->skin_color,
+            'description' => $this->description,
+            'color' => new LipstickColorResource($this->lipstickColors),
         ];
     }
 }
