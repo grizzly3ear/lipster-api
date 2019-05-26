@@ -22,6 +22,7 @@ class LipstickBrandController extends Controller
     public function storeLipstickBrand(Request $request){
         $brand = new LipstickBrand();
         $brand->name = $request->name;
+        $brand->image = $request->image;
         $brand->save();
 
         return $brand;
@@ -30,6 +31,7 @@ class LipstickBrandController extends Controller
     public function editLipstickBrand(Request $request, $id){
         $lipstick = LipstickBrand::find($id);
         $lipstick->name = $request->name;
+        $brand->image = $request->image;
         $lipstick -> save();
 
         return $lipstick;
