@@ -24,7 +24,7 @@ class TrendController extends Controller{
         $trend->year = $request-> year;
         $trend->image = $request->image;
         $trend->skin_color = $request->skin_color;
-        $trend->description = $request->trend;
+        $trend->description = $request->description;
         $trend->lipstick_color_id = $request->lipstick_color_id;
         $trend->save();
 
