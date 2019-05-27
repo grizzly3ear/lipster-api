@@ -37,10 +37,15 @@ Route::group(['prefix' => 'trend'], function () {
     Route::delete('', 'TrendController@destroyMany');
 });
 
-Route::group(['prefix' => 'brand'], function() {
-    Route::post('', 'LipstickBrandController@storeLipstickBrand');
-    Route::get('{lipstick_brand_id}', 'LipstickBrandController@getBrandById');
-    Route::put('{lipstick_brand_id}', 'LipstickBrandController@editLipstickBrand');
-    Route::delete('{lipstick_brand_id}', 'LipstickBrandController@deleteLipstickBrand');
-    Route::delete('', 'LipstickBrandController@destroyMany');
+
+Route::group(['prefix' => 'brand'], function () {
+	Route::get('', 'LipstickBrandController@getAllLipstickBrand');
+	Route::get('{lipstickBrand_id}', 'LipstickBrandController@getLipstickBrandById');
+	Route::post('', 'LipstickBrandController@createLipstickBrand');
+	Route::put('{lipstickBrand_id}', 'LipstickBrandController@updateLipstickBrandById');
+    Route::delete('{lipstickBrand_id}', 'LipstickBrandController@deleteLipstickBrandById');
+
+    Route::delete('', 'LipstickBrandController@destroyLipstickBrandByIds');
+        
+    
 });

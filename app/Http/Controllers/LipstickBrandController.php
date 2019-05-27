@@ -4,50 +4,50 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\LipstickBrand;
 use App\Http\Resources\LipstickBrandResource;
+use App\Repositories\LipstickBrandRepositoryInterface;
 
 class LipstickBrandController extends Controller
 {
-    public function getAll() {
-        return LipstickBrandResource::collection(LipstickBrand::all());
+    protected $lipstickBrandRepository;
+
+    public function __construct(LipstickBrandRepositoryInterface $lipstickBrandRepository) {
+        $this->lipstickBrandRepository = $lipstickBrandRepository;
     }
 
-    public function getBrandById($brand_id){
-        $brand = LipstickBrand::find($brand_id);
+    public function getAllLipstickBrand () {
+        $lipstickBrands = $this->lipstickBrandRepository->findAll();
 
-        return new LipstickBrandResource($brand);
+        return $lipstickBrands;
     }
 
-    public function storeLipstickBrand(Request $request){
-        $brand = new LipstickBrand();
-        $brand->name = $request->name;
-        $brand->image = $request->image;
-        $brand->save();
+    public function getLipstickBrandById ($lipstickBrand_id) {
+        $lipstickBrand = $this->lipstickBrandRepository->findById($lipstickBrand_id);
 
-        return $brand;
+        return $lipstickBrand;
     }
 
-    public function editLipstickBrand(Request $request, $id){
-        $lipstick = LipstickBrand::find($id);
-        $lipstick->name = $request->name;
-        $lipstick->image = $request->image;
-        $lipstick -> save();
+    public function createLipstickBrand (Request $request) {
+        $lipstickBrand = $this->lipstickBrandRepository->store($request->input());
 
-        return $lipstick;
+        return $lipstickBrand;
     }
 
-    public function deleteLipstickBrand($id){
-        $lipstick = LipstickBrand::find($id);
-        $lipstick->delete();
+    public function updateLipstickBrandById (Request $request, $lipstickBrand_id) {
+        $lipstickBrand = $this->lipstickBrandRepository->update($lipstickBrand_id, $request->input());
 
-        return $lipstick->id;
+        return $lipstickBrand;
     }
 
-    public function destroyMany(Request $request){
-        $ids = $request->lipstick_ids;
-        LipstickBrand::destroy($ids);
+    public function deleteLipstickBrandById ($lipstickBrand_id) {
+        $lipstickBrand_id = $this->lipstickBrandRepository->deleteById($lipstickBrand_id);
 
-        return $ids;
+        return $lipstickBrand_id;
+    }
+
+    public function destroyLipstickBrandByIds (Request $request) {
+        $lipstickBrand_ids = $this->lipstickBrandRepository->destroy($request->ids);
+
+        return $lipstickBrand_ids;
     }
 }
