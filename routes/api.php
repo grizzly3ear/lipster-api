@@ -41,6 +41,7 @@ Route::group(['prefix' => 'trend'], function () {
 Route::group(['prefix' => 'brand'], function () {
 	Route::get('', 'LipstickBrandController@getAllLipstickBrand');
 	Route::get('{lipstickBrand_id}', 'LipstickBrandController@getLipstickBrandById');
+	Route::get('{lipstickBrand_id}/detail', 'LipstickBrandController@getLipstickDetailByLipstickBrandId');
 	Route::post('', 'LipstickBrandController@createLipstickBrand');
 	Route::put('{lipstickBrand_id}', 'LipstickBrandController@updateLipstickBrandById');
     Route::delete('{lipstickBrand_id}', 'LipstickBrandController@deleteLipstickBrandById');

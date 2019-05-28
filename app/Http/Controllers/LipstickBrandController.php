@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Resources\LipstickBrandResource;
+use App\Http\Resources\LipstickDetailResource;
 use App\Repositories\LipstickBrandRepositoryInterface;
 
 class LipstickBrandController extends Controller
@@ -18,25 +19,31 @@ class LipstickBrandController extends Controller
     public function getAllLipstickBrand () {
         $lipstickBrands = $this->lipstickBrandRepository->findAll();
 
-        return $lipstickBrands;
+        return LipstickBrandResource::collection($lipstickBrands);
     }
 
     public function getLipstickBrandById ($lipstickBrand_id) {
         $lipstickBrand = $this->lipstickBrandRepository->findById($lipstickBrand_id);
 
-        return $lipstickBrand;
+        return new LipstickBrandResource($lipstickBrand);
+    }
+
+    public function getLipstickDetailByLipstickBrandId ($lipstickBrand_id) {
+        $lipstickBrand = $this->lipstickBrandRepository->findById($lipstickBrand_id);
+
+        return LipstickDetailResource::collection($lipstickBrand->lipstickDetails);
     }
 
     public function createLipstickBrand (Request $request) {
         $lipstickBrand = $this->lipstickBrandRepository->store($request->input());
 
-        return $lipstickBrand;
+        return new LipstickBrandResource($lipstickBrand);
     }
 
     public function updateLipstickBrandById (Request $request, $lipstickBrand_id) {
         $lipstickBrand = $this->lipstickBrandRepository->update($lipstickBrand_id, $request->input());
 
-        return $lipstickBrand;
+        return new LipstickBrandResource($lipstickBrand);
     }
 
     public function deleteLipstickBrandById ($lipstickBrand_id) {
