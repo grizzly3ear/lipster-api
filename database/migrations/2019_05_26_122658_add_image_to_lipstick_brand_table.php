@@ -14,7 +14,7 @@ class AddImageToLipstickBrandTable extends Migration
     public function up()
     {
         Schema::table('lipstick_brand', function (Blueprint $table) {
-            $table->string('image');
+            $table->string('image')->default('');
         });
     }
 
