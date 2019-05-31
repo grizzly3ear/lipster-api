@@ -4,72 +4,49 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\LipstickDetail;
-use App\Http\Resources\LipstickDetailResource;
-use App\Http\Resources\LipstickTypeResource;
-use App\Models\LipstickBrand;
+use App\Repositories\LipstickDetailRepositoryInterface;
 
 class LipstickDetailController extends Controller
 {
-    public function getLipstickById($detail_id){
-        $detail = LipstickDetail::find($detail_id);
+    protected $lipstickDetailRepository;
 
-        return new LipstickDetailResource($detail);
+    public function __construct(LipstickDetailRepositoryInterface $lipstickDetailRepository) {
+        $this->lipstickDetailRepository = $lipstickDetailRepository;
     }
 
-    public function getType(){
-        $lipstick_type = LipstickDetail::select('type')->groupBy('type')->get();
+    public function getAllLipstickDetail () {
+        $lipstickDetails = $this->lipstickDetailRepository->findAll();
 
-        return LipstickTypeResource::collection($lipstick_type);
+        return $lipstickDetails;
     }
 
-    public function editLipstickDetail(Request $request,$id){
-        $lipstick = LipstickDetail::find($id);
-        $lipstick->name = $request->name;
-        $lipstick->max_price = $request->max_price;
-        $lipstick->min_price = $request->min_price;
-        $lipstick->type = $request->type;
-        $lipstick->opacity = $request->opacity;
-        $lipstick->description = $request->description;
-        $lipstick->composition = $request->composition;
-        $lipstick->apply = $request->apply;
-        $lipstick->lipstick_brand_id = $request->lipstick_brand_id;
-        $lipstick->save();
+    public function getLipstickDetailById ($lipstickDetail_id) {
+        $lipstickDetail = $this->lipstickDetailRepository->findById($lipstickDetail_id);
 
-        return $lipstick;
+        return $lipstickDetail;
     }
 
-    public function deleteLipstickDetail($id){
-        $lipstick = LipstickDetail::find($id);
-        $lipstick-> delete();
+    public function createLipstickDetail (Request $request) {
+        $lipstickDetail = $this->lipstickDetailRepository->store($request->input());
 
-        return $lipstick->id;
+        return $lipstickDetail;
     }
 
-    public function destroyMany(Request $request){
-        $ids = $request->lipstick_ids;
-        LipstickDetail::destroy($ids);
+    public function updateLipstickDetailById (Request $request, $lipstickDetail_id) {
+        $lipstickDetail = $this->lipstickDetailRepository->update($lipstickDetail_id, $request->input());
 
-        return $ids;
+        return $lipstickDetail;
     }
 
-    public function storeLipstickDetail(Request $request){
-        // $brand = new LipstickBrand();
-        $brand = LipstickBrand::find($request->lipstick_brand_id);
+    public function deleteLipstickDetailById ($lipstickDetail_id) {
+        $lipstickDetail_id = $this->lipstickDetailRepository->deleteById($lipstickDetail_id);
 
-        $detail = new LipstickDetail();
-        $detail->name = $request->name;
-        $detail->max_price = $request->max_price;
-        $detail->min_price = $request->min_price;
-        $detail->type = $request->type;
-        $detail->opacity = $request->opacity;
-        $detail->description = $request->description;
-        $detail->composition = $request->composition;
-        $detail->apply = $request->apply;
-        $detail->lipstickBrand()->associate($brand);
-        $detail->save();
-        // $detail -> lipstick_brand_id = $brand->id;
+        return $lipstickDetail_id;
+    }
 
-        return $detail;
+    public function getLipstickDetailType () {
+        $type = $this->lipstickDetailRepository->findDistinctColumnValue('type');
+
+        return array('data' => $type);
     }
 }

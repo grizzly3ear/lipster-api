@@ -15,17 +15,16 @@ class LipstickDetailResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this-> id,
-            'name' => $this-> name,
-            'max_price' => $this-> max_price,
-            'min_price' => $this-> min_price,
-            'type' => $this-> type,
-            'opacity' => $this-> opacity,
-            'description' => $this-> description, 
-            'composition' => $this-> composition, 
-            'apply' => $this-> apply, 
-            'lipstick_brand_id' => $this->lipstick_brand_id,
-            'colors' => LipstickColorResource::collection($this-> lipstickColors)
+            'id' => $this->id,
+            'name' => $this->name,
+            'max_price' => $this->max_price,
+            'min_price' => $this->min_price,
+            'type' => $this->type,
+            'opacity' => $this->opacity,
+            'description' => $this->description,
+            'composition' => $this->composition,
+            'apply' => $this->apply,
+            'colors' => LipstickColorResource::collection($this->whenLoaded('lipstickColors'))
         ];
     }
 }

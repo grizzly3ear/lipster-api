@@ -15,7 +15,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $repository = [
-            'LipstickBrand'
+            'LipstickBrand',
+            'LipstickDetail',
         ];
         foreach($repository as $repo){
             $this->app->bind('App\Repositories\\'.$repo.'RepositoryInterface','App\Repositories\\'.$repo.'Repository');
