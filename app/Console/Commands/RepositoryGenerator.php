@@ -107,10 +107,10 @@ class RepositoryGenerator extends Command
 
         $route = "\nRoute::group(['prefix' => ''], function () {";
         $route = $route."\n\tRoute::get('', '{$name}Controller@getAll{$name}');";
-        $route = $route."\n\tRoute::get('{{$lowerName}_id}', '{$name}Controller@get{$name}ById')->where('{$lowerName}', '[0-9]+');";
+        $route = $route."\n\tRoute::get('{{$lowerName}_id}', '{$name}Controller@get{$name}ById')->where('{$lowerName}_id', '[0-9]+');";
         $route = $route."\n\tRoute::post('', '{$name}Controller@create{$name}');";
-        $route = $route."\n\tRoute::put('{{$lowerName}_id}', '{$name}Controller@update{$name}ById')->where('{$lowerName}', '[0-9]+');";
-        $route = $route."\n\tRoute::delete('{{$lowerName}_id}', '{$name}Controller@delete{$name}ById')->where('{$lowerName}', '[0-9]+');";
+        $route = $route."\n\tRoute::put('{{$lowerName}_id}', '{$name}Controller@update{$name}ById')->where('{$lowerName}_id', '[0-9]+');";
+        $route = $route."\n\tRoute::delete('{{$lowerName}_id}', '{$name}Controller@delete{$name}ById')->where('{$lowerName}_id', '[0-9]+');";
         $route = $route."\n});\n";
 
         return $route;
