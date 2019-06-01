@@ -17,30 +17,30 @@ class {{modelName}}Controller extends Controller
     public function getAll{{modelName}} () {
         ${{modelNamePluralLowerCase}} = $this->{{modelNameLowerCase}}Repository->findAll();
 
-        return ${{modelNamePluralLowerCase}};
+        return response()->json(${{modelNamePluralLowerCase}}, 200);
     }
 
     public function get{{modelName}}ById (${{modelNameLowerCase}}_id) {
         ${{modelNameLowerCase}} = $this->{{modelNameLowerCase}}Repository->findById(${{modelNameLowerCase}}_id);
 
-        return ${{modelNameLowerCase}};
+        return response()->json(${{modelNameLowerCase}}, 200);
     }
 
     public function create{{modelName}} (Request $request) {
         ${{modelNameLowerCase}} = $this->{{modelNameLowerCase}}Repository->store($request->input());
 
-        return ${{modelNameLowerCase}};
+        return response()->json(${{modelNameLowerCase}}, 201);
     }
 
     public function update{{modelName}}ById (Request $request, ${{modelNameLowerCase}}_id) {
         ${{modelNameLowerCase}} = $this->{{modelNameLowerCase}}Repository->update(${{modelNameLowerCase}}_id, $request->input());
 
-        return ${{modelNameLowerCase}};
+        return response()->json(${{modelNameLowerCase}}, 200);
     }
 
     public function delete{{modelName}}ById (${{modelNameLowerCase}}_id) {
         ${{modelNameLowerCase}}_id = $this->{{modelNameLowerCase}}Repository->deleteById(${{modelNameLowerCase}}_id);
 
-        return ${{modelNameLowerCase}}_id;
+        return response()->json(${{modelNameLowerCase}}_id, 200);
     }
 }
