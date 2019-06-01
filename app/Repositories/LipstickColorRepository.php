@@ -42,7 +42,7 @@ class LipstickColorRepository implements LipstickColorRepositoryInterface
             return $this->isHslSimilar($hsl0, $hsl1, 10);
         });
 
-        return $similarColors;
+        return collect($similarColors);
     }
 
     public function isHslSimilar($hsl0, $hsl1, $distance) {
