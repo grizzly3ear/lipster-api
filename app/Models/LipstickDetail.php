@@ -8,6 +8,7 @@ class LipstickDetail extends Model
 {
     protected $table = 'lipstick_detail';
     protected $primaryKey = 'id';
+    protected $fillable = ['name', 'max_price', 'min_price', 'type', 'opacity', 'description', 'composition', 'apply', 'lipstick_brand_id'];
 
     public function lipstickBrand(){
 

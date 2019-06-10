@@ -6,6 +6,12 @@ use App\Models\LipstickDetail;
 
 class LipstickDetailRepository implements LipstickDetailRepositoryInterface
 {
+    protected $lipstickDetail;
+
+    public function __construct(LipstickDetail $lipstickDetail){
+        $this->lipstickDetail = $lipstickDetail;
+    }
+
     public function findAll() {
         return LipstickDetail::all();
     }
@@ -15,7 +21,7 @@ class LipstickDetailRepository implements LipstickDetailRepositoryInterface
     }
 
     public function store($data) {
-        // some create logic
+        return $this->lipstickDetail->create($data);
     }
 
     public function update($lipstickDetail_id, $data) {
@@ -34,5 +40,10 @@ class LipstickDetailRepository implements LipstickDetailRepositoryInterface
         $lipstickDetailTypes = LipstickDetail::select($column)->groupBy($column)->get();
 
         return $lipstickDetailTypes;
+    }
+
+    public function getModel()
+    {
+        return $this->lipstickDetail;
     }
 }

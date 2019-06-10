@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Repositories\LipstickDetailRepositoryInterface;
+use App\Repositories\LipstickDetailRepository;
+use App\Models\LipstickDetail;
 
 class LipstickDetailController extends Controller
 {
     protected $lipstickDetailRepository;
 
-    public function __construct(LipstickDetailRepositoryInterface $lipstickDetailRepository) {
-        $this->lipstickDetailRepository = $lipstickDetailRepository;
+    public function __construct(LipstickDetail $lipstickDetail) {
+        $this->lipstickDetailRepository = new LipstickDetailRepository($lipstickDetail);
     }
 
     public function getAllLipstickDetail () {
@@ -27,9 +29,16 @@ class LipstickDetailController extends Controller
     }
 
     public function createLipstickDetail (Request $request) {
-        $lipstickDetail = $this->lipstickDetailRepository->store($request->input());
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'max_price' => 'required|numeric',
+            'min_price' => 'required|numeric',
+            'min_price' => 'required|numeric',
+            'opacity' => 'required|numeric'
+        ]);
 
-        return $lipstickDetail;
+
+        return $this->lipstickDetailRepository->store($request->only($this->lipstickDetailRepository->getModel()->fillable));
     }
 
     public function updateLipstickDetailById (Request $request, $lipstickDetail_id) {
