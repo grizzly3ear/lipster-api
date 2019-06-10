@@ -8,6 +8,7 @@ class LipstickBrand extends Model
 {
     protected $table = 'lipstick_brand';
     protected $primaryKey = 'id';  
+    protected $fillable = ['name', 'image'];
 
     public function lipstickDetails(){
 

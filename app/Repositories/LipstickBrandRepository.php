@@ -6,6 +6,11 @@ use App\Models\LipstickBrand;
 
 class LipstickBrandRepository implements LipstickBrandRepositoryInterface
 {
+    protected $lipstickBrand;
+
+    public function __construct(LipstickBrand $lipstickBrand){
+        $this->lipstickBrand = $lipstickBrand;
+    }
     public function findAll() {
         return LipstickBrand::all();
     }
@@ -14,8 +19,8 @@ class LipstickBrandRepository implements LipstickBrandRepositoryInterface
         return LipstickBrand::findOrFail($lipstickBrand_id);
     }
 
-    public function store($data) {
-        // some create logic
+    public function store(array $data) {
+        return $this->lipstickBrand->create($data);
     }
 
     public function update($lipstickBrand_id, $data) {
@@ -32,5 +37,10 @@ class LipstickBrandRepository implements LipstickBrandRepositoryInterface
 
     public function destroy($lipstickBrand_ids) {
         // sak yang tee pen logic
+    }
+
+    public function getModel()
+    {
+        return $this->lipstickBrand;
     }
 }

@@ -7,13 +7,15 @@ use Illuminate\Http\Request;
 use App\Http\Resources\LipstickBrandResource;
 use App\Http\Resources\LipstickDetailResource;
 use App\Repositories\LipstickBrandRepositoryInterface;
+use App\Repositories\LipstickBrandRepository;
+use App\Models\LipstickBrand;
 
 class LipstickBrandController extends Controller
 {
     protected $lipstickBrandRepository;
 
-    public function __construct(LipstickBrandRepositoryInterface $lipstickBrandRepository) {
-        $this->lipstickBrandRepository = $lipstickBrandRepository;
+    public function __construct(LipstickBrand $lipstickBrand) {
+        $this->lipstickBrandRepository = new LipstickBrandRepository($lipstickBrand);
     }
 
     public function getAllLipstickBrand () {
@@ -35,9 +37,12 @@ class LipstickBrandController extends Controller
     }
 
     public function createLipstickBrand (Request $request) {
-        $lipstickBrand = $this->lipstickBrandRepository->store($request->input());
+        $this->validate($request, [
+            'name' => 'required|unique:lipstick_brand|max:255'
+        ]);
 
-        return new LipstickBrandResource($lipstickBrand);
+
+        return $this->lipstickBrandRepository->store($request->only($this->lipstickBrandRepository->getModel()->fillable));
     }
 
     public function updateLipstickBrandById (Request $request, $lipstickBrand_id) {
