@@ -6,6 +6,12 @@ use App\Models\LipstickColor;
 
 class LipstickColorRepository implements LipstickColorRepositoryInterface
 {
+    protected $lipstickColor;
+
+    public function __construct(LipstickColor $lipstickColor){
+        $this->lipstickColor = $lipstickColor;
+    }
+
     public function findAll() {
         return LipstickColor::all();
     }
@@ -15,11 +21,16 @@ class LipstickColorRepository implements LipstickColorRepositoryInterface
     }
 
     public function store($data) {
-        // some create logic
+        return $this->lipstickColor->create($data);
     }
 
     public function update($lipstickColor_id, $data) {
 
+    }
+
+    public function getModel()
+    {
+        return $this->lipstickColor;
     }
 
     public function deleteById($lipstickColor_id) {

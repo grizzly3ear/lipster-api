@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Repositories\LipstickColorRepositoryInterface;
+use App\Repositories\LipstickColorRepository;
+use App\Models\LipstickColor;
 
 class LipstickColorController extends Controller
 {
     protected $lipstickColorRepository;
 
-    public function __construct(LipstickColorRepositoryInterface $lipstickColorRepository) {
-        $this->lipstickColorRepository = $lipstickColorRepository;
+    public function __construct(LipstickColor $lipstickColor) {
+        $this->lipstickColorRepository = new LipstickColorRepository($lipstickColor);
     }
 
     public function getAllLipstickColor () {
@@ -27,9 +29,14 @@ class LipstickColorController extends Controller
     }
 
     public function createLipstickColor (Request $request) {
-        $lipstickColor = $this->lipstickColorRepository->store($request->input());
+        $this->validate($request, [
+            'color_name' => 'required|max:255',
+            'rgb' => 'required',
+            'color_code' => 'required'
+        ]);
 
-        return response()->json($lipstickColor, 201);
+
+        return $this->lipstickColorRepository->store($request->only($this->lipstickColorRepository->getModel()->fillable));
     }
 
     public function updateLipstickColorById (Request $request, $lipstickColor_id) {
