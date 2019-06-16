@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\LipstickDetail;
+use App\Http\Resources\LipstickDetailResource;
 
 class LipstickDetailRepository implements LipstickDetailRepositoryInterface
 {
@@ -13,11 +14,13 @@ class LipstickDetailRepository implements LipstickDetailRepositoryInterface
     }
 
     public function findAll() {
-        return LipstickDetail::all();
+        $lipstickDetails = LipstickDetail::all();
+        return LipstickDetailResource::collection($lipstickDetails);
     }
 
     public function findById($lipstickDetail_id) {
-        return LipstickDetail::findOrFail($lipstickDetail_id);
+        $lipstickDetails = LipstickDetail::findOrFail($lipstickDetail_id);
+        return new LipstickDetailResource($lipstickDetails);
     }
 
     public function store($data) {
