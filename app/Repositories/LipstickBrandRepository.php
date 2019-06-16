@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\LipstickBrand;
+use App\Http\Resources\LipstickBrandResource;
 
 class LipstickBrandRepository implements LipstickBrandRepositoryInterface
 {
@@ -12,11 +13,13 @@ class LipstickBrandRepository implements LipstickBrandRepositoryInterface
         $this->lipstickBrand = $lipstickBrand;
     }
     public function findAll() {
-        return LipstickBrand::all();
+        $lipstickBrands = LipstickBrand::all();
+        return LipstickBrandResource::collection($lipstickBrands);
     }
 
     public function findById($lipstickBrand_id) {
-        return LipstickBrand::findOrFail($lipstickBrand_id);
+        $lipstickBrands =  LipstickBrand::findOrFail($lipstickBrand_id);
+        return new LipstickBrandResource($lipstickBrands);
     }
 
     public function store(array $data) {
