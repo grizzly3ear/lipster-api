@@ -49,4 +49,16 @@ Route::group(['prefix' => 'lipstick'], function () {
         Route::get('rgb/{hex}', 'LipstickColorController@getSimilarLipstickColor')->where('hex', '[a-fA-F0-9]{6}');
     });
 
+    Route::group(['prefix' => 'image'], function () {
+        Route::get('', 'LipstickImageController@getAllLipstickImage');
+        Route::get('{lipstickImage_id}', 'LipstickImageController@getLipstickImageById')->where('lipstickImage_id', '[0-9]+');
+        Route::post('', 'LipstickImageController@createLipstickImage');
+        Route::put('{lipstickImage_id}', 'LipstickImageController@updateLipstickImageById')->where('lipstickImage_id', '[0-9]+');
+        Route::delete('{lipstickImage_id}', 'LipstickImageController@deleteLipstickImageById')->where('lipstickImage_id', '[0-9]+');
+    });
+
 });
+
+
+
+
