@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Resources\LipstickColorResource;
 use App\Repositories\LipstickColorRepositoryInterface;
 use App\Repositories\LipstickColorRepository;
 use App\Models\LipstickColor;
@@ -19,20 +20,21 @@ class LipstickColorController extends Controller
     public function getAllLipstickColor () {
         $lipstickColors = $this->lipstickColorRepository->findAll();
 
-        return response()->json($lipstickColors, 200);
+        return LipstickColorResource::collection($lipstickColors);
     }
 
     public function getLipstickColorById ($lipstickColor_id) {
         $lipstickColor = $this->lipstickColorRepository->findById($lipstickColor_id);
 
-        return response()->json($lipstickColor, 200);
+        return new LipstickColorResource($lipstickColor);
     }
 
     public function createLipstickColor (Request $request) {
         $this->validate($request, [
-            'color_name' => 'required|max:255',
-            'rgb' => 'required',
-            'color_code' => 'required'
+            'color_name' => 'required|max:255|String',
+            'rgb' => 'required|String',
+            'color_code' => 'required|String',
+            'lipstick_detail_id' => 'required|Integer'
         ]);
 
 
@@ -42,13 +44,13 @@ class LipstickColorController extends Controller
     public function updateLipstickColorById (Request $request, $lipstickColor_id) {
         $lipstickColor = $this->lipstickColorRepository->update($lipstickColor_id, $request->input());
 
-        return response()->json($lipstickColor, 200);
+        return new LipstickColorResource($lipstickColor);
     }
 
     public function deleteLipstickColorById ($lipstickColor_id) {
         $lipstickColor_id = $this->lipstickColorRepository->deleteById($lipstickColor_id);
 
-        return response()->json($lipstickColor_id, 200);
+        return $lipstickColor_id;
     }
 
     public function getSimilarLipstickColor ($hex) {

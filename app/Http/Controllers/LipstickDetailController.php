@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Resources\LipstickDetailResource;
+use App\Http\Resources\LipstickColorResource;
 use App\Repositories\LipstickDetailRepositoryInterface;
 use App\Repositories\LipstickDetailRepository;
 use App\Models\LipstickDetail;
@@ -19,13 +21,13 @@ class LipstickDetailController extends Controller
     public function getAllLipstickDetail () {
         $lipstickDetails = $this->lipstickDetailRepository->findAll();
 
-        return $lipstickDetails;
+        return LipstickDetailResource::collection($lipstickDetails);
     }
 
     public function getLipstickDetailById ($lipstickDetail_id) {
         $lipstickDetail = $this->lipstickDetailRepository->findById($lipstickDetail_id);
 
-        return $lipstickDetail;
+        return new LipstickDetailResource($lipstickDetail);
     }
 
     public function createLipstickDetail (Request $request) {
@@ -33,10 +35,9 @@ class LipstickDetailController extends Controller
             'name' => 'required|max:255',
             'max_price' => 'required|numeric',
             'min_price' => 'required|numeric',
-            'min_price' => 'required|numeric',
-            'opacity' => 'required|numeric'
+            'opacity' => 'required|Integer',
+            'lipstick_brand_id' => 'required|Integer'
         ]);
-
 
         return $this->lipstickDetailRepository->store($request->only($this->lipstickDetailRepository->getModel()->fillable));
     }
@@ -44,7 +45,7 @@ class LipstickDetailController extends Controller
     public function updateLipstickDetailById (Request $request, $lipstickDetail_id) {
         $lipstickDetail = $this->lipstickDetailRepository->update($lipstickDetail_id, $request->input());
 
-        return $lipstickDetail;
+        return new LipstickBrandResource($lipstickDetail);
     }
 
     public function deleteLipstickDetailById ($lipstickDetail_id) {

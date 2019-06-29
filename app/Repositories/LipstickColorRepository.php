@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\LipstickColor;
-use App\Http\Resources\LipstickColorResource;
 
 class LipstickColorRepository implements LipstickColorRepositoryInterface
 {
@@ -14,13 +13,11 @@ class LipstickColorRepository implements LipstickColorRepositoryInterface
     }
 
     public function findAll() {
-        $lipstickColors = LipstickColor::all();
-        return LipstickColorResource::collection($lipstickColors);
+        return LipstickColor::all();
     }
 
     public function findById($lipstickColor_id) {
-        $lipstickColors =  LipstickColor::findOrFail($lipstickColor_id);
-        return new LipstickColorResource($lipstickColors);
+        return LipstickColor::findOrFail($lipstickColor_id);
     }
 
     public function store($data) {
