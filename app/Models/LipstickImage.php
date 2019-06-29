@@ -8,6 +8,8 @@ class LipstickImage extends Model
 {
     protected $table = 'lipstick_image';
     protected $primaryKey = 'id';
+    protected $fillable = ['image', 'lipstick_color_id'];
+
     
     public function lipstickColor(){
 

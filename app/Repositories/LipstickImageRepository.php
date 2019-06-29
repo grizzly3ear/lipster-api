@@ -6,6 +6,13 @@ use App\Models\LipstickImage;
 
 class LipstickImageRepository implements LipstickImageRepositoryInterface
 {
+
+    protected $lipstickImage;
+
+    public function __construct(LipstickImage $lipstickImage){
+        $this->lipstickImage = $lipstickImage;
+    }
+
     public function findAll() {
         return LipstickImage::all();
     }
@@ -14,8 +21,8 @@ class LipstickImageRepository implements LipstickImageRepositoryInterface
         return LipstickImage::findOrFail($lipstickImage_id);
     }
 
-    public function store($data) {
-        // some create logic
+    public function store(array $data) {
+        return $this->lipstickImage->create($data);
     }
 
     public function update($lipstickImage_id, $data) {
@@ -28,5 +35,10 @@ class LipstickImageRepository implements LipstickImageRepositoryInterface
         $lipstickImage->delete();
 
         return $lipstickImage->id;
+    }
+
+    public function getModel()
+    {
+        return $this->lipstickImage;
     }
 }
