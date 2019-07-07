@@ -41,7 +41,12 @@ class LipstickImageController extends Controller
     }
 
     public function updateLipstickImageById (Request $request, $lipstickImage_id) {
-        $lipstickImage = $this->lipstickImageRepository->update($lipstickImage_id, $request->input());
+        $this->validate($request, [
+            'image' => 'required|String',
+            'lipstick_color_id' => 'required|Integer'
+        ]);
+
+        $lipstickImage = $this->lipstickImageRepository->update($lipstickImage_id, $request);
 
         return new LipstickImageResource($lipstickImage);
     }

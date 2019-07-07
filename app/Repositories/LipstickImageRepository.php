@@ -26,7 +26,12 @@ class LipstickImageRepository implements LipstickImageRepositoryInterface
     }
 
     public function update($lipstickImage_id, $data) {
+        $lipstickImage = LipstickImage::findOrFail($lipstickImage_id);
+        $lipstickImage->image = $data->image;
+        $lipstickImage->lipstick_color_id = $data->lipstick_color_id;
+        $lipstickImage->save();
 
+        return $lipstickImage;
     }
 
     public function deleteById($lipstickImage_id) {
