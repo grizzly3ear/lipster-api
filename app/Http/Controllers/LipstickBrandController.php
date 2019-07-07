@@ -46,7 +46,11 @@ class LipstickBrandController extends Controller
     }
 
     public function updateLipstickBrandById (Request $request, $lipstickBrand_id) {
-        $lipstickBrand = $this->lipstickBrandRepository->update($lipstickBrand_id, $request->input());
+        $this->validate($request, [
+            'name' => 'required|unique:lipstick_brand|max:255'
+        ]);
+
+        $lipstickBrand = $this->lipstickBrandRepository->update($lipstickBrand_id, $request);
 
         return new LipstickBrandResource($lipstickBrand);
     }

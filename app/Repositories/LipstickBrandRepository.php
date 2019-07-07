@@ -24,7 +24,12 @@ class LipstickBrandRepository implements LipstickBrandRepositoryInterface
     }
 
     public function update($lipstickBrand_id, $data) {
+        $lipstickBrand = LipstickBrand::findOrFail($lipstickBrand_id);
+        $lipstickBrand->name = $data->name;
+        $lipstickBrand->image = $data->image;
+        $lipstickBrand->save();
 
+        return $lipstickBrand;
     }
 
     public function deleteById($lipstickBrand_id) {
