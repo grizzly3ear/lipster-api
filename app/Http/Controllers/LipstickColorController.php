@@ -42,7 +42,14 @@ class LipstickColorController extends Controller
     }
 
     public function updateLipstickColorById (Request $request, $lipstickColor_id) {
-        $lipstickColor = $this->lipstickColorRepository->update($lipstickColor_id, $request->input());
+        $this->validate($request, [
+            'color_name' => 'required|max:255|String',
+            'rgb' => 'required|String',
+            'color_code' => 'required|String',
+            'lipstick_detail_id' => 'required|Integer'
+        ]);
+
+        $lipstickColor = $this->lipstickColorRepository->update($lipstickColor_id, $request);
 
         return new LipstickColorResource($lipstickColor);
     }

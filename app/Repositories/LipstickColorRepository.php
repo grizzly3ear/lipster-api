@@ -25,7 +25,14 @@ class LipstickColorRepository implements LipstickColorRepositoryInterface
     }
 
     public function update($lipstickColor_id, $data) {
+        $lipstickColor = LipstickColor::findOrFail($lipstickColor_id);
+        $lipstickColor->color_name = $data->color_name;
+        $lipstickColor->rgb = $data->rgb;
+        $lipstickColor->color_code = $data->color_code;
+        $lipstickColor->lipstick_detail_id = $data->lipstick_detail_id;
+        $lipstickColor->save();
 
+        return $lipstickColor;
     }
 
     public function getModel()
