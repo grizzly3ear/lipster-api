@@ -43,9 +43,17 @@ class LipstickDetailController extends Controller
     }
 
     public function updateLipstickDetailById (Request $request, $lipstickDetail_id) {
-        $lipstickDetail = $this->lipstickDetailRepository->update($lipstickDetail_id, $request->input());
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'max_price' => 'required|numeric',
+            'min_price' => 'required|numeric',
+            'opacity' => 'required|Integer',
+            'lipstick_brand_id' => 'required|Integer'
+        ]);
 
-        return new LipstickBrandResource($lipstickDetail);
+        $lipstickDetail = $this->lipstickDetailRepository->update($lipstickDetail_id, $request);
+
+        return new LipstickDetailResource($lipstickDetail);
     }
 
     public function deleteLipstickDetailById ($lipstickDetail_id) {
