@@ -8,6 +8,7 @@ class Trend extends Model
 {
     protected $table = 'trend';
     protected $primaryKey = 'id';
+    protected $fillable = ['title', 'year', 'image', 'skin_color', 'description', 'lipstick_color_id'];
 
     public function users()
     {

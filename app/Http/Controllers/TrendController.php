@@ -4,58 +4,63 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Trend;
+use App\Repositories\TrendRepositoryInterface;
+use App\Repositories\TrendRepository;
 use App\Http\Resources\TrendResource;
+use App\Models\Trend;
 
-class TrendController extends Controller{
+class TrendController extends Controller
+{
+    protected $trendRepository;
 
-    public function getAll() {
-        $trends = Trend::all();
+    public function __construct(Trend $trend) {
+        $this->trendRepository = new TrendRepository($trend);
+    }
+
+    public function getAllTrend () {
+        $trends = $this->trendRepository->findAll();
+
         return TrendResource::collection($trends);
     }
 
-    public function getTrendById($id) {
-        return new TrendResource(Trend::find($id));
-    }
-
-    public function storeTrend(Request $request){
-        $trend = new Trend();
-        $trend->title = $request->title;
-        $trend->year = $request-> year;
-        $trend->image = $request->image;
-        $trend->skin_color = $request->skin_color;
-        $trend->description = $request->description;
-        $trend->lipstick_color_id = $request->lipstick_color_id;
-        $trend->save();
+    public function getTrendById ($trend_id) {
+        $trend = $this->trendRepository->findById($trend_id);
 
         return new TrendResource($trend);
     }
 
-    public function editTrend(Request $request, $id){
-        $trend = Trend::find($id);
-        $trend->title = $request->title;
-        $trend->year = $request->year;
-        $trend->image = $request->image;
-        $trend->skin_color = $request->skin_color;
-        $trend->description = $request->description;
-        $trend->lipstick_color_id = $request->lipstick_color_id;
-        $trend->save();
+    public function createTrend (Request $request) {
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'year' => 'required|Integer',
+            'image' => 'required|String',
+            'skin_color' => 'required|String',
+            'description' => 'required|String',
+            'lipstick_color_id' => 'required|Integer'
+        ]);
 
-        return $trend;
+
+        return $this->trendRepository->store($request->only($this->trendRepository->getModel()->fillable));
     }
 
-    public function deleteTrend($id){
-        $trend = Trend::find($id);
-        $trend->delete();
+    public function updateTrendById (Request $request, $trend_id) {
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'year' => 'required|Integer',
+            'image' => 'required|String',
+            'skin_color' => 'required|String',
+            'description' => 'required|String',
+            'lipstick_color_id' => 'required|Integer'
+        ]);
 
-        return $trend->id;
+        $trend = $this->trendRepository->update($trend_id, $request);
+
+        return new TrendResource($trend);
     }
 
-    public function destroyMany(Request $request){
-        $ids = $request->trend_ids;
-        Trend::destroy($ids);
+    public function deleteTrendById ($trend_id) {
+        $trend_id = $this->trendRepository->deleteById($trend_id);
 
-        return $ids;
+        return $trend_id;
     }
-
 }

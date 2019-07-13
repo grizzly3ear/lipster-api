@@ -6,16 +6,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'trend'], function () {
-    Route::get('', 'TrendController@getAll');
-    Route::get('{id}', 'TrendController@getTrendById');
-    Route::post('', 'TrendController@storeTrend');
-    Route::put('{id}', 'TrendController@editTrend');
-    Route::delete('{id}', 'TrendController@deleteTrend');
-    Route::delete('', 'TrendController@destroyMany');
-});
-
-
 Route::group(['prefix' => 'brand'], function () {
 	Route::get('', 'LipstickBrandController@getAllLipstickBrand');
 	Route::get('{lipstickBrand_id}', 'LipstickBrandController@getLipstickBrandById');
@@ -59,6 +49,10 @@ Route::group(['prefix' => 'lipstick'], function () {
 
 });
 
-
-
-
+Route::group(['prefix' => 'trend'], function () {
+	Route::get('', 'TrendController@getAllTrend');
+	Route::get('{trend_id}', 'TrendController@getTrendById')->where('trend_id', '[0-9]+');
+	Route::post('', 'TrendController@createTrend');
+	Route::put('{trend_id}', 'TrendController@updateTrendById')->where('trend_id', '[0-9]+');
+	Route::delete('{trend_id}', 'TrendController@deleteTrendById')->where('trend_id', '[0-9]+');
+});
