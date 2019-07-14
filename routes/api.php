@@ -58,9 +58,21 @@ Route::group(['prefix' => 'trend'], function () {
 });
 
 Route::group(['prefix' => 'store'], function () {
-	Route::get('', 'StoreController@getAllStore');
-	Route::get('{store_id}', 'StoreController@getStoreById')->where('store_id', '[0-9]+');
-	Route::post('', 'StoreController@createStore');
-	Route::put('{store_id}', 'StoreController@updateStoreById')->where('store_id', '[0-9]+');
-	Route::delete('{store_id}', 'StoreController@deleteStoreById')->where('store_id', '[0-9]+');
+
+    Route::group(['prefix' => ''], function () {
+        Route::get('', 'StoreController@getAllStore');
+        Route::get('{store_id}', 'StoreController@getStoreById')->where('store_id', '[0-9]+');
+        Route::post('', 'StoreController@createStore');
+        Route::put('{store_id}', 'StoreController@updateStoreById')->where('store_id', '[0-9]+');
+        Route::delete('{store_id}', 'StoreController@deleteStoreById')->where('store_id', '[0-9]+');
+    });
+
+    Route::group(['prefix' => 'address'], function () {
+        Route::get('', 'StoreAddressController@getAllStoreAddress');
+        Route::get('{storeAddress_id}', 'StoreAddressController@getStoreAddressById')->where('storeAddress_id', '[0-9]+');
+        Route::post('', 'StoreAddressController@createStoreAddress');
+        Route::put('{storeAddress_id}', 'StoreAddressController@updateStoreAddressById')->where('storeAddress_id', '[0-9]+');
+        Route::delete('{storeAddress_id}', 'StoreAddressController@deleteStoreAddressById')->where('storeAddress_id', '[0-9]+');
+    });
+
 });
