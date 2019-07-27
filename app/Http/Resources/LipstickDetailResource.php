@@ -24,7 +24,7 @@ class LipstickDetailResource extends JsonResource
             'description' => $this->description,
             'composition' => $this->composition,
             'apply' => $this->apply,
-            'colors' => LipstickColorResource::collection($this->whenLoaded('lipstickColors'))
+            'colors' => LipstickColorResource::collection($this->lipstickColors)
         ];
     }
 }
