@@ -101,4 +101,10 @@ class LipstickColorRepository implements LipstickColorRepositoryInterface
 
         return array('h' => $h * 360.0, 's' => $s * 100.0, 'l' => $l * 100.0);
     }
+
+    public function getUserReviews($lipstickColor_id) {
+        $lipstickColors = LipstickColor::findOrFail($lipstickColor_id);
+
+        return $lipstickColors->reviews;
+    }
 }

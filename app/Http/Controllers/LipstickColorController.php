@@ -8,6 +8,7 @@ use App\Http\Resources\LipstickColorResource;
 use App\Repositories\LipstickColorRepositoryInterface;
 use App\Repositories\LipstickColorRepository;
 use App\Models\LipstickColor;
+use App\Http\Resources\UserReviewResource;
 
 class LipstickColorController extends Controller
 {
@@ -64,5 +65,11 @@ class LipstickColorController extends Controller
         $lipstickColors = $this->lipstickColorRepository->findSimilarColor($hex);
 
         return response()->json(LipstickColorResource::collection($lipstickColors), 200);
+    }
+
+    public function getUserReviews ($lipstickColor_id) {
+        $userReviews = $this->lipstickColorRepository->getUserReviews($lipstickColor_id);
+
+        return UserReviewResource::collection($userReviews);
     }
 }

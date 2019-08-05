@@ -11,4 +11,5 @@ interface LipstickColorRepositoryInterface
     public function deleteById($lipstickColor_id);
 
     public function findSimilarColor($hex);
+    public function getUserReviews($lipstickColor_id);
 }
