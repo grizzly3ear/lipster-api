@@ -10,9 +10,7 @@ class LipstickBrand extends Model
     protected $primaryKey = 'id';  
     protected $fillable = ['name', 'image'];
 
-    public function lipstickDetails(){
-
+    public function lipstickDetails() {
         return $this->hasMany(LipstickDetail::class, 'lipstick_brand_id');
-    
       }
 }

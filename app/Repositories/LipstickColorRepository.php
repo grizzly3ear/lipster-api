@@ -51,22 +51,17 @@ class LipstickColorRepository implements LipstickColorRepositoryInterface
     public function findSimilarColor($hex) {
         $lipstickColors = $this->findAll();
         $hsl0 = $this->hexToHsl($hex);
-        // dd($lipstickColors->toArray());
-        $similarColors = array_filter($lipstickColors->toArray(), function ($lipstickColor) use ($hsl0) {
-            // dd($lipstickColor["rgb"]);
-            $hsl1 = $this->hexToHsl(str_after($lipstickColor["rgb"], '#'));
-            // dd($hsl1, $lipstickColor["rgb"]);
-            // dd($this->isHslSimilar($hsl0, $hsl1, 10));
+
+        $similarColors = $lipstickColors->filter(function ($lipstickColor) use ($hsl0) {
+            $hsl1 = $this->hexToHsl(str_after($lipstickColor->rgb, '#'));
+
             return $this->isHslSimilar($hsl0, $hsl1, 10);
         });
 
-        return collect($similarColors);
+        return $similarColors;
     }
 
     public function isHslSimilar($hsl0, $hsl1, $distance) {
-        // dd($hsl0['h'], $hsl1['h'], $hsl0['s'], $hsl1['s'], $hsl0['l'], $hsl1['l']);
-
-
         return abs($hsl0['h'] - $hsl1['h']) < 1 &&
                abs($hsl0['s'] - $hsl1['s']) <= $distance &&
                abs($hsl0['l'] - $hsl1['l']) <= $distance;
