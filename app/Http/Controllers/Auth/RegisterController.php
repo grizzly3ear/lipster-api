@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -61,12 +62,30 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $user = new User();
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->gender = $request->gender;
+        $user->skin_color = $request->skin_color;
+
+        $user->save();
+        $token = $user->createToken('')->accessToken;
+
+
+
+        // return User::create([
+        //     'email' => $request->email,
+        //     'password' => Hash::make($request->password),
+        //     'firstname' => $request->firstname,
+        //     'lastname' => $request->lastname,
+        //     'gender' => $request->gender,
+        //     'skin_color' => $request->skin_color,
+        // ]);
+
+        return response()->json(['token' => $token], 201);
     }
 }
