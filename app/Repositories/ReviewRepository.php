@@ -34,15 +34,13 @@ class ReviewRepository implements ReviewRepositoryInterface
         return $review;
     }
 
-    public function update($review_id, $data) {
-        $user = $data->user();
-
-        $review = Review::find($review_id);
-        $review->comment = $data->comment;
-        $review->skin_color = $data->skin_color;
-        $review->rating = $data->rating;
+    public function update($review_id, $user, $data) {
+        $review = Review::findOrFail($review_id);
+        $review->comment = $data['comment'];
+        $review->skin_color = $data['skin_color'];
+        $review->rating = $data['rating'];
         $review->user_id = $user->id;
-        $review->lipstick_color_id = $data->lipstick_color_id;
+        $review->lipstick_color_id = $data['lipstick_color_id'];
         $review->save();
 
         return $review;
