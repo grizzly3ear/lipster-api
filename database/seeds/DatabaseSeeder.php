@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             LipstickDetailSeeder::class,
             LipstickColorSeeder::class,
             LipstickImageSeeder::class,
+            TrendGroupSeeder::class,
             TrendSeeder::class
         ]);
 
