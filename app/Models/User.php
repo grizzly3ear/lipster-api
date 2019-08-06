@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     protected $fillable = [
         'name', 'email', 'password',
@@ -31,9 +32,9 @@ class User extends Authenticatable
     }
 
     public function recommends(){
-  
+
         return $this->belongsToMany(LipstickColor::class, 'recommend', 'user_id', 'lipstick_color_id');
-  
+
     }
 
     public function trends()
@@ -44,12 +45,12 @@ class User extends Authenticatable
     public function reviews(){
 
         return $this->belongsToMany(LipstickColor::class, 'review', 'user_id', 'lipstick_color_id');
-  
+
     }
-  
+
     public function favouriteLipsticks(){
-  
+
         return $this->belongsToMany(LipstickColor::class, 'favourite_lipstick', 'user_id', 'lipstick_color_id');
-  
+
     }
 }
