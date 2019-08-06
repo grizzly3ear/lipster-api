@@ -56,7 +56,7 @@ class ReviewController extends Controller
         return new ReviewResource($review);
     }
 
-    public function deleteReviewById ($review_id) {
+    public function deleteReviewById ($lipstick_color_id,$review_id) {
         $review_id = $this->reviewRepository->deleteById($review_id);
 
         return $review_id;
