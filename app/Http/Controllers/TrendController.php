@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Repositories\TrendRepositoryInterface;
 use App\Repositories\TrendRepository;
 use App\Http\Resources\TrendResource;
 use App\Models\Trend;
