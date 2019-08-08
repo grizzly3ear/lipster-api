@@ -15,7 +15,7 @@ class TrendResource extends JsonResource{
             'image' => $this->image,
             'skin_color' => $this->skin_color,
             'description' => $this->description,
-            'color' => new LipstickColorResource($this->lipstickColor)
+            'lipstick_color' => $this->lipstick_color,
         ];
     }
 }
