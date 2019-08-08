@@ -14,10 +14,6 @@ class LipstickColor extends Model
         return $this->belongsTo(LipstickDetail::class, 'lipstick_detail_id');
     }
 
-    public function trend() {
-        return $this->hasMany(Trend::class, 'lipstick_color_id');
-    }
-
     public function reviews() {
         return $this->belongsToMany(User::class, 'review', 'lipstick_color_id', 'user_id')
                     ->withPivot('comment', 'skin_color', 'rating', 'created_at');
