@@ -26,4 +26,8 @@ class Trend extends Model
         return $this->morphMany(Notification::class, 'notification');
 
     }
+
+    public function trendGroup() {
+        return $this->belongsTo(TrendGroup::class, 'trend_group_id');
+    }
 }
