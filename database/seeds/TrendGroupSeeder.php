@@ -11,6 +11,6 @@ class TrendGroupSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\TrendGroup::class, 2)->create();
+        factory(App\Models\TrendGroup::class, 10)->create();
     }
 }

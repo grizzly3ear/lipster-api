@@ -11,6 +11,6 @@ class TrendSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Trend::class, 10)->create();
+        factory(App\Models\Trend::class, 70)->create();
     }
 }
