@@ -28,7 +28,7 @@ class AddColumnTrendGroupIdToTrendTable extends Migration
     public function down()
     {
         Schema::table('trend', function (Blueprint $table) {
-            $table->dropColoum('trend_group_id');
+            $table->dropColumn('trend_group_id');
         });
     }
 }

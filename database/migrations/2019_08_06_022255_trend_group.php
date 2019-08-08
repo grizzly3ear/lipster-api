@@ -28,6 +28,6 @@ class TrendGroup extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('trend_group');
     }
 }
