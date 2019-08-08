@@ -10,11 +10,13 @@ Route::post('register', 'Auth\RegisterController@create');
 Route::post('login', 'Auth\LoginController@authenticated');
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::group(['prefix' => 'color'], function () {
-        Route::get('{lipstickColor_id}/reviews', 'LipstickColorController@getUserReviews')->where('lipstickColor_id', '[0-9]+');
-        Route::post('{lipstickColor_id}/reviews', 'ReviewController@createReview');
-        Route::put('{lipstickColor_id}/reviews/{review_id}', 'ReviewController@updateReviewById')->where('review_id', '[0-9]+');
-        Route::delete('{lipstickColor_id}/reviews/{review_id}', 'ReviewController@deleteReviewById')->where('review_id', '[0-9]+');
+    Route::group(['prefix' => 'lipstick'], function () {
+        Route::group(['prefix' => 'color'], function () {
+            Route::get('{lipstickColor_id}/reviews', 'LipstickColorController@getUserReviews')->where('lipstickColor_id', '[0-9]+');
+            Route::post('{lipstickColor_id}/reviews', 'ReviewController@createReview');
+            Route::put('{lipstickColor_id}/reviews/{review_id}', 'ReviewController@updateReviewById')->where('review_id', '[0-9]+');
+            Route::delete('{lipstickColor_id}/reviews/{review_id}', 'ReviewController@deleteReviewById')->where('review_id', '[0-9]+');
+        });
     });
 });
 
