@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\LipstickImage;
 
 class LipstickImageRepository implements LipstickImageRepositoryInterface
@@ -22,13 +24,37 @@ class LipstickImageRepository implements LipstickImageRepositoryInterface
     }
 
     public function store(array $data) {
-        return $this->lipstickImage->create($data);
+        $image = $data['image'];
+        $imageName = rand(111111111, 999999999) . '.png';
+        $file_path = 'file/lipstickColor/'. $data['lipstick_color_id']. '/' . $imageName;
+        Storage::disk('s3')->put($file_path, base64_decode($image), 'public');
+
+        $url = Storage::disk('s3')->url($file_path);
+
+        $images = new LipstickImage();
+        $images->image = $url;
+        $images->path = $file_path;
+        $images->lipstick_color_id = $data['lipstick_color_id'];
+        $images->save();
+
+        return $images;
     }
 
     public function update($lipstickImage_id, $data) {
         $lipstickImage = LipstickImage::findOrFail($lipstickImage_id);
-        $lipstickImage->image = $data->image;
-        $lipstickImage->lipstick_color_id = $data->lipstick_color_id;
+
+        Storage::disk('s3')->delete($lipstickImage->path);
+
+        $image = $data['image'];
+        $imageName = rand(111111111, 999999999) . '.png';
+        $file_path = 'file/lipstickColor/'. $data['lipstick_color_id']. '/' . $imageName;
+
+        Storage::disk('s3')->put($file_path, base64_decode($image), 'public');
+        $url = Storage::disk('s3')->url($file_path);
+
+        $lipstickImage->image = $url;
+        $lipstickImage->path = $file_path;
+        $lipstickImage->lipstick_color_id = $data['lipstick_color_id'];
         $lipstickImage->save();
 
         return $lipstickImage;
@@ -36,6 +62,8 @@ class LipstickImageRepository implements LipstickImageRepositoryInterface
 
     public function deleteById($lipstickImage_id) {
         $lipstickImage = LipstickImage::findOrFail($lipstickImage_id);
+
+        Storage::disk('s3')->delete($lipstickImage->path);
 
         $lipstickImage->delete();
 

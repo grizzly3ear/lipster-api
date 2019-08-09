@@ -12,11 +12,17 @@ Route::post('login', 'Auth\LoginController@authenticated');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::group(['prefix' => 'lipstick'], function () {
         Route::group(['prefix' => 'color'], function () {
-            Route::get('{lipstickColor_id}/reviews', 'LipstickColorController@getUserReviews')->where('lipstickColor_id', '[0-9]+');
             Route::post('{lipstickColor_id}/reviews', 'ReviewController@createReview');
             Route::put('{lipstickColor_id}/reviews/{review_id}', 'ReviewController@updateReviewById')->where('review_id', '[0-9]+');
             Route::delete('{lipstickColor_id}/reviews/{review_id}', 'ReviewController@deleteReviewById')->where('review_id', '[0-9]+');
         });
+    });
+
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('', 'UserController@getAllUser');
+        Route::get('{user_id}', 'UserController@getUserById')->where('user_id', '[0-9]+');
+        Route::put('{user_id}', 'UserController@updateUserById')->where('user_id', '[0-9]+');
+        Route::delete('{user_id}', 'UserController@deleteUserById')->where('user_id', '[0-9]+');
     });
 });
 
@@ -50,13 +56,14 @@ Route::group(['prefix' => 'lipstick'], function () {
         Route::put('{lipstickColor_id}', 'LipstickColorController@updateLipstickColorById')->where('lipstickColor_id', '[0-9]+');
         Route::delete('{lipstickColor_id}', 'LipstickColorController@deleteLipstickColorById')->where('lipstickColor_id', '[0-9]+');
 
+        Route::get('{lipstickColor_id}/reviews', 'LipstickColorController@getUserReviews')->where('lipstickColor_id', '[0-9]+');
         Route::get('rgb/{hex}', 'LipstickColorController@getSimilarLipstickColor')->where('hex', '[a-fA-F0-9]{6}');
     });
 
     Route::group(['prefix' => 'image'], function () {
         Route::get('', 'LipstickImageController@getAllLipstickImage');
         Route::get('{lipstickImage_id}', 'LipstickImageController@getLipstickImageById')->where('lipstickImage_id', '[0-9]+');
-        Route::post('', 'LipstickImageController@createLipstickImage');
+        Route::post('', 'LipstickImageController@storeFileToImage');
         Route::put('{lipstickImage_id}', 'LipstickImageController@updateLipstickImageById')->where('lipstickImage_id', '[0-9]+');
         Route::delete('{lipstickImage_id}', 'LipstickImageController@deleteLipstickImageById')->where('lipstickImage_id', '[0-9]+');
     });
@@ -94,8 +101,6 @@ Route::group(['prefix' => 'store'], function () {
 
 });
 
-
-
-
-
-
+Route::group(['prefix' => 'user'], function () {
+	Route::post('', 'UserController@createUser');
+});
