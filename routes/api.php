@@ -15,6 +15,14 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::post('{lipstickColor_id}/reviews', 'ReviewController@createReview');
             Route::put('{lipstickColor_id}/reviews/{review_id}', 'ReviewController@updateReviewById')->where('review_id', '[0-9]+');
             Route::delete('{lipstickColor_id}/reviews/{review_id}', 'ReviewController@deleteReviewById')->where('review_id', '[0-9]+');
+
+            Route::group(['prefix' => 'favorite'], function () {
+                Route::get('', 'FavoriteLipstickController@getAllFavoriteLipstick');
+                Route::get('{favoriteLipstick_id}', 'FavoriteLipstickController@getFavoriteLipstickById')->where('favoriteLipstick_id', '[0-9]+');
+                Route::get('/user/{userId}', 'UserController@getFavoriteLipstickByUserId')->where('userId', '[0-9]+');
+                Route::post('', 'FavoriteLipstickController@createFavoriteLipstick');
+                Route::delete('{lipstick_color_id}', 'FavoriteLipstickController@deleteFavoriteLipstickById')->where('favoriteLipstick_id', '[0-9]+');
+            });
         });
     });
 
@@ -101,3 +109,5 @@ Route::group(['prefix' => 'store'], function () {
 Route::group(['prefix' => 'user'], function () {
 	Route::post('', 'UserController@createUser');
 });
+
+

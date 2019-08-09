@@ -19,8 +19,8 @@ class LipstickColor extends Model
                     ->withPivot('comment', 'skin_color', 'rating', 'created_at');
     }
 
-    public function favouriteLipsticks(){
-        return $this->belongsToMany(User::class, 'favourite_lipstick', 'lipstick_color_id', 'user_id');
+    public function favoriteLipsticks(){
+        return $this->belongsToMany(User::class, 'favorite_lipstick', 'lipstick_color_id', 'user_id');
     }
 
     public function lipstickImages(){
