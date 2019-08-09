@@ -17,6 +17,13 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::delete('{lipstickColor_id}/reviews/{review_id}', 'ReviewController@deleteReviewById')->where('review_id', '[0-9]+');
         });
     });
+
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('', 'UserController@getAllUser');
+        Route::get('{user_id}', 'UserController@getUserById')->where('user_id', '[0-9]+');
+        Route::put('{user_id}', 'UserController@updateUserById')->where('user_id', '[0-9]+');
+        Route::delete('{user_id}', 'UserController@deleteUserById')->where('user_id', '[0-9]+');
+    });
 });
 
 Route::group(['prefix' => 'brand'], function () {
@@ -91,8 +98,6 @@ Route::group(['prefix' => 'store'], function () {
 
 });
 
-
-
-
-
-
+Route::group(['prefix' => 'user'], function () {
+	Route::post('', 'UserController@createUser');
+});
