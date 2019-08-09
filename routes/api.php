@@ -56,7 +56,7 @@ Route::group(['prefix' => 'lipstick'], function () {
     Route::group(['prefix' => 'image'], function () {
         Route::get('', 'LipstickImageController@getAllLipstickImage');
         Route::get('{lipstickImage_id}', 'LipstickImageController@getLipstickImageById')->where('lipstickImage_id', '[0-9]+');
-        Route::post('', 'LipstickImageController@createLipstickImage');
+        Route::post('', 'LipstickImageController@storeFileToImage');
         Route::put('{lipstickImage_id}', 'LipstickImageController@updateLipstickImageById')->where('lipstickImage_id', '[0-9]+');
         Route::delete('{lipstickImage_id}', 'LipstickImageController@deleteLipstickImageById')->where('lipstickImage_id', '[0-9]+');
     });
