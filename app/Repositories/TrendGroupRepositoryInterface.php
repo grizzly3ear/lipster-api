@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-interface TrendRepositoryInterface
+interface TrendGroupRepositoryInterface
 {
     public function findAll();
     public function findById($trend_group_id);
