@@ -8,6 +8,7 @@ class Log extends Model
 {
     protected $table = 'log';
     protected $primaryKey = 'id';
+    protected $fillable = ['action', 'detail'];
 
     public function user()
     {

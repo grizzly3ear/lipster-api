@@ -32,6 +32,10 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::put('{user_id}', 'UserController@updateUserById')->where('user_id', '[0-9]+');
         Route::delete('{user_id}', 'UserController@deleteUserById')->where('user_id', '[0-9]+');
     });
+
+    Route::group(['prefix' => 'log'], function () {
+        Route::post('', 'LogController@createLog');
+    });
 });
 
 Route::group(['prefix' => 'brand'], function () {
@@ -114,3 +118,9 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 
+
+Route::group(['prefix' => 'log'], function () {
+	Route::get('', 'LogController@getAllLog');
+	Route::get('{log_id}', 'LogController@getLogById')->where('log_id', '[0-9]+');
+	Route::delete('{log_id}', 'LogController@deleteLogById')->where('log_id', '[0-9]+');
+});
