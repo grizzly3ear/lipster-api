@@ -19,7 +19,8 @@ class AppServiceProvider extends ServiceProvider
             'LipstickDetail',
             'LipstickColor',
             'User',
-            'FavoriteLipstick'
+            'FavoriteLipstick',
+            'Log'
         ];
         foreach($repository as $repo){
             $this->app->bind('App\Repositories\\'.$repo.'RepositoryInterface','App\Repositories\\'.$repo.'Repository');
