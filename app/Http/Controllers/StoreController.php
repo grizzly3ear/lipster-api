@@ -39,11 +39,8 @@ class StoreController extends Controller
     }
 
     public function updateStoreById (Request $request, $store_id) {
-        $this->validate($request, [
-            'name' => 'required|unique:store|max:255'
-        ]);
 
-        $store = $this->storeRepository->update($store_id, $request);
+        $store = $this->storeRepository->update($store_id, $request->input());
 
         return new StoreResource($store);
     }

@@ -14,10 +14,17 @@ class StoreResource extends JsonResource
      */
     public function toArray($request)
     {
+        $query = explode(',', $request->query('part'));
+
+        $request->merge([
+            'part' => preg_replace('(store)', ',', $request->query('part'))
+        ]);
+
+
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'addresses' => StoreAddressResource::collection($this->whenLoaded('storeAddresses'))
+            'addresses' => $this->when(in_array('address', $query), StoreAddressResource::collection($this->storeAddresses))
         ];
     }
 }

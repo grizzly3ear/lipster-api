@@ -27,7 +27,7 @@ class StoreRepository implements StoreRepositoryInterface
 
     public function update($store_id, $data) {
         $store = Store::findOrFail($store_id);
-        $store->name = $data->name;
+        $store->name = $data['name'];
         $store->save();
 
         return $store;
