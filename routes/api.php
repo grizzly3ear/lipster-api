@@ -85,6 +85,10 @@ Route::group(['prefix' => 'lipstick'], function () {
 Route::group(['prefix' => 'trend'], function () {
     Route::group(['prefix' => 'collection'], function () {
         Route::get('', 'TrendGroupController@getAllTrendGroup');
+        Route::get('{trend_group_id}', 'TrendGroupController@getTrendGroupById')->where('trend_group_id', '[0-9]+');
+        Route::post('', 'TrendGroupController@createTrendGroup');
+        Route::put('{trend_group_id}', 'TrendGroupController@updateTrendGroupById')->where('trend_group_id', '[0-9]+');
+        Route::delete('{trend_group_id}', 'TrendGroupController@deleteTrendGroupById')->where('trend_group_id', '[0-9]+');
     });
     Route::get('', 'TrendController@getAllTrend');
     Route::get('{trend_id}', 'TrendController@getTrendById')->where('trend_id', '[0-9]+');

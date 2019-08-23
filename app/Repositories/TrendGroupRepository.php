@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Facades\Storage;
+
 use App\Models\TrendGroup;
 
 class TrendGroupRepository implements TrendGroupRepositoryInterface
@@ -22,12 +24,42 @@ class TrendGroupRepository implements TrendGroupRepositoryInterface
     }
 
     public function store($data) {
-        return $this->trendGroup->create($data);
+        $trendGroup = new TrendGroup();
+        if ($data['image'] != null){
+
+            $image = $data['image'];
+            $imageName = rand(111111111, 999999999) . '.png';
+            $file_path = 'file/trendGroup/' . $imageName;
+
+            Storage::disk('s3')->put($file_path, base64_decode($image), 'public');
+            $url = Storage::disk('s3')->url($file_path);
+
+            $trendGroup->image = $url;
+            $trendGroup->path = $file_path;
+        }
+        $trendGroup->name = $data['name'];
+        $trendGroup->save();
+
+        return $trendGroup;
     }
 
     public function update($trend_group_id, $data) {
         $trendGroup = $this->findById($trend_group_id);
 
+        if ($data['image'] != null){
+            Storage::disk('s3')->delete($trendGroup->path);
+
+            $image = $data['image'];
+            $imageName = rand(111111111, 999999999) . '.png';
+            $file_path = 'file/trendGroup/'. $imageName;
+
+            Storage::disk('s3')->put($file_path, base64_decode($image), 'public');
+            $url = Storage::disk('s3')->url($file_path);
+
+            $trendGroup->image = $url;
+            $trendGroup->path = $file_path;
+        }
+        $trendGroup->name = $data['name'];
         $trendGroup->save();
 
         return $trendGroup;
@@ -35,6 +67,8 @@ class TrendGroupRepository implements TrendGroupRepositoryInterface
 
     public function deleteById($trend_group_id) {
         $trendGroup = $this->findById($trend_group_id);
+
+        Storage::disk('s3')->delete($trendGroup->path);
 
         $trendGroup->delete();
 

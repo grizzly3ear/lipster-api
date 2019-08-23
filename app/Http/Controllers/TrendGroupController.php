@@ -31,7 +31,6 @@ class TrendGroupController extends Controller
     public function createTrendGroup (Request $request) {
         $this->validate($request, [
             'name' => 'string|required',
-            'image' => 'string'
         ]);
 
         return $this->trendGroupRepository->store($request->only($this->trendGroupRepository->getModel()->fillable));
@@ -40,10 +39,9 @@ class TrendGroupController extends Controller
     public function updateTrendGroupById (Request $request, $trend_group_id) {
         $this->validate($request, [
             'name' => 'string|required',
-            'image' => 'string'
         ]);
 
-        $trendGroup = $this->trendGroupRepository->update($trend_group_id, $request);
+        $trendGroup = $this->trendGroupRepository->update($trend_group_id, $request->input());
 
         return new TrendGroupResource($trendGroup);
     }
