@@ -8,6 +8,12 @@ class TrendResource extends JsonResource{
 
     public function toArray($request)
     {
+        $query = explode(',', $request->query('part'));
+
+        $request->merge([
+            'part' => preg_replace('(trend)', ',', $request->query('part'))
+        ]);
+
         return [
             'id' => $this->id,
             'title' => $this->title,
