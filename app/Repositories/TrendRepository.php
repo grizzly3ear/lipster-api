@@ -28,12 +28,12 @@ class TrendRepository implements TrendRepositoryInterface
 
     public function update($trend_id, $data) {
         $trend = Trend::findOrFail($trend_id);
-        $trend->title = $data->title;
-        $trend->year = $data->year;
-        $trend->image = $data->image;
-        $trend->skin_color = $data->skin_color;
-        $trend->description = $data->description;
-        $trend->lipstick_color_id = $data->lipstick_color_id;
+        $trend->title = $data['title'];
+        $trend->year = $data['year'];
+        $trend->image = $data['image'];
+        $trend->skin_color = $data['skin_color'];
+        $trend->description = $data['description'];
+        $trend->lipstick_color_id = $data['lipstick_color_id'];
         $trend->save();
 
         return $trend;

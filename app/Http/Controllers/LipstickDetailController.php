@@ -51,7 +51,7 @@ class LipstickDetailController extends Controller
             'lipstick_brand_id' => 'required|Integer'
         ]);
 
-        $lipstickDetail = $this->lipstickDetailRepository->update($lipstickDetail_id, $request);
+        $lipstickDetail = $this->lipstickDetailRepository->update($lipstickDetail_id, $request->input());
 
         return new LipstickDetailResource($lipstickDetail);
     }

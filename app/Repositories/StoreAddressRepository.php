@@ -26,10 +26,10 @@ class StoreAddressRepository implements StoreAddressRepositoryInterface
 
     public function update($storeAddress_id, $data) {
         $storeAddress = StoreAddress::findOrFail($storeAddress_id);
-        $storeAddress->latitude = $data->latitude;
-        $storeAddress->longtitude = $data->longtitude;
-        $storeAddress->address_detail = $data->address_detail;
-        $storeAddress->store_id = $data->store_id;
+        $storeAddress->latitude = $data['latitude'];
+        $storeAddress->longtitude = $data['longtitude'];
+        $storeAddress->address_detail = $data['address_detail'];
+        $storeAddress->store_id = $data['store_id'];
         $storeAddress->save();
 
         return $storeAddress;

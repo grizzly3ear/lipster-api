@@ -50,7 +50,7 @@ class LipstickColorController extends Controller
             'lipstick_detail_id' => 'required|Integer'
         ]);
 
-        $lipstickColor = $this->lipstickColorRepository->update($lipstickColor_id, $request);
+        $lipstickColor = $this->lipstickColorRepository->update($lipstickColor_id, $request->input());
 
         return new LipstickColorResource($lipstickColor);
     }

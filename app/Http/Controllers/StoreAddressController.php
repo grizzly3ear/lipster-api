@@ -49,7 +49,7 @@ class StoreAddressController extends Controller
             'store_id' => 'required|Integer',
         ]);
 
-        $storeAddress = $this->storeAddressRepository->update($storeAddress_id, $request);
+        $storeAddress = $this->storeAddressRepository->update($storeAddress_id, $request->input());
 
         return new StoreAddressResource($storeAddress);
     }

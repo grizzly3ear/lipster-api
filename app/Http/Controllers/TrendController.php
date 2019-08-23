@@ -52,7 +52,7 @@ class TrendController extends Controller
             'lipstick_color_id' => 'required|Integer'
         ]);
 
-        $trend = $this->trendRepository->update($trend_id, $request);
+        $trend = $this->trendRepository->update($trend_id, $request->input());
 
         return new TrendResource($trend);
     }
