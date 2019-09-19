@@ -28,7 +28,6 @@ class LipstickDetailResource extends JsonResource
             'type' => $this->type,
             'opacity' => $this->opacity,
             'description' => $this->description,
-            'composition' => $this->composition,
             'apply' => $this->apply,
             'colors' => $this->when(in_array('color', $query), LipstickColorResource::collection($this->lipstickColors)),
             'brand' => $this->when(in_array('brand', $query), new LipstickBrandResource($this->lipstickBrand))

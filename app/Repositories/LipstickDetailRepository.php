@@ -32,7 +32,6 @@ class LipstickDetailRepository implements LipstickDetailRepositoryInterface
         $lipstickDetail->type = $data['type'];
         $lipstickDetail->opacity = $data['opacity'];
         $lipstickDetail->description = $data['description'];
-        $lipstickDetail->composition = $data['composition'];
         $lipstickDetail->apply = $data['apply'];
         $lipstickDetail->lipstick_brand_id = $data['lipstick_brand_id'];
         $lipstickDetail->save();
