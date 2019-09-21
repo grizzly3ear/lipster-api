@@ -29,10 +29,11 @@ class LipstickColorRepository implements LipstickColorRepositoryInterface
         $lipstickColor->color_name = $data['color_name'];
         $lipstickColor->rgb = $data['rgb'];
         $lipstickColor->color_code = $data['color_code'];
-        $lipstickColor->lipstick_detail_id = $data['lipstick_detail_id'];
         $lipstickColor->composition = $data['composition'];
+        $lipstickColor->lipstick_detail_id = $data['lipstick_detail_id'];
         $lipstickColor->save();
 
+        dd($lipstickColor);
         return $lipstickColor;
     }
 
