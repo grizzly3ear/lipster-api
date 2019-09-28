@@ -51,4 +51,58 @@ class TrendRepository implements TrendRepositoryInterface
     {
         return $this->trend;
     }
+
+    public function findSimilarColor($hex) {
+        $trends = $this->findAll();
+        $hsl0 = $this->hexToHsl($hex);
+
+        $similarColors = $trends->filter(function ($trend) use ($hsl0) {
+            $hsl1 = $this->hexToHsl(str_after($trend->lipstick_color, '#'));
+
+            return $this->isHslSimilar($hsl0, $hsl1, 10);
+        });
+
+        return $similarColors;
+    }
+
+    public function isHslSimilar($hsl0, $hsl1, $distance) {
+        return abs($hsl0['h'] - $hsl1['h']) < 1 &&
+               abs($hsl0['s'] - $hsl1['s']) <= $distance &&
+               abs($hsl0['l'] - $hsl1['l']) <= $distance;
+    }
+
+    public function hexToHsl($hex) {
+        $hex = array($hex[0].$hex[1], $hex[2].$hex[3], $hex[4].$hex[5]);
+        $rgb = array_map(function($part) {
+            return hexdec($part) / 255;
+        }, $hex);
+
+        $max = max($rgb);
+        $min = min($rgb);
+
+        $l = ($max + $min) / 2;
+
+        if ($max == $min) {
+            $h = $s = 0;
+        } else {
+            $diff = $max - $min;
+            $s = $l > 0.5 ? $diff / (2 - $max - $min) : $diff / ($max + $min);
+
+            switch($max) {
+                case $rgb[0]:
+                    $h = ($rgb[1] - $rgb[2]) / $diff + ($rgb[1] < $rgb[2] ? 6 : 0);
+                    break;
+                case $rgb[1]:
+                    $h = ($rgb[2] - $rgb[0]) / $diff + 2;
+                    break;
+                case $rgb[2]:
+                    $h = ($rgb[0] - $rgb[1]) / $diff + 4;
+                    break;
+            }
+
+            $h /= 6;
+        }
+
+        return array('h' => $h * 360.0, 's' => $s * 100.0, 'l' => $l * 100.0);
+    }
 }

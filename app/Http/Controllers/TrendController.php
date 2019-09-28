@@ -62,4 +62,10 @@ class TrendController extends Controller
 
         return $trend_id;
     }
+
+    public function getSimilarLipstickColor ($hex) {
+        $trends = $this->trendRepository->findSimilarColor($hex);
+
+        return TrendResource::collection($trends);
+    }
 }

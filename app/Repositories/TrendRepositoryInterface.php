@@ -9,4 +9,6 @@ interface TrendRepositoryInterface
     public function store($data);
     public function update($trend_id, $data);
     public function deleteById($trend_id);
+
+    public function findSimilarColor($hex);
 }
