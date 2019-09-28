@@ -33,7 +33,6 @@ class LipstickColorRepository implements LipstickColorRepositoryInterface
         $lipstickColor->lipstick_detail_id = $data['lipstick_detail_id'];
         $lipstickColor->save();
 
-        dd($lipstickColor);
         return $lipstickColor;
     }
 
