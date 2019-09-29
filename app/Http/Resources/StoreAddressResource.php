@@ -18,7 +18,9 @@ class StoreAddressResource extends JsonResource
             'id' => $this->id,
             'latitude' => $this->latitude,
             'longtitude' => $this->longtitude,
-            'address_detail' => $this->address_detail
+            'address_detail' => $this->address_detail,
+            'period' => $this->period,
+            'tel' => $this->tel
         ];
     }
 }

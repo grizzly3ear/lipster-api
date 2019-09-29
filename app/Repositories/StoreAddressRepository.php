@@ -30,6 +30,8 @@ class StoreAddressRepository implements StoreAddressRepositoryInterface
         $storeAddress->longtitude = $data['longtitude'];
         $storeAddress->address_detail = $data['address_detail'];
         $storeAddress->store_id = $data['store_id'];
+        $storeAddress->period = $data['period'];
+        $storeAddress->tel = $data['tel'];
         $storeAddress->save();
 
         return $storeAddress;
