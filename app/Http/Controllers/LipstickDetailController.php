@@ -35,7 +35,6 @@ class LipstickDetailController extends Controller
             'name' => 'required|max:255',
             'max_price' => 'required|numeric',
             'min_price' => 'required|numeric',
-            'opacity' => 'required|Integer',
             'lipstick_brand_id' => 'required|Integer'
         ]);
 
