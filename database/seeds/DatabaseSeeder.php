@@ -14,10 +14,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             StoreSeeder::class,
             StoreAddressSeeder::class,
-            LipstickBrandSeeder::class,
-            LipstickDetailSeeder::class,
-            LipstickColorSeeder::class,
-            LipstickImageSeeder::class,
+            // LipstickBrandSeeder::class,
+            // LipstickDetailSeeder::class,
+            // LipstickColorSeeder::class,
+            // LipstickImageSeeder::class,
             TrendGroupSeeder::class,
             TrendSeeder::class
         ]);
