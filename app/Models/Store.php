@@ -8,7 +8,7 @@ class Store extends Model
 {
     protected $table = 'store';
     protected $primaryKey = 'id';
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'image'];
 
     public function storeAddresses(){
 

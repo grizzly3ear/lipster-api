@@ -24,6 +24,7 @@ class StoreResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'image' => $this->image,
             'addresses' => $this->when(in_array('address', $query), StoreAddressResource::collection($this->storeAddresses))
         ];
     }
