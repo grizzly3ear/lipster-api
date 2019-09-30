@@ -35,7 +35,7 @@ class TrendController extends Controller
             'image' => 'required|String',
             'skin_color' => 'required|String',
             'description' => 'required|String',
-            'lipstick_color_id' => 'required|Integer'
+            'lipstick_color' => 'required|String'
         ]);
 
 
@@ -49,7 +49,7 @@ class TrendController extends Controller
             'image' => 'required|String',
             'skin_color' => 'required|String',
             'description' => 'required|String',
-            'lipstick_color_id' => 'required|Integer'
+            'lipstick_color' => 'required|String'
         ]);
 
         $trend = $this->trendRepository->update($trend_id, $request->input());

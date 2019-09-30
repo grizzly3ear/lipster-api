@@ -33,7 +33,7 @@ class TrendRepository implements TrendRepositoryInterface
         $trend->image = $data['image'];
         $trend->skin_color = $data['skin_color'];
         $trend->description = $data['description'];
-        $trend->lipstick_color_id = $data['lipstick_color_id'];
+        $trend->lipstick_color = $data['lipstick_color'];
         $trend->save();
 
         return $trend;
