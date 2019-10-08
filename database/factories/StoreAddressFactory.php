@@ -19,7 +19,7 @@ $factory->define(StoreAddress::class, function (Faker $faker) {
     ];
     return [
         'latitude' => $lat[$faker->numberBetween($min = 0, $max = count($lat)-1)],
-        'longtitude' => $long[$faker->numberBetween($min = 0, $max = count($long)-1)],
+        'longitude' => $long[$faker->numberBetween($min = 0, $max = count($long)-1)],
         'address_detail' => $faker->address,
         'store_id' => ++$i,
         'created_at' => $faker->dateTime(),

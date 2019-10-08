@@ -32,7 +32,7 @@ class StoreAddressController extends Controller
     public function createStoreAddress (Request $request) {
         $this->validate($request, [
             'latitude' => 'required',
-            'longtitude' => 'required',
+            'longitude' => 'required',
             'address_detail' => 'required|String',
             'store_id' => 'required|Integer',
         ]);
@@ -44,7 +44,7 @@ class StoreAddressController extends Controller
     public function updateStoreAddressById (Request $request, $storeAddress_id) {
         $this->validate($request, [
             'latitude' => 'required',
-            'longtitude' => 'required',
+            'longitude' => 'required',
             'address_detail' => 'required|String',
             'store_id' => 'required|Integer',
         ]);
