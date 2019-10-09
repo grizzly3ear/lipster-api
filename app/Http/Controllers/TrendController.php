@@ -31,7 +31,6 @@ class TrendController extends Controller
     public function createTrend (Request $request) {
         $this->validate($request, [
             'title' => 'required|max:255',
-            'year' => 'required|Integer',
             'image' => 'required|String',
             'skin_color' => 'required|String',
             'description' => 'required|String',
@@ -45,7 +44,6 @@ class TrendController extends Controller
     public function updateTrendById (Request $request, $trend_id) {
         $this->validate($request, [
             'title' => 'required|max:255',
-            'year' => 'required|Integer',
             'image' => 'required|String',
             'skin_color' => 'required|String',
             'description' => 'required|String',

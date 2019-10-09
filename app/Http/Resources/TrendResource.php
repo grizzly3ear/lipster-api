@@ -17,7 +17,6 @@ class TrendResource extends JsonResource{
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'year' =>  $this->year,
             'image' => $this->image,
             'skin_color' => $this->skin_color,
             'description' => $this->description,

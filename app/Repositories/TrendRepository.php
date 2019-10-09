@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Facades\Storage;
 use App\Models\Trend;
 
 class TrendRepository implements TrendRepositoryInterface
@@ -23,17 +24,51 @@ class TrendRepository implements TrendRepositoryInterface
     }
 
     public function store($data) {
-        return $this->trend->create($data);
+        $trend = new Trend();
+        if ($data['image'] != null){
+
+            $image = $data['image'];
+            $imageName = rand(111111111, 999999999) . '.png';
+            $file_path = 'file/trend/' . $imageName;
+
+            Storage::disk('s3')->put($file_path, base64_decode($image), 'public');
+            $url = Storage::disk('s3')->url($file_path);
+
+            $trend->image = $url;
+            $trend->path = $file_path;
+        }
+        $trend->title = $data['title'];
+        $trend->skin_color = $data['skin_color'];
+        $trend->description = $data['description'];
+        $trend->lipstick_color = $data['lipstick_color'];
+        $trend->trend_group_id = $data['trend_group_id'];
+        $trend->save();
+
+        return $trend;
+
     }
 
     public function update($trend_id, $data) {
         $trend = Trend::findOrFail($trend_id);
+        if ($data['image'] != null){
+            Storage::disk('s3')->delete($trend->path);
+
+            $image = $data['image'];
+            $imageName = rand(111111111, 999999999) . '.png';
+            $file_path = 'file/trend/' . $imageName;
+
+            Storage::disk('s3')->put($file_path, base64_decode($image), 'public');
+            $url = Storage::disk('s3')->url($file_path);
+
+            $trend->image = $url;
+            $trend->path = $file_path;
+        }
+
         $trend->title = $data['title'];
-        $trend->year = $data['year'];
-        $trend->image = $data['image'];
         $trend->skin_color = $data['skin_color'];
         $trend->description = $data['description'];
         $trend->lipstick_color = $data['lipstick_color'];
+        $trend->trend_group_id = $data['trend_group_id'];
         $trend->save();
 
         return $trend;
@@ -41,6 +76,8 @@ class TrendRepository implements TrendRepositoryInterface
 
     public function deleteById($trend_id) {
         $trend = Trend::findOrFail($trend_id);
+
+        Storage::disk('s3')->delete($trend->path);
 
         $trend->delete();
 
