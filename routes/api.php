@@ -69,6 +69,7 @@ Route::group(['prefix' => 'lipstick'], function () {
         Route::delete('{lipstickColor_id}', 'LipstickColorController@deleteLipstickColorById')->where('lipstickColor_id', '[0-9]+');
 
         Route::get('{lipstickColor_id}/reviews', 'LipstickColorController@getUserReviews')->where('lipstickColor_id', '[0-9]+');
+        Route::get('{lipstickColor_id}/storeAddresses', 'LipstickColorController@getStoreAddresses')->where('lipstickColor_id', '[0-9]+');
         Route::get('rgb/{hex}', 'LipstickColorController@getSimilarLipstickColor')->where('hex', '[a-fA-F0-9]{6}');
         Route::get('rgb/{hex}/trend', 'TrendController@getSimilarLipstickColor')->where('hex', '[a-fA-F0-9]{6}');
     });
@@ -114,6 +115,17 @@ Route::group(['prefix' => 'store'], function () {
         Route::post('', 'StoreAddressController@createStoreAddress');
         Route::put('{storeAddress_id}', 'StoreAddressController@updateStoreAddressById')->where('storeAddress_id', '[0-9]+');
         Route::delete('{storeAddress_id}', 'StoreAddressController@deleteStoreAddressById')->where('storeAddress_id', '[0-9]+');
+
+        Route::get('{storeAddress_id}/lipstickColors', 'StoreAddressController@getLipstickColors')->where('storeAddress_id', '[0-9]+');
+
+        Route::group(['prefix' => 'lipsticks'], function () {
+            Route::get('', 'StoreHasLipstickController@getAllStoreHasLipstick');
+            Route::get('{storeHasLipstick_id}', 'StoreHasLipstickController@getStoreHasLipstickById')->where('storeHasLipstick_id', '[0-9]+');
+            Route::post('', 'StoreHasLipstickController@createStoreHasLipstick');
+            Route::put('{storeHasLipstick_id}', 'StoreHasLipstickController@updateStoreHasLipstickById')->where('storeHasLipstick_id', '[0-9]+');
+            Route::delete('{storeHasLipstick_id}', 'StoreHasLipstickController@deleteStoreHasLipstickById')->where('storeHasLipstick_id', '[0-9]+');
+        });
+
     });
 
 });

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Repositories\StoreAddressRepositoryInterface;
 use App\Http\Resources\StoreAddressResource;
+use App\Http\Resources\LipstickColorByStoreAddressResource;
 use App\Repositories\StoreAddressRepository;
 use App\Models\StoreAddress;
 
@@ -58,5 +59,11 @@ class StoreAddressController extends Controller
         $storeAddress_id = $this->storeAddressRepository->deleteById($storeAddress_id);
 
         return $storeAddress_id;
+    }
+
+    public function getLipstickColors ($storeAddress_id) {
+        $lipstickColors = $this->storeAddressRepository->getLipstickColors($storeAddress_id);
+
+        return LipstickColorByStoreAddressResource::collection($lipstickColors);
     }
 }

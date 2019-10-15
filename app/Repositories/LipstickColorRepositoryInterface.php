@@ -12,4 +12,5 @@ interface LipstickColorRepositoryInterface
 
     public function findSimilarColor($hex);
     public function getUserReviews($lipstickColor_id);
+    public function getStoreAddresses($lipstickColor_id);
 }

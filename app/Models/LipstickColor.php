@@ -23,6 +23,11 @@ class LipstickColor extends Model
         return $this->belongsToMany(User::class, 'favorite_lipstick', 'lipstick_color_id', 'user_id');
     }
 
+    public function storeHasLipsticks(){
+        return $this->belongsToMany(StoreAddress::class, 'store_has_lipstick', 'lipstick_color_id', 'store_address_id')
+                    ->withPivot('price');
+    }
+
     public function lipstickImages(){
         return $this->hasMany(LipstickImage::class, 'lipstick_color_id');
     }

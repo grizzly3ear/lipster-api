@@ -108,4 +108,10 @@ class LipstickColorRepository implements LipstickColorRepositoryInterface
 
         return $lipstickColors->reviews;
     }
+
+    public function getStoreAddresses($lipstickColor_id) {
+        $lipstickColors = LipstickColor::findOrFail($lipstickColor_id);
+
+        return $lipstickColors->storeHasLipsticks;
+    }
 }

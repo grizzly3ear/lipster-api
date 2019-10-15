@@ -49,4 +49,10 @@ class StoreAddressRepository implements StoreAddressRepositoryInterface
     {
         return $this->storeAddress;
     }
+
+    public function getLipstickColors($storeAddress_id) {
+        $storeAddresses = StoreAddress::findOrFail($storeAddress_id);
+
+        return $storeAddresses->storeHasLipsticks;
+    }
 }

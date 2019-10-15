@@ -9,6 +9,7 @@ use App\Repositories\LipstickColorRepositoryInterface;
 use App\Repositories\LipstickColorRepository;
 use App\Models\LipstickColor;
 use App\Http\Resources\UserReviewResource;
+use App\Http\Resources\StoreAddressByLipstickResource;
 
 class LipstickColorController extends Controller
 {
@@ -71,5 +72,11 @@ class LipstickColorController extends Controller
         $userReviews = $this->lipstickColorRepository->getUserReviews($lipstickColor_id);
 
         return UserReviewResource::collection($userReviews);
+    }
+
+    public function getStoreAddresses ($lipstickColor_id) {
+        $storeAddresses = $this->lipstickColorRepository->getStoreAddresses($lipstickColor_id);
+
+        return StoreAddressByLipstickResource::collection($storeAddresses);
     }
 }
