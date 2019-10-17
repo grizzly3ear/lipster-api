@@ -25,7 +25,7 @@ class StoreAddress extends Model
       public function storeHasLipsticks(){
 
         return $this->belongsToMany(LipstickColor::class, 'store_has_lipstick', 'store_address_id', 'lipstick_color_id')
-                    ->withPivot('price');
+                    ->withPivot('id','price');
 
     }
 }

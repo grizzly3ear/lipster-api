@@ -22,7 +22,7 @@ class LipstickColorByStoreAddressResource extends JsonResource
 
 
         return [
-            'id' => $this->id,
+            'lipstick_color_id' => $this->id,
             'color_name' => $this->color_name,
             'rgb' => $this->rgb,
             'color_code' => $this->color_code,
@@ -30,6 +30,7 @@ class LipstickColorByStoreAddressResource extends JsonResource
             'images' => LipstickImageResource::collection($this->lipstickImages),
             'detail' => $this->when(in_array('detail', $query), new LipstickDetailResource($this->lipstickDetail)),
             'brand' => $this->when(in_array('brand', $query), new LipstickBrandResource($this->lipstickDetail->lipstickBrand)),
+            'id_pivot' => $this->pivot->id,
             'price' => $this->pivot->price
          ];
     }
