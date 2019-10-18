@@ -49,21 +49,34 @@ class LipstickColorRepository implements LipstickColorRepositoryInterface
         return $lipstickColor->id;
     }
 
-    public function findSimilarColor($hex) {
+    public function findSimilarColor($hex, $expectedResult = 10) {
         $lipstickColors = $this->findAll();
         $hsl0 = $this->hexToHsl($hex);
+        $similarColors = [];
+        $similarDistance = 0;
+        $distanceLimit = 15;
+        do {
+            $similarDistance += 5;
+            $similarColors = $lipstickColors->filter(function ($lipstickColor) use ($hsl0, $similarDistance) {
+                $hsl1 = $this->hexToHsl(str_after($lipstickColor->rgb, '#'));
 
-        $similarColors = $lipstickColors->filter(function ($lipstickColor) use ($hsl0) {
-            $hsl1 = $this->hexToHsl(str_after($lipstickColor->rgb, '#'));
+                $result = $this->isHslSimilar($hsl0, $hsl1, $similarDistance);
 
-            return $this->isHslSimilar($hsl0, $hsl1, 10);
-        });
+                return $result;
+            });
+            if ($similarDistance >= $distanceLimit) {
+                break;
+            }
+        } while (count($similarColors) <= $expectedResult);
+
 
         return $similarColors;
     }
 
+
+
     public function isHslSimilar($hsl0, $hsl1, $distance) {
-        return abs($hsl0['h'] - $hsl1['h']) < 1 &&
+        return abs($hsl0['h'] - $hsl1['h']) < 5 &&
                abs($hsl0['s'] - $hsl1['s']) <= $distance &&
                abs($hsl0['l'] - $hsl1['l']) <= $distance;
     }

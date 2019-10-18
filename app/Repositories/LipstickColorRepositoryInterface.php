@@ -10,7 +10,7 @@ interface LipstickColorRepositoryInterface
     public function update($lipstickColor_id, $data);
     public function deleteById($lipstickColor_id);
 
-    public function findSimilarColor($hex);
+    public function findSimilarColor($hex, $expectedResult = 10);
     public function getUserReviews($lipstickColor_id);
     public function getStoreAddresses($lipstickColor_id);
 }
