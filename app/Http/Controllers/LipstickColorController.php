@@ -62,8 +62,9 @@ class LipstickColorController extends Controller
         return $lipstickColor_id;
     }
 
-    public function getSimilarLipstickColor ($hex) {
-        $lipstickColors = $this->lipstickColorRepository->findSimilarColor($hex);
+    public function getSimilarLipstickColor (Request $request, $hex) {
+        $limit = $request->limit;
+        $lipstickColors = $this->lipstickColorRepository->findSimilarColor($hex, $limit);
 
         return LipstickColorResource::collection($lipstickColors);
     }
