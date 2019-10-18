@@ -24,6 +24,7 @@ class TrendGroupResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'image' => $this->image,
+            'description' => $this->description,
             'trends' => $this->when(in_array('trend', $query), TrendResource::collection($this->trends))
         ];
     }

@@ -38,6 +38,7 @@ class TrendGroupRepository implements TrendGroupRepositoryInterface
             $trendGroup->path = $file_path;
         }
         $trendGroup->name = $data['name'];
+        $trendGroup->description = $data['description'];
         $trendGroup->save();
 
         return $trendGroup;
@@ -60,6 +61,7 @@ class TrendGroupRepository implements TrendGroupRepositoryInterface
             $trendGroup->path = $file_path;
         }
         $trendGroup->name = $data['name'];
+        $trendGroup->description = $data['description'];
         $trendGroup->save();
 
         return $trendGroup;
