@@ -44,6 +44,7 @@ class StoreAddressController extends Controller
 
     public function updateStoreAddressById (Request $request, $storeAddress_id) {
         $this->validate($request, [
+            'name' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
             'address_detail' => 'required|String',

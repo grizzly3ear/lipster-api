@@ -26,6 +26,7 @@ class StoreAddressRepository implements StoreAddressRepositoryInterface
 
     public function update($storeAddress_id, $data) {
         $storeAddress = StoreAddress::findOrFail($storeAddress_id);
+        $storeAddress->name = $data['name'];
         $storeAddress->latitude = $data['latitude'];
         $storeAddress->longitude = $data['longitude'];
         $storeAddress->address_detail = $data['address_detail'];
