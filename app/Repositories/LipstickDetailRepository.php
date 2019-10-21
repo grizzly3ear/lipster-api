@@ -27,8 +27,6 @@ class LipstickDetailRepository implements LipstickDetailRepositoryInterface
     public function update($lipstickDetail_id, $data) {
         $lipstickDetail = LipstickDetail::findOrFail($lipstickDetail_id);
         $lipstickDetail->name = $data['name'];
-        $lipstickDetail->max_price = $data['max_price'];
-        $lipstickDetail->min_price = $data['min_price'];
         $lipstickDetail->type = $data['type'];
         $lipstickDetail->opacity = $data['opacity'];
         $lipstickDetail->description = $data['description'];

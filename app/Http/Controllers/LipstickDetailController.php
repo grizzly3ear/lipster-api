@@ -33,8 +33,6 @@ class LipstickDetailController extends Controller
     public function createLipstickDetail (Request $request) {
         $this->validate($request, [
             'name' => 'required|max:255',
-            'max_price' => 'required|numeric',
-            'min_price' => 'required|numeric',
             'lipstick_brand_id' => 'required|Integer'
         ]);
 
@@ -44,8 +42,6 @@ class LipstickDetailController extends Controller
     public function updateLipstickDetailById (Request $request, $lipstickDetail_id) {
         $this->validate($request, [
             'name' => 'required|max:255',
-            'max_price' => 'required|numeric',
-            'min_price' => 'required|numeric',
             'opacity' => 'required|Integer',
             'lipstick_brand_id' => 'required|Integer'
         ]);

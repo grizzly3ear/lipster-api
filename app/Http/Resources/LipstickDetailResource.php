@@ -23,8 +23,6 @@ class LipstickDetailResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'min_price' => $this->min_price,
-            'max_price' => $this->max_price,
             'type' => $this->type,
             'opacity' => $this->opacity,
             'description' => $this->description,
