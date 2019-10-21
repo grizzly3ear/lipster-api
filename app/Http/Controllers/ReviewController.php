@@ -33,7 +33,6 @@ class ReviewController extends Controller
     public function createReview (Request $request) {
         $this->validate($request, [
             'comment' => 'required|max:255|String',
-            'skin_color' => 'required|String',
             'rating' => 'required|Integer',
             'lipstick_color_id' => 'required|Integer'
         ]);
