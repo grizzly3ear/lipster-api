@@ -24,7 +24,7 @@ class StoreRepository implements StoreRepositoryInterface
 
     public function store($data) {
         $store = new store();
-        if ($data['image'] != null){
+        if (!is_null($data['image'])){
 
             $image = $data['image'];
             $imageName = rand(111111111, 999999999) . '.png';
@@ -44,7 +44,7 @@ class StoreRepository implements StoreRepositoryInterface
 
     public function update($store_id, $data) {
         $store = Store::findOrFail($store_id);
-        if ($data['image'] != null){
+        if (!is_null($data['image'])){
             Storage::disk('s3')->delete($store->path);
 
             $image = $data['image'];

@@ -25,7 +25,7 @@ class TrendGroupRepository implements TrendGroupRepositoryInterface
 
     public function store($data) {
         $trendGroup = new TrendGroup();
-        if ($data['image'] != null){
+        if (!is_null($data['image'])){
 
             $image = $data['image'];
             $imageName = rand(111111111, 999999999) . '.png';

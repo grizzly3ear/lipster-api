@@ -25,7 +25,7 @@ class TrendRepository implements TrendRepositoryInterface
 
     public function store($data) {
         $trend = new Trend();
-        if ($data['image'] != null){
+        if (!is_null($data['image'])){
 
             $image = $data['image'];
             $imageName = rand(111111111, 999999999) . '.png';
@@ -50,7 +50,7 @@ class TrendRepository implements TrendRepositoryInterface
 
     public function update($trend_id, $data) {
         $trend = Trend::findOrFail($trend_id);
-        if ($data['image'] != null){
+        if (!is_null($data['image'])){
             Storage::disk('s3')->delete($trend->path);
 
             $image = $data['image'];

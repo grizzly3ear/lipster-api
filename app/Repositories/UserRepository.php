@@ -30,7 +30,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function update($user_id, $data) {
         $user = User::findOrFail($user_id);
-        if ($data['image'] != null){
+        if (!is_null($data['image'])){
             Storage::disk('s3')->delete($user->path);
 
             $image = $data['image'];

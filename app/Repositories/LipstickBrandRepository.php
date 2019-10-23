@@ -22,7 +22,7 @@ class LipstickBrandRepository implements LipstickBrandRepositoryInterface
 
     public function store(array $data) {
         $lipstickBrand = new LipstickBrand();
-        if ($data['image'] != null){
+        if (!is_null($data['image'])){
 
             $image = $data['image'];
             $imageName = rand(111111111, 999999999) . '.png';

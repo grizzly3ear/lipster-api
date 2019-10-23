@@ -24,16 +24,19 @@ class LipstickImageRepository implements LipstickImageRepositoryInterface
     }
 
     public function store(array $data) {
-        $image = $data['image'];
-        $imageName = rand(111111111, 999999999) . '.png';
-        $file_path = 'file/lipstickColor/'. $data['lipstick_color_id']. '/' . $imageName;
-        Storage::disk('s3')->put($file_path, base64_decode($image), 'public');
-
-        $url = Storage::disk('s3')->url($file_path);
-
         $images = new LipstickImage();
-        $images->image = $url;
-        $images->path = $file_path;
+        if (!is_null($data['image'])){
+
+            $image = $data['image'];
+            $imageName = rand(111111111, 999999999) . '.png';
+            $file_path = 'file/lipstickColor/'. $data['lipstick_color_id']. '/' . $imageName;
+
+            Storage::disk('s3')->put($file_path, base64_decode($image), 'public');
+            $url = Storage::disk('s3')->url($file_path);
+
+            $images->image = $url;
+            $images->path = $file_path;
+        }
         $images->lipstick_color_id = $data['lipstick_color_id'];
         $images->save();
 
@@ -43,17 +46,20 @@ class LipstickImageRepository implements LipstickImageRepositoryInterface
     public function update($lipstickImage_id, $data) {
         $lipstickImage = LipstickImage::findOrFail($lipstickImage_id);
 
-        Storage::disk('s3')->delete($lipstickImage->path);
+        if (!is_null($data['image'])){
 
-        $image = $data['image'];
-        $imageName = rand(111111111, 999999999) . '.png';
-        $file_path = 'file/lipstickColor/'. $data['lipstick_color_id']. '/' . $imageName;
+            Storage::disk('s3')->delete($lipstickImage->path);
 
-        Storage::disk('s3')->put($file_path, base64_decode($image), 'public');
-        $url = Storage::disk('s3')->url($file_path);
+            $image = $data['image'];
+            $imageName = rand(111111111, 999999999) . '.png';
+            $file_path = 'file/lipstickColor/'. $data['lipstick_color_id']. '/' . $imageName;
 
-        $lipstickImage->image = $url;
-        $lipstickImage->path = $file_path;
+            Storage::disk('s3')->put($file_path, base64_decode($image), 'public');
+            $url = Storage::disk('s3')->url($file_path);
+
+            $lipstickImage->image = $url;
+            $lipstickImage->path = $file_path;
+        }
         $lipstickImage->lipstick_color_id = $data['lipstick_color_id'];
         $lipstickImage->save();
 
