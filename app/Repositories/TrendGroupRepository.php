@@ -39,6 +39,7 @@ class TrendGroupRepository implements TrendGroupRepositoryInterface
         }
         $trendGroup->name = $data['name'];
         $trendGroup->description = $data['description'];
+        $trendGroup->release_date = $data['release_date'];
         $trendGroup->save();
 
         return $trendGroup;
@@ -62,6 +63,7 @@ class TrendGroupRepository implements TrendGroupRepositoryInterface
         }
         $trendGroup->name = $data['name'];
         $trendGroup->description = $data['description'];
+        $trendGroup->release_date = $data['release_date'];
         $trendGroup->save();
 
         return $trendGroup;
