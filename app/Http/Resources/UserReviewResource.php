@@ -19,7 +19,8 @@ class UserReviewResource extends JsonResource
             'comment' => $this->pivot->comment,
             'skin_color' => $this->pivot->skin_color,
             'rating' => $this->pivot->rating,
-            'created_at' => $this->pivot->created_at
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

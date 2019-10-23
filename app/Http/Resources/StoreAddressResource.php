@@ -21,7 +21,9 @@ class StoreAddressResource extends JsonResource
             'longitude' => $this->longitude,
             'address_detail' => $this->address_detail,
             'period' => $this->period,
-            'tel' => $this->tel
+            'tel' => $this->tel,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

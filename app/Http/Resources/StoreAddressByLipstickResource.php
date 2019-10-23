@@ -20,7 +20,9 @@ class StoreAddressByLipstickResource extends JsonResource
             'longitude' => $this->longitude,
             'address_detail' => $this->address_detail,
             'tel' => $this->tel,
-            'price' => $this->pivot->price
+            'price' => $this->pivot->price,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

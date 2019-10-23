@@ -31,7 +31,9 @@ class LipstickColorByStoreAddressResource extends JsonResource
             'detail' => $this->when(in_array('detail', $query), new LipstickDetailResource($this->lipstickDetail)),
             'brand' => $this->when(in_array('brand', $query), new LipstickBrandResource($this->lipstickDetail->lipstickBrand)),
             'id_pivot' => $this->pivot->id,
-            'price' => $this->pivot->price
+            'price' => $this->pivot->price,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
          ];
     }
 }

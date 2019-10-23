@@ -21,6 +21,8 @@ class TrendResource extends JsonResource{
             'skin_color' => $this->skin_color,
             'description' => $this->description,
             'lipstick_color' => $this->lipstick_color,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

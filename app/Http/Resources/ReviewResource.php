@@ -21,6 +21,7 @@ class ReviewResource extends JsonResource
             'skin_color' => $this->skin_color,
             'rating' => $this->rating,
             'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
 
         ];
     }
