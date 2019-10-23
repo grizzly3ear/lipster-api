@@ -44,11 +44,16 @@ class LipstickImageRepository implements LipstickImageRepositoryInterface
     }
 
     public function update($lipstickImage_id, $data) {
-        $lipstickImage = LipstickImage::findOrFail($lipstickImage_id);
+        if(!is_null($lipstickImage_id)){
+            $lipstickImage = LipstickImage::findOrFail($lipstickImage_id);
+        }else{
+            $lipstickImage = new LipstickImage();
+        }
 
         if (!is_null($data['image'])){
-
-            Storage::disk('s3')->delete($lipstickImage->path);
+            if(!is_null($lipstickImage->path)){
+                Storage::disk('s3')->delete($lipstickImage->path);
+            }
 
             $image = $data['image'];
             $imageName = rand(111111111, 999999999) . '.png';
