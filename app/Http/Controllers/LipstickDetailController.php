@@ -40,11 +40,6 @@ class LipstickDetailController extends Controller
     }
 
     public function updateLipstickDetailById (Request $request, $lipstickDetail_id) {
-        $this->validate($request, [
-            'name' => 'required|max:255',
-            'opacity' => 'required|Integer',
-            'lipstick_brand_id' => 'required|Integer'
-        ]);
 
         $lipstickDetail = $this->lipstickDetailRepository->update($lipstickDetail_id, $request->input());
 

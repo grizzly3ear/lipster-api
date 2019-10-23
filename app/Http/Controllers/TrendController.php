@@ -42,13 +42,6 @@ class TrendController extends Controller
     }
 
     public function updateTrendById (Request $request, $trend_id) {
-        $this->validate($request, [
-            'title' => 'required|max:255',
-            'image' => 'required|String',
-            'skin_color' => 'required|String',
-            'description' => 'required|String',
-            'lipstick_color' => 'required|String'
-        ]);
 
         $trend = $this->trendRepository->update($trend_id, $request->input());
 
