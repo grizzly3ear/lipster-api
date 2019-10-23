@@ -42,7 +42,7 @@ class LipstickBrandRepository implements LipstickBrandRepositoryInterface
 
     public function update($lipstickBrand_id, $data) {
         $lipstickBrand = LipstickBrand::findOrFail($lipstickBrand_id);
-        if ($data['image'] != null){
+        if (!is_null($data['image'])){
             Storage::disk('s3')->delete($lipstickBrand->path);
 
             $image = $data['image'];

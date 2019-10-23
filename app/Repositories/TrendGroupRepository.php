@@ -48,7 +48,7 @@ class TrendGroupRepository implements TrendGroupRepositoryInterface
     public function update($trend_group_id, $data) {
         $trendGroup = $this->findById($trend_group_id);
 
-        if ($data['image'] != null){
+        if (!is_null($data['image'])){
             Storage::disk('s3')->delete($trendGroup->path);
 
             $image = $data['image'];
