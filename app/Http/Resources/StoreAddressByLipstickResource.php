@@ -14,6 +14,12 @@ class StoreAddressByLipstickResource extends JsonResource
      */
     public function toArray($request)
     {
+        $query = explode(',', $request->query('part'));
+
+        $request->merge([
+            'part' => preg_replace('(store)', ',', $request->query('part'))
+        ]);
+
         return [
             'id' => $this->id,
             'latitude' => $this->latitude,
@@ -21,6 +27,7 @@ class StoreAddressByLipstickResource extends JsonResource
             'address_detail' => $this->address_detail,
             'tel' => $this->tel,
             'price' => $this->pivot->price,
+            'store' => $this->when(in_array('store', $query), new StoreResource($this->store)),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
