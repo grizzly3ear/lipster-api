@@ -26,6 +26,7 @@ class StoreAddressByLipstickResource extends JsonResource
             'longitude' => $this->longitude,
             'address_detail' => $this->address_detail,
             'tel' => $this->tel,
+            'period' => $this->period,
             'price' => $this->pivot->price,
             'store' => $this->when(in_array('store', $query), new StoreResource($this->store)),
             'created_at' => $this->created_at,
