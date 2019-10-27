@@ -21,26 +21,26 @@ class ReviewRepository implements ReviewRepositoryInterface
         return Review::findOrFail($review_id);
     }
 
-    public function store($data, $user) {
+    public function store($data,$lipstickColor_id, $user) {
         $review = new Review();
         $review->comment = $data['comment'];
-        $review->skin_color = $data['skin_color'];
+        $review->skin_color = $user->skin_color;
         $review->rating = $data['rating'];
         $review->user_id = $user->id;
-        $review->lipstick_color_id = $data['lipstick_color_id'];
+        $review->lipstick_color_id = $lipstickColor_id;
 
         $review->save();
 
         return $review;
     }
 
-    public function update($review_id, $user, $data) {
+    public function update($review_id, $lipstickColor_id, $user, $data) {
         $review = Review::findOrFail($review_id);
         $review->comment = $data['comment'];
-        $review->skin_color = $data['skin_color'];
+        $review->skin_color = $user->skin_color;
         $review->rating = $data['rating'];
         $review->user_id = $user->id;
-        $review->lipstick_color_id = $data['lipstick_color_id'];
+        $review->lipstick_color_id = $lipstickColor_id;
         $review->save();
 
         return $review;

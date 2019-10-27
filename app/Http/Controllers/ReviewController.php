@@ -30,32 +30,20 @@ class ReviewController extends Controller
         return new ReviewResource($review);
     }
 
-    public function createReview (Request $request) {
-        $this->validate($request, [
-            'comment' => 'required|max:255|String',
-            'rating' => 'required|Integer',
-            'lipstick_color_id' => 'required|Integer'
-        ]);
+    public function createReview (Request $request, $lipstickColor_id) {
 
         $user = $request->user();
 
-        return $this->reviewRepository->store($request->only($this->reviewRepository->getModel()->fillable), $user);
+        return $this->reviewRepository->store($request->only($this->reviewRepository->getModel()->fillable), $lipstickColor_id, $user);
     }
 
-    public function updateReviewById (Request $request, $lipstick_color_id, $review_id) {
-        // $this->validate($request, [
-        //     'comment' => 'required|max:255|String',
-        //     'skin_color' => 'required|String',
-        //     'rating' => 'required|Integer',
-        //     'lipstick_color_id' => 'required|Integer'
-        // ]);
-        $body = $request->input();
-        $review = $this->reviewRepository->update($review_id, $request->user(), $body);
+    public function updateReviewById (Request $request, $lipstickColor_id, $review_id) {
+        $review = $this->reviewRepository->update($review_id, $lipstickColor_id, $request->user(), $request->only($this->reviewRepository->getModel()->fillable));
 
         return new ReviewResource($review);
     }
 
-    public function deleteReviewById ($lipstick_color_id,$review_id) {
+    public function deleteReviewById ($review_id) {
         $review_id = $this->reviewRepository->deleteById($review_id);
 
         return $review_id;
