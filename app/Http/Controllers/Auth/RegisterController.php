@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Storage;
 
 class RegisterController extends Controller
 {
@@ -71,6 +72,19 @@ class RegisterController extends Controller
         $user->lastname = $request->lastname;
         $user->gender = $request->gender;
         $user->skin_color = $request->skin_color;
+        if (!is_null($request->image)){
+            Storage::disk('s3')->delete($user->path);
+
+            $image = $request->image;
+            $imageName = rand(111111111, 999999999) . '.png';
+            $file_path = 'file/user/' . $imageName;
+
+            Storage::disk('s3')->put($file_path, base64_decode($image), 'public');
+            $url = Storage::disk('s3')->url($file_path);
+
+            $user->image = $url;
+            $user->path = $file_path;
+        }
 
         $user->save();
         $token = $user->createToken('')->accessToken;
