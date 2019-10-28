@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -73,9 +74,10 @@ class RegisterController extends Controller
         $user->gender = $request->gender;
         $user->skin_color = $request->skin_color;
         if (!is_null($request->image)){
-            Storage::disk('s3')->delete($user->path);
-
-            $image = $request->image;
+            if(Str::substr($request->image, 0, 4) == "http"){
+                $user->image = $request->image;
+            }else{
+                $image = $request->image;
             $imageName = rand(111111111, 999999999) . '.png';
             $file_path = 'file/user/' . $imageName;
 
@@ -84,6 +86,7 @@ class RegisterController extends Controller
 
             $user->image = $url;
             $user->path = $file_path;
+            }
         }
 
         $user->save();
