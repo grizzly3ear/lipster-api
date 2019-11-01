@@ -69,4 +69,12 @@ class UserRepository implements UserRepositoryInterface
 
         return $user->id;
     }
+
+    public function setNotificationToken($user_id, $notification_token) {
+        $user = $this->findById($user_id);
+        $user->notification_token = $notification_token;
+        $user->save();
+
+        return $user->notification_token;
+    }
 }

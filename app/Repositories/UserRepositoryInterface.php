@@ -9,4 +9,5 @@ interface UserRepositoryInterface
     public function store($data);
     public function update($user_id, $data);
     public function deleteById($user_id);
+    public function setNotificationToken($user_id, $notification_token);
 }

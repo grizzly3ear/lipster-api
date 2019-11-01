@@ -13,4 +13,10 @@ class TrendGroup extends Model
     public function trends() {
         return $this->hasMany(Trend::class, 'trend_group_id');
     }
+
+    public function notifications(){
+
+        return $this->morphMany(Notification::class, 'notification');
+
+    }
 }

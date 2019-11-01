@@ -15,13 +15,11 @@ class Trend extends Model
         return $this->belongsToMany(User::class, 'favorite_trend', 'trend_id', 'user_id');
     }
 
-    public function notifications(){
-
-        return $this->morphMany(Notification::class, 'notification');
-
-    }
-
     public function trendGroup() {
         return $this->belongsTo(TrendGroup::class, 'trend_group_id');
+    }
+
+    public function logs(){
+        return $this->morphMany(Log::class, 'log');
     }
 }
