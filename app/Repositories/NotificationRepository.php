@@ -78,7 +78,7 @@ class NotificationRepository implements NotificationRepositoryInterface
 
         foreach ($users as $user) {
             $notification = $this->store($notificationData);
-            $model->notifications()->save($notificationData);
+            $model->notifications()->create($notificationData);
         }
 
         return $downstreamResponse->numberSuccess();
