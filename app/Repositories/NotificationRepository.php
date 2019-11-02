@@ -19,6 +19,26 @@ class NotificationRepository implements NotificationRepositoryInterface
     }
 
     public function findAll() {
+        $optionBuilder = new OptionsBuilder();
+        $optionBuilder->setTimeToLive(60*20);
+
+        $notificationBuilder = new PayloadNotificationBuilder('my title');
+        $notificationBuilder->setBody('Hello world')
+                            ->setSound('default');
+
+        $dataBuilder = new PayloadDataBuilder();
+        $dataBuilder->addData(['a_data' => 'my_data']);
+
+        $option = $optionBuilder->build();
+        $notification = $notificationBuilder->build();
+        $data = $dataBuilder->build();
+
+        $token = "fhxcTOC15Vs:APA91bGvGDm06l-ZxWQQvL89VEShLX_NtqdoJJW_ACTfEBZSUOVscY7tjHIT_8s9ST6dvS0CNw9uw54G3Pr6NftW08fiXckOOUbShZwq2nrmhByZOdCtj-oIKRA5HSPknNTqidNi71-D";
+
+        $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
+
+        $downstreamResponse->numberSuccess();
+
         return Notification::all();
     }
 
