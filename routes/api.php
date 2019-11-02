@@ -31,6 +31,8 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get('{user_id}', 'UserController@getUserById')->where('user_id', '[0-9]+');
         Route::put('{user_id}', 'UserController@updateUserById')->where('user_id', '[0-9]+');
         Route::delete('{user_id}', 'UserController@deleteUserById')->where('user_id', '[0-9]+');
+
+        Route::post('notification', 'UserController@setNotificationToken');
     });
 
     Route::group(['prefix' => 'log'], function () {
@@ -140,4 +142,14 @@ Route::group(['prefix' => 'log'], function () {
 	Route::get('', 'LogController@getAllLog');
 	Route::get('{log_id}', 'LogController@getLogById')->where('log_id', '[0-9]+');
 	Route::delete('{log_id}', 'LogController@deleteLogById')->where('log_id', '[0-9]+');
+});
+
+
+
+Route::group(['prefix' => 'notification'], function () {
+	Route::get('', 'NotificationController@getAllNotification');
+	Route::get('{notification_id}', 'NotificationController@getNotificationById')->where('notification_id', '[0-9]+');
+	Route::post('', 'NotificationController@createNotification');
+	Route::put('{notification_id}', 'NotificationController@updateNotificationById')->where('notification_id', '[0-9]+');
+	Route::delete('{notification_id}', 'NotificationController@deleteNotificationById')->where('notification_id', '[0-9]+');
 });
