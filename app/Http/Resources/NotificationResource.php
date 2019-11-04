@@ -14,12 +14,19 @@ class NotificationResource extends JsonResource
      */
     public function toArray($request)
     {
+        $query = explode(',', $request->query('part'));
+
+        $request->merge([
+            'part' => preg_replace('(notification)', ',', $request->query('part'))
+        ]);
+
         return [
             'id' => $this->id,
             'name' => $this->name,
             'title' => $this->title,
             'body' => $this->body,
             'created_at' => $this->created_at,
+            'details' => $this->when(in_array('detail', $query), new TrendGroupResource($this->notification)),
         ];
     }
 }

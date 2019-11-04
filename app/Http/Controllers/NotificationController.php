@@ -9,13 +9,14 @@ use App\Http\Resources\NotificationResource;
 use App\Repositories\NotificationRepository;
 use App\Models\Notification;
 
-
 class NotificationController extends Controller
 {
     protected $notificationRepository;
+    protected $trendGroupRepository;
 
-    public function __construct(Notification $notification) {
+    public function __construct(Notification $notification, TrendGroup $trendGroup) {
         $this->notificationRepository = new NotificationRepository($notification);
+        $this->trendGroupRepository = new TrendGroupRepository($trendGroup);
     }
 
     public function getAllNotification () {
@@ -29,6 +30,14 @@ class NotificationController extends Controller
         $notification = $this->notificationRepository->findById($notification_id);
 
         return new NotificationResource($notification);
+    }
+
+    public function getNotificationByUserId (Request $request) {
+        $user = $request->user();
+
+        $notifications = $this->notificationRepository->findByUserId($user->id);
+        // dd($notifications);
+        return NotificationResource::collection($notifications);
     }
 
     public function createNotification (Request $request) {

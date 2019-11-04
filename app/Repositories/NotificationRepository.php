@@ -10,6 +10,8 @@ use FCM;
 
 use LaravelFCM\Message\Topics;
 
+use App\Models\User;
+
 class NotificationRepository implements NotificationRepositoryInterface
 {
     protected $notification;
@@ -46,11 +48,17 @@ class NotificationRepository implements NotificationRepositoryInterface
         return Notification::findOrFail($notification_id);
     }
 
-    public function store($data) {
+    public function findByUserId($user_id) {
+        $notifications = Notification::where('user_id', $user_id)->get();
+        return $notifications;
+    }
+
+    public function store($data, $user) {
         $notification = new Notification();
         $notification->name = $data['name'];
         $notification->title = $data['title'];
         $notification->body = $data['body'];
+        $notification->user_id = $user->id;
 
         return $notification;
 
@@ -90,18 +98,20 @@ class NotificationRepository implements NotificationRepositoryInterface
 
         $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 
-        $notificationData = [
-            'title' => $title,
-            'body' => $body,
-            'name' => $name
-        ];
+        $result;
 
         foreach ($users as $user) {
-            $notification = $this->store($notificationData);
-            $model->notifications()->create($notificationData);
+            $notificationData = [
+                'title' => $title,
+                'body' => $body,
+                'name' => $name,
+                'user_id' => $user->id
+            ];
+            // $notification = $this->store($notificationData, $userRender);
+            $result = $model->notifications()->create($notificationData);
         }
 
-        return $downstreamResponse->numberSuccess();
+        return $result;
     }
 
     public function update($notification_id, $data) {

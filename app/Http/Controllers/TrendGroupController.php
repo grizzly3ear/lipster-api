@@ -34,15 +34,7 @@ class TrendGroupController extends Controller
     }
 
     public function createTrendGroup (Request $request) {
-        $trend_group = $this->trendGroupRepository->store($request->only($this->trendGroupRepository->getModel()->fillable));
-
-        if($request->release) {
-            //for non login user
-            $result = $this->notificationRepository->pushAllNotification('non_login', $request->title, $request->body, 'trend_group');
-            $this->notificationRepository->pushToUser(User::all(), $request->title, $request->body, $trend_group, 'trend_group');
-        }
-
-        return $trend_group;
+        $trend_group = $this->trendGroupRepository->store($request->only($this->trendGroupRepository->getModel()->fillable));        return $trend_group;
     }
 
     public function updateTrendGroupById (Request $request, $trend_group_id) {
@@ -59,5 +51,24 @@ class TrendGroupController extends Controller
         $trend_group_id = $this->trendGroupRepository->deleteById($trend_group_id);
 
         return $trend_group_id;
+    }
+
+    public function release (Request $request, $trend_group_id) {
+        if($request->release) {
+            $trend_group = $this->trendGroupRepository->findById($trend_group_id);
+            //for non login user
+            $result = $this->notificationRepository->pushAllNotification("non_login", $request->title, $request->body, "trend_group");
+            $notifications = $this->notificationRepository->pushToUser(User::all(), $request->title, $request->body, $trend_group, "trend_group");
+            $trendGroupData = [
+                'name' => $request->title,
+                'description' => $request->body,
+                'image' => $request->image,
+                'release_date' => $notifications->created_at
+            ];
+            $this->trendGroupRepository->update($trend_group_id, $trendGroupData);
+            return $notifications;
+        }else{
+            return "Can not release notification";
+        }
     }
 }

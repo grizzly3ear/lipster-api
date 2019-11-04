@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 use App\Models\TrendGroup;
 
@@ -39,7 +40,7 @@ class TrendGroupRepository implements TrendGroupRepositoryInterface
         }
         $trendGroup->name = $data['name'];
         $trendGroup->description = $data['description'];
-        $trendGroup->release_date = $data['release_date'];
+        // $trendGroup->release_date = $data['release_date'];
         $trendGroup->save();
 
         return $trendGroup;
@@ -47,8 +48,11 @@ class TrendGroupRepository implements TrendGroupRepositoryInterface
 
     public function update($trend_group_id, $data) {
         $trendGroup = $this->findById($trend_group_id);
-
         if (!is_null($data['image'])){
+
+            if(Str::substr($data['image'], 0, 4) == "http"){
+                $trendGroup->image = $data['image'];
+            }else{
             Storage::disk('s3')->delete($trendGroup->path);
 
             $image = $data['image'];
@@ -60,6 +64,7 @@ class TrendGroupRepository implements TrendGroupRepositoryInterface
 
             $trendGroup->image = $url;
             $trendGroup->path = $file_path;
+            }
         }
         $trendGroup->name = $data['name'];
         $trendGroup->description = $data['description'];

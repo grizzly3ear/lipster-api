@@ -38,6 +38,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::group(['prefix' => 'log'], function () {
         Route::post('', 'LogController@createLog');
     });
+
+    Route::group(['prefix' => 'notification'], function () {
+        Route::get('user', 'NotificationController@getNotificationByUserId');
+    });
+
 });
 
 Route::group(['prefix' => 'brand'], function () {
@@ -93,6 +98,8 @@ Route::group(['prefix' => 'trend'], function () {
         Route::post('', 'TrendGroupController@createTrendGroup');
         Route::put('{trend_group_id}', 'TrendGroupController@updateTrendGroupById')->where('trend_group_id', '[0-9]+');
         Route::delete('{trend_group_id}', 'TrendGroupController@deleteTrendGroupById')->where('trend_group_id', '[0-9]+');
+
+        Route::post('{trend_group_id}/release', 'TrendGroupController@release');
     });
     Route::get('', 'TrendController@getAllTrend');
     Route::get('{trend_id}', 'TrendController@getTrendById')->where('trend_id', '[0-9]+');
@@ -148,8 +155,9 @@ Route::group(['prefix' => 'log'], function () {
 
 Route::group(['prefix' => 'notification'], function () {
 	Route::get('', 'NotificationController@getAllNotification');
-	Route::get('{notification_id}', 'NotificationController@getNotificationById')->where('notification_id', '[0-9]+');
-	Route::post('', 'NotificationController@createNotification');
+    Route::get('{notification_id}', 'NotificationController@getNotificationById')->where('notification_id', '[0-9]+');
+    Route::post('', 'NotificationController@createNotification');
+
 	Route::put('{notification_id}', 'NotificationController@updateNotificationById')->where('notification_id', '[0-9]+');
 	Route::delete('{notification_id}', 'NotificationController@deleteNotificationById')->where('notification_id', '[0-9]+');
 });

@@ -8,7 +8,7 @@ class Notification extends Model
 {
     protected $table = 'notification';
     protected $primaryKey = 'id';
-    protected $fillable = ['name', 'title', 'body'];
+    protected $fillable = ['name', 'title', 'body', 'user_id', 'release'];
 
     public function notification(){
 
