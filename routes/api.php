@@ -131,7 +131,7 @@ Route::group(['prefix' => 'store'], function () {
             Route::get('', 'StoreHasLipstickController@getAllStoreHasLipstick');
             Route::get('{storeHasLipstick_id}', 'StoreHasLipstickController@getStoreHasLipstickById')->where('storeHasLipstick_id', '[0-9]+');
             Route::post('', 'StoreHasLipstickController@createStoreHasLipstick');
-            Route::put('{storeHasLipstick_id}', 'StoreHasLipstickController@updateStoreHasLipstickById')->where('storeHasLipstick_id', '[0-9]+');
+            Route::post('{storeHasLipstick_id}', 'StoreHasLipstickController@updateStoreHasLipstickById')->where('storeHasLipstick_id', '[0-9]+');
             Route::delete('{storeHasLipstick_id}', 'StoreHasLipstickController@deleteStoreHasLipstickById')->where('storeHasLipstick_id', '[0-9]+');
         });
 
