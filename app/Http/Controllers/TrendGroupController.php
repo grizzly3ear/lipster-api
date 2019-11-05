@@ -47,8 +47,8 @@ class TrendGroupController extends Controller
         return new TrendGroupResource($trendGroup);
     }
 
-    public function deleteTrendGroupById ($trend_group_id) {
-        $trend_group_id = $this->trendGroupRepository->deleteById($trend_group_id);
+    public function deleteTrendGroupById (Request $request, $trend_group_id) {
+        $trend_group_id = $this->trendGroupRepository->deleteById($request->input(), $trend_group_id);
 
         return $trend_group_id;
     }

@@ -46,8 +46,8 @@ class LipstickDetailController extends Controller
         return new LipstickDetailResource($lipstickDetail);
     }
 
-    public function deleteLipstickDetailById ($lipstickDetail_id) {
-        $lipstickDetail_id = $this->lipstickDetailRepository->deleteById($lipstickDetail_id);
+    public function deleteLipstickDetailById (Request $request, $lipstickDetail_id) {
+        $lipstickDetail_id = $this->lipstickDetailRepository->deleteById($request->input(), $lipstickDetail_id);
 
         return $lipstickDetail_id;
     }

@@ -38,10 +38,23 @@ class StoreAddressRepository implements StoreAddressRepositoryInterface
         return $storeAddress;
     }
 
-    public function deleteById($storeAddress_id) {
+    public function deleteById($request, $storeAddress_id) {
         $storeAddress = StoreAddress::findOrFail($storeAddress_id);
 
-        $storeAddress->delete();
+        if(!is_null($request['force'])){
+            if($request['force']){
+                $storeAddress->delete();
+                return 1;
+            }else{
+                if(count($storeAddress->lipstickColors)){
+                    return 0;
+                } else {
+                    $storeAddress->delete();
+
+                    return 1;
+                }
+            }
+        }
 
         return $storeAddress->id;
     }

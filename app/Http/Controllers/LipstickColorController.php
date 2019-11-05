@@ -50,8 +50,8 @@ class LipstickColorController extends Controller
         return new LipstickColorResource($lipstickColor);
     }
 
-    public function deleteLipstickColorById ($lipstickColor_id) {
-        $lipstickColor_id = $this->lipstickColorRepository->deleteById($lipstickColor_id);
+    public function deleteLipstickColorById (Request $request, $lipstickColor_id) {
+        $lipstickColor_id = $this->lipstickColorRepository->deleteById($request->input(),$lipstickColor_id);
 
         return $lipstickColor_id;
     }

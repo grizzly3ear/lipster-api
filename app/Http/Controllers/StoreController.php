@@ -45,8 +45,8 @@ class StoreController extends Controller
         return new StoreResource($store);
     }
 
-    public function deleteStoreById ($store_id) {
-        $store_id = $this->storeRepository->deleteById($store_id);
+    public function deleteStoreById (Request $request, $store_id) {
+        $store_id = $this->storeRepository->deleteById($request->input(), $store_id);
 
         return $store_id;
     }

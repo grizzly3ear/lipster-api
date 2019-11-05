@@ -8,7 +8,7 @@ interface LipstickBrandRepositoryInterface
     public function findById($lipstickBrand_id);
     public function store(array $data);
     public function update($lipstickBrand_id, $data);
-    public function deleteById($lipstickBrand_id);
+    public function deleteById($request, $lipstickBrand_id);
 
     public function destroy($lipstickBrand_ids);
 }

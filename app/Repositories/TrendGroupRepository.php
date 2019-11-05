@@ -74,14 +74,25 @@ class TrendGroupRepository implements TrendGroupRepositoryInterface
         return $trendGroup;
     }
 
-    public function deleteById($trend_group_id) {
+    public function deleteById($request, $trend_group_id) {
         $trendGroup = $this->findById($trend_group_id);
 
         Storage::disk('s3')->delete($trendGroup->path);
 
-        $trendGroup->delete();
+        if(!is_null($request['force'])){
+            if($request['force']){
+                $trendGroup->delete();
+                return 1;
+            }else{
+                if(count($trendGroup->trends)){
+                    return 0;
+                } else {
+                    $trendGroup->delete();
 
-        return $trendGroup->id;
+                    return 1;
+                }
+            }
+        }
     }
 
     public function getModel()

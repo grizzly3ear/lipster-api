@@ -55,8 +55,8 @@ class LipstickBrandController extends Controller
         return new LipstickBrandResource($lipstickBrand);
     }
 
-    public function deleteLipstickBrandById ($lipstickBrand_id) {
-        $lipstickBrand_id = $this->lipstickBrandRepository->deleteById($lipstickBrand_id);
+    public function deleteLipstickBrandById (Request $request, $lipstickBrand_id) {
+        $lipstickBrand_id = $this->lipstickBrandRepository->deleteById($request->input(), $lipstickBrand_id);
 
         return $lipstickBrand_id;
     }

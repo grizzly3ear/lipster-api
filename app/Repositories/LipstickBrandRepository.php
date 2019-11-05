@@ -61,14 +61,25 @@ class LipstickBrandRepository implements LipstickBrandRepositoryInterface
         return $lipstickBrand;
     }
 
-    public function deleteById($lipstickBrand_id) {
+    public function deleteById($request, $lipstickBrand_id) {
         $lipstickBrand = LipstickBrand::findOrFail($lipstickBrand_id);
 
         Storage::disk('s3')->delete($lipstickBrand->path);
 
-        $lipstickBrand->delete();
+        if(!is_null($request['force'])){
+            if($request['force']){
+                $lipstickBrand->delete();
+                return 1;
+            }else{
+                if(count($lipstickBrand->lipstickDetails)){
+                    return 0;
+                } else {
+                    $lipstickBrand->delete();
 
-        return $lipstickBrand->id;
+                    return 1;
+                }
+            }
+        }
     }
 
     public function destroy($lipstickBrand_ids) {

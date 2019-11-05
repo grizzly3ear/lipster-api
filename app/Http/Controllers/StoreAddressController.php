@@ -56,8 +56,8 @@ class StoreAddressController extends Controller
         return new StoreAddressResource($storeAddress);
     }
 
-    public function deleteStoreAddressById ($storeAddress_id) {
-        $storeAddress_id = $this->storeAddressRepository->deleteById($storeAddress_id);
+    public function deleteStoreAddressById (Request $request, $storeAddress_id) {
+        $storeAddress_id = $this->storeAddressRepository->deleteById($request->input(), $storeAddress_id);
 
         return $storeAddress_id;
     }

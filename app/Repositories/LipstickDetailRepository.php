@@ -37,12 +37,23 @@ class LipstickDetailRepository implements LipstickDetailRepositoryInterface
         return $lipstickDetail;
     }
 
-    public function deleteById($lipstickDetail_id) {
+    public function deleteById($request, $lipstickDetail_id) {
         $lipstickDetail = LipstickDetail::findOrFail($lipstickDetail_id);
 
-        $lipstickDetail->delete();
+        if(!is_null($request['force'])){
+            if($request['force']){
+                $lipstickDetail->delete();
+                return 1;
+            }else{
+                if(count($lipstickDetail->lipstickColors)){
+                    return 0;
+                } else {
+                    $lipstickDetail->delete();
 
-        return $lipstickDetail->id;
+                    return 1;
+                }
+            }
+        }
     }
 
     public function findDistinctColumnValue($column) {

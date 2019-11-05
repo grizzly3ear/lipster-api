@@ -8,7 +8,7 @@ class TrendGroup extends Model
 {
     protected $table = 'trend_group';
     protected $primaryKey = 'id';
-    protected $fillable = ['name', 'image', 'description', 'release_date'];
+    protected $fillable = ['name', 'image', 'description', 'release_date', 'release', 'force'];
 
     public function trends() {
         return $this->hasMany(Trend::class, 'trend_group_id');

@@ -8,7 +8,7 @@ interface LipstickDetailRepositoryInterface
     public function findById($lipstickDetail_id);
     public function store($data);
     public function update($lipstickDetail_id, $data);
-    public function deleteById($lipstickDetail_id);
+    public function deleteById($request, $lipstickDetail_id);
 
     public function findDistinctColumnValue($column);
 }

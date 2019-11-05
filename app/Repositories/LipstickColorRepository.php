@@ -41,12 +41,22 @@ class LipstickColorRepository implements LipstickColorRepositoryInterface
         return $this->lipstickColor;
     }
 
-    public function deleteById($lipstickColor_id) {
+    public function deleteById($request, $lipstickColor_id) {
         $lipstickColor = LipstickColor::findOrFail($lipstickColor_id);
+        if(!is_null($request['force'])){
+            if($request['force']){
+                $lipstickColor->delete();
+                return 1;
+            }else{
+                if(count($lipstickColor->storeAddresses)){
+                    return 0;
+                } else {
+                    $lipstickColor->delete();
 
-        $lipstickColor->delete();
-
-        return $lipstickColor->id;
+                    return 1;
+                }
+            }
+        }
     }
 
     public function findSimilarColor($hex, $expectedResult = 10) {

@@ -8,5 +8,5 @@ interface StoreRepositoryInterface
     public function findById($store_id);
     public function store($data);
     public function update($store_id, $data);
-    public function deleteById($store_id);
+    public function deleteById($request, $store_id);
 }

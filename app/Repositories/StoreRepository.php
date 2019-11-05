@@ -63,14 +63,25 @@ class StoreRepository implements StoreRepositoryInterface
         return $store;
     }
 
-    public function deleteById($store_id) {
+    public function deleteById($request, $store_id) {
         $store = Store::findOrFail($store_id);
 
         Storage::disk('s3')->delete($store->path);
 
-        $store->delete();
+        if(!is_null($request['force'])){
+            if($request['force']){
+                $store->delete();
+                return 1;
+            }else{
+                if(count($store->storeAddresses)){
+                    return 0;
+                } else {
+                    $store->delete();
 
-        return $store->id;
+                    return 1;
+                }
+            }
+        }
     }
 
     public function getModel()
