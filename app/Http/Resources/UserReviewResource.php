@@ -15,7 +15,7 @@ class UserReviewResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'user' => $this->firstname . ' ' . $this->lastname,
+            'user' => new UserResource($this),
             'comment' => $this->pivot->comment,
             'skin_color' => $this->pivot->skin_color,
             'rating' => $this->pivot->rating,
