@@ -12,11 +12,9 @@ use App\Models\Notification;
 class NotificationController extends Controller
 {
     protected $notificationRepository;
-    protected $trendGroupRepository;
 
-    public function __construct(Notification $notification, TrendGroup $trendGroup) {
+    public function __construct(Notification $notification) {
         $this->notificationRepository = new NotificationRepository($notification);
-        $this->trendGroupRepository = new TrendGroupRepository($trendGroup);
     }
 
     public function getAllNotification () {
