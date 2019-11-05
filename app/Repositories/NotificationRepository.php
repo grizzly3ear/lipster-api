@@ -67,7 +67,8 @@ class NotificationRepository implements NotificationRepositoryInterface
     public function pushAllNotification($topicGroup, $title, $body, $name) {
         $notificationBuilder = new PayloadNotificationBuilder($title);
         $notificationBuilder->setBody($body)
-                            ->setSound('default');
+                            ->setSound('default')
+                            ->setClickAction($name);
 
         $notification = $notificationBuilder->build();
 
@@ -85,7 +86,9 @@ class NotificationRepository implements NotificationRepositoryInterface
 
         $notificationBuilder = new PayloadNotificationBuilder($title);
         $notificationBuilder->setBody($body)
-                            ->setSound('default');
+                            ->setSound('default')
+                            ->setClickAction($name);
+
 
         $dataBuilder = new PayloadDataBuilder();
         $dataBuilder->addData(['a_data' => 'my_data']);
