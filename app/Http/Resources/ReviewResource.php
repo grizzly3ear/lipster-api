@@ -12,11 +12,11 @@ class ReviewResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
-    {
+    public function toArray($request)      
+    {   
         return [
             'id' => $this->id,
-            'user' => $this->user->firstname . ' ' . $this->user->lastname,
+            'user' => new UserResource($this->user),
             'comment' => $this->comment,
             'skin_color' => $this->skin_color,
             'rating' => $this->rating,
