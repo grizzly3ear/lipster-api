@@ -43,13 +43,8 @@ class UserRepository implements UserRepositoryInterface
             $user->image = $url;
             $user->path = $file_path;
         }
-
         $user->firstname = $data['firstname'];
         $user->lastname = $data['lastname'];
-        $user->gender = $data['gender'];
-        $user->skin_color = $data['skin_color'];
-        $user->email = $data['email'];
-        $user->password = Hash::make($data['password']);
         $user->save();
 
         return $user;

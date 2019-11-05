@@ -50,18 +50,16 @@ class UserController extends Controller
         return $this->userRepository->store($request->only($this->userRepository->getModel()->fillable));
     }
 
-    public function updateUserById (Request $request, $user_id) {
+    public function updateUserById (Request $request) {
         $this->validate($request, [
             'firstname' => 'required|max:255|String',
             'lastname' => 'required|max:255|String',
-            'gender' => 'required|max:255|String',
-            'skin_color' => 'required|String',
-            'email' => 'required|unique:user|String',
-            'password' => 'required|min:8|String'
         ]);
 
+        $user = $request->user();
 
-        $user = $this->userRepository->update($user_id, $request->input());
+
+        $user = $this->userRepository->update($user->id, $request->input());
 
         return new UserResource($user);
     }
