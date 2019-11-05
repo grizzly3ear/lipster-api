@@ -44,13 +44,14 @@ class User extends Authenticatable
 
     public function reviews(){
 
-        return $this->belongsToMany(LipstickColor::class, 'review', 'user_id', 'lipstick_color_id');
+        return $this->belongsToMany(LipstickColor::class, 'review', 'user_id', 'lipstick_color_id')
+                    ->withPivot('id', 'comment', 'skin_color', 'rating', 'created_at', 'updated_at');
 
     }
 
-    public function favouriteLipsticks(){
+    public function favoriteLipsticks(){
 
-        return $this->belongsToMany(LipstickColor::class, 'favourite_lipstick', 'user_id', 'lipstick_color_id');
+        return $this->belongsToMany(LipstickColor::class, 'favorite_lipstick', 'user_id', 'lipstick_color_id');
 
     }
 }

@@ -12,16 +12,16 @@ class ReviewResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)      
-    {   
+    public function toArray($request)
+    {
         return [
-            'id' => $this->id,
-            'user' => new UserResource($this->user),
-            'comment' => $this->comment,
-            'skin_color' => $this->skin_color,
-            'rating' => $this->rating,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'id' => $this->pivot->id,
+            // 'user' => new UserResource($this->user),
+            'comment' => $this->pivot->comment,
+            'skin_color' => $this->pivot->skin_color,
+            'rating' => $this->pivot->rating,
+            'created_at' => $this->pivot->created_at,
+            'updated_at' => $this->pivot->updated_at,
 
         ];
     }

@@ -14,6 +14,12 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
+        $query = explode(',', $request->query('part'));
+
+        $request->merge([
+            'part' => preg_replace('(user)', ',', $request->query('part'))
+        ]);
+
         return [
             'id' => $this->id,
             'name' => $this->firstname . ' ' . $this->lastname,
@@ -24,6 +30,7 @@ class UserResource extends JsonResource
             'skin_color' => $this->skin_color,
             'email' => $this->email,
             'created_at' => $this->created_at,
+            'reviews' => $this->when(in_array('review', $query), ReviewResource::collection($this->reviews)),
 
         ];
     }

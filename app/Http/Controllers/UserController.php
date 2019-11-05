@@ -24,7 +24,8 @@ class UserController extends Controller
         return UserResource::collection($users);
     }
 
-    public function getUserById ($user_id) {
+    public function getUserById (Request $request) {
+        $user_id = $request->user()->id;
         $user = $this->userRepository->findById($user_id);
 
         return new UserResource($user);
