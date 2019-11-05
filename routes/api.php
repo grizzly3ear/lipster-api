@@ -27,8 +27,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     });
 
     Route::group(['prefix' => 'user'], function () {
-        Route::get('', 'UserController@getAllUser');
-        Route::get('own', 'UserController@getUserById')->where('user_id', '[0-9]+');
+        // Route::get('', 'UserController@getAllUser');
+        Route::get('/reviews', 'UserController@getUserById')->where('user_id', '[0-9]+');
         Route::put('', 'UserController@updateUserById')->where('user_id', '[0-9]+');
         Route::delete('{user_id}', 'UserController@deleteUserById')->where('user_id', '[0-9]+');
 
