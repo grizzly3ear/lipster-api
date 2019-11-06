@@ -72,10 +72,6 @@ class UserController extends Controller
     }
 
     public function setNotificationToken(Request $request) {
-        $this->validate($request, [
-            'user' => 'required'
-        ]);
-
         $notification_token = $this->userRepository->setNotificationToken($request->user()->id, $request->notification_token);
 
         return $notification_token;
