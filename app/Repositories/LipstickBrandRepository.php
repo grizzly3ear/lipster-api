@@ -13,14 +13,17 @@ class LipstickBrandRepository implements LipstickBrandRepositoryInterface
         $this->lipstickBrand = $lipstickBrand;
     }
     public function findAll() {
-        $brand = LipstickBrand::all();
-        $sorted = $brand->sortBy('name');
+        $lipstickBrand = LipstickBrand::all();
+        $sorted = $lipstickBrand->sortBy('name');
         $sorted->values()->all();
+
         return $sorted;
     }
 
     public function findById($lipstickBrand_id) {
-        return LipstickBrand::findOrFail($lipstickBrand_id);
+        $lipstickBrand = LipstickBrand::findOrFail($lipstickBrand_id);
+
+        return $lipstickBrand;
     }
 
     public function store(array $data) {
