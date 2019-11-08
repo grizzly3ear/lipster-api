@@ -54,4 +54,10 @@ class User extends Authenticatable
         return $this->belongsToMany(LipstickColor::class, 'favorite_lipstick', 'user_id', 'lipstick_color_id');
 
     }
+
+    public function favoriteTrends(){
+
+        return $this->belongsToMany(Trend::class, 'favorite_trend', 'user_id', 'trend_id');
+
+    }
 }
