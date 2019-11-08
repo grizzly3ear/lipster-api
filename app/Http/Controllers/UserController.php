@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\UserRepositoryInterface;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\FavoriteLipstickResource;
+use App\Http\Resources\FavoriteTrendResource;
 use App\Repositories\UserRepository;
 use App\Models\User;
 
@@ -35,6 +36,12 @@ class UserController extends Controller
         $user = $this->userRepository->findById($user_id);
 
         return  new FavoriteLipstickResource($user);
+    }
+
+    public function getFavoriteTrendByUserId ($user_id) {
+        $user = $this->userRepository->findById($user_id);
+
+        return  new FavoriteTrendResource($user);
     }
 
     public function createUser (Request $request) {

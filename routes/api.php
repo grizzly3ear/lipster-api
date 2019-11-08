@@ -43,6 +43,17 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get('user', 'NotificationController@getNotificationByUserId');
     });
 
+    Route::group(['prefix' => 'trend'], function () {
+        Route::group(['prefix' => 'favorite'], function () {
+            Route::get('', 'FavoriteTrendController@getAllFavoriteTrend');
+            Route::get('{favoriteTrend_id}', 'FavoriteTrendController@getFavoriteTrendById')->where('favoriteTrend_id', '[0-9]+');
+            Route::get('user/{user_id}', 'UserController@getFavoriteTrendByUserId')->where('user_id', '[0-9]+');
+            Route::post('', 'FavoriteTrendController@createFavoriteTrend');
+            Route::put('{favoriteTrend_id}', 'FavoriteTrendController@updateFavoriteTrendById')->where('favoriteTrend_id', '[0-9]+');
+            Route::delete('{favoriteTrend_id}', 'FavoriteTrendController@deleteFavoriteTrendById')->where('favoriteTrend_id', '[0-9]+');
+        });
+    });
+
 });
 
 Route::group(['prefix' => 'brand'], function () {
@@ -150,8 +161,6 @@ Route::group(['prefix' => 'log'], function () {
 	Route::get('{log_id}', 'LogController@getLogById')->where('log_id', '[0-9]+');
 	Route::delete('{log_id}', 'LogController@deleteLogById')->where('log_id', '[0-9]+');
 });
-
-
 
 Route::group(['prefix' => 'notification'], function () {
 	Route::get('', 'NotificationController@getAllNotification');
