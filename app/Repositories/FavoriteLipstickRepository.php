@@ -21,12 +21,8 @@ class FavoriteLipstickRepository implements FavoriteLipstickRepositoryInterface
     }
 
     public function store($user, $data) {
-        $favoriteLipstick = new FavoriteLipstick();
-        $favoriteLipstick->lipstick_color_id = $data['lipstick_color_id'];
-        $favoriteLipstick->user_id = $user->id;
-        $favoriteLipstick->save();
 
-        return $favoriteLipstick;
+        return  $user->favoriteLipsticks()->sync($data['lipstick_color_id']);
     }
 
     public function getModel()

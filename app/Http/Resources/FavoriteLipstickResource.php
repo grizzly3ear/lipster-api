@@ -14,10 +14,16 @@ class FavoriteLipstickResource extends JsonResource
      */
     public function toArray($request)
     {
+        $query = explode(',', $request->query('part'));
+
+        $request->merge([
+            'part' => preg_replace('(favoriteLipstick)', ',', $request->query('part'))
+        ]);
+
         return [
             'id' => $this->id,
             'user' => $this->firstname . ' ' . $this->lastname,
-            'favorite_colors' => LipstickColorResource::collection($this->favoriteLipsticks),
-        ];;
+            'favorite_colors' => $this->when(in_array('color', $query), LipstickColorResource::collection($this->favoriteLipsticks))
+        ];
     }
 }

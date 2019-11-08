@@ -7,14 +7,18 @@ use Illuminate\Http\Request;
 use App\Repositories\FavoriteLipstickRepositoryInterface;
 use App\Http\Resources\FavoriteLipstickResource;
 use App\Repositories\FavoriteLipstickRepository;
+use App\Repositories\UserRepository;
 use App\Models\FavoriteLipstick;
+use App\Models\User;
 
 class FavoriteLipstickController extends Controller
 {
     protected $favoriteLipstickRepository;
+    protected $userRepository;
 
-    public function __construct(FavoriteLipstick $favoriteLipstick) {
+    public function __construct(FavoriteLipstick $favoriteLipstick, User $user) {
         $this->favoriteLipstickRepository = new FavoriteLipstickRepository($favoriteLipstick);
+        $this->userRepository = new UserRepository($user);
     }
 
     public function getAllFavoriteLipstick () {
@@ -30,11 +34,9 @@ class FavoriteLipstickController extends Controller
     }
 
     public function createFavoriteLipstick (Request $request) {
-        $this->validate($request, [
-            'lipstick_color_id' => 'required|Integer',
-        ]);
+        $user = $this->userRepository->findById($request->user()->id);
 
-        return $this->favoriteLipstickRepository->store($request->user(), $request->only($this->favoriteLipstickRepository->getModel()->fillable));
+        return $this->favoriteLipstickRepository->store($user, $request->only($this->favoriteLipstickRepository->getModel()->fillable));
     }
 
     public function deleteFavoriteLipstickById ($lipstick_color_id, Request $request) {
