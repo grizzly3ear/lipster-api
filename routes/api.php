@@ -15,6 +15,7 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::post('{lipstickColor_id}/reviews', 'ReviewController@createReview');
             Route::put('{lipstickColor_id}/reviews/{review_id}', 'ReviewController@updateReviewById')->where('review_id', '[0-9]+');
             Route::delete('{lipstickColor_id}/reviews/{review_id}', 'ReviewController@deleteReviewById')->where('review_id', '[0-9]+');
+            Route::post('{lipstickColor_id}/log', 'LipstickColorController@log');
 
             Route::group(['prefix' => 'favorite'], function () {
                 Route::get('', 'FavoriteLipstickController@getAllFavoriteLipstick');
@@ -53,6 +54,8 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::delete('{favoriteTrend_id}', 'FavoriteTrendController@deleteFavoriteTrendById')->where('favoriteTrend_id', '[0-9]+');
         });
     });
+
+
 
 });
 

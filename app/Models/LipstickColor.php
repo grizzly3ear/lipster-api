@@ -39,4 +39,8 @@ class LipstickColor extends Model
     public function storeAddresses(){
         return $this->belongsToMany(StoreAddress::class, 'store_has_lipstick', 'lipstick_color_id', 'store_address_id');
     }
+
+    public function logs(){
+        return $this->morphMany(Log::class, 'log');
+    }
 }

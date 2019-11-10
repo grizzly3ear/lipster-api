@@ -20,13 +20,22 @@ class LogRepository implements LogRepositoryInterface
         return Log::findOrFail($log_id);
     }
 
-    public function store($user, $data) {
+    public function store($user, $data, $lipstickColor) {
         $log = new Log();
         $log->action = $data['action'];
-        $log->detail = $data['detail'];
+        if($data['action'] == "view") {
+            $log->detail = 1;
+        } else if($data['action'] == "like") {
+            $log->detail = 3;
+        } else if($data['action'] == "try") {
+            $log->detail = 4;
+        } else if($data['action'] == "store") {
+            $log->detail = 5;
+        } else {
+            $log->detail = 0;
+        }
         $log->user_id = $user->id;
-
-        $log->save();
+        $lipstickColor->logs()->save($log);
 
         return $log;
     }

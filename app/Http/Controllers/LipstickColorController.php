@@ -7,16 +7,20 @@ use Illuminate\Http\Request;
 use App\Http\Resources\LipstickColorResource;
 use App\Repositories\LipstickColorRepositoryInterface;
 use App\Repositories\LipstickColorRepository;
+use App\Repositories\LogRepository;
 use App\Models\LipstickColor;
+use App\Models\Log;
 use App\Http\Resources\UserReviewResource;
 use App\Http\Resources\StoreAddressByLipstickResource;
 
 class LipstickColorController extends Controller
 {
     protected $lipstickColorRepository;
+    protected $logRepository;
 
-    public function __construct(LipstickColor $lipstickColor) {
+    public function __construct(LipstickColor $lipstickColor, Log $log) {
         $this->lipstickColorRepository = new LipstickColorRepository($lipstickColor);
+        $this->logRepository = new LogRepository($log);
     }
 
     public function getAllLipstickColor () {
@@ -73,5 +77,15 @@ class LipstickColorController extends Controller
         $storeAddresses = $this->lipstickColorRepository->getStoreAddresses($lipstickColor_id);
 
         return StoreAddressByLipstickResource::collection($storeAddresses);
+    }
+
+    public function log (Request $request, $lipstick_color_id) {
+            $lipstickColor = $this->lipstickColorRepository->findById($lipstick_color_id);
+            $data = [
+                'action' => $request->action,
+            ];
+            $log = $this->logRepository->store($request->user(), $data, $lipstickColor);
+
+            return $log;
     }
 }

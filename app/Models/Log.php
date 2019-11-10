@@ -8,10 +8,16 @@ class Log extends Model
 {
     protected $table = 'log';
     protected $primaryKey = 'id';
-    protected $fillable = ['action', 'detail'];
+    protected $fillable = ['action'];
 
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function log(){
+
+        return $this->morphTo();
+
     }
 }
