@@ -7,13 +7,17 @@ use Illuminate\Http\Request;
 use App\Repositories\TrendRepository;
 use App\Http\Resources\TrendResource;
 use App\Models\Trend;
+use App\Repositories\LogRepository;
+use App\Models\Log;
 
 class TrendController extends Controller
 {
     protected $trendRepository;
+    protected $logRepository;
 
-    public function __construct(Trend $trend) {
+    public function __construct(Trend $trend, Log $log) {
         $this->trendRepository = new TrendRepository($trend);
+        $this->logRepository = new LogRepository($log);
     }
 
     public function getAllTrend () {
@@ -56,6 +60,19 @@ class TrendController extends Controller
 
     public function getSimilarLipstickColor ($hex) {
         $trends = $this->trendRepository->findSimilarColor($hex);
+
+        return TrendResource::collection($trends);
+    }
+
+    public function log (Request $request, $trend_id) {
+        $trend = $this->trendRepository->findById($trend_id);
+        $data = [
+            'action' => $request->action,
+        ];
+        $log = $this->logRepository->store($request->user(), $data, $trend);
+
+        return $log;
+}
 
         return TrendResource::collection($trends);
     }

@@ -45,6 +45,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     });
 
     Route::group(['prefix' => 'trend'], function () {
+        Route::post('{trend_id}/log', 'TrendController@log');
+
         Route::group(['prefix' => 'favorite'], function () {
             Route::get('', 'FavoriteTrendController@getAllFavoriteTrend');
             Route::get('{favoriteTrend_id}', 'FavoriteTrendController@getFavoriteTrendById')->where('favoriteTrend_id', '[0-9]+');

@@ -20,7 +20,7 @@ class LogRepository implements LogRepositoryInterface
         return Log::findOrFail($log_id);
     }
 
-    public function store($user, $data, $lipstickColor) {
+    public function store($user, $data, $model) {
         $log = new Log();
         $log->action = $data['action'];
         if($data['action'] == "view") {
@@ -35,7 +35,7 @@ class LogRepository implements LogRepositoryInterface
             $log->detail = 0;
         }
         $log->user_id = $user->id;
-        $lipstickColor->logs()->save($log);
+        $model->logs()->save($log);
 
         return $log;
     }
