@@ -88,4 +88,10 @@ class LipstickColorController extends Controller
 
             return $log;
     }
+
+    public function getAllLipstickColorRanking () {
+        $lipstickColors = $this->lipstickColorRepository->ranking();
+
+        return LipstickColorResource::collection($lipstickColors);
+    }
 }
