@@ -91,7 +91,7 @@ class NotificationRepository implements NotificationRepositoryInterface
 
 
         $dataBuilder = new PayloadDataBuilder();
-        $dataBuilder->addData([$name."_data" => $model->id]);
+        $dataBuilder->addData(["data" => $model->id]);
 
         $option = $optionBuilder->build();
         $notification = $notificationBuilder->build();
