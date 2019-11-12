@@ -123,6 +123,8 @@ Route::group(['prefix' => 'trend'], function () {
     Route::post('', 'TrendController@createTrend');
     Route::put('{trend_id}', 'TrendController@updateTrendById')->where('trend_id', '[0-9]+');
     Route::delete('{trend_id}', 'TrendController@deleteTrendById')->where('trend_id', '[0-9]+');
+
+    Route::get('rank', 'TrendController@getAllTrendRanking');
 });
 
 Route::group(['prefix' => 'store'], function () {

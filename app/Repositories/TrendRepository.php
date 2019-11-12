@@ -142,4 +142,12 @@ class TrendRepository implements TrendRepositoryInterface
 
         return array('h' => $h * 360.0, 's' => $s * 100.0, 'l' => $l * 100.0);
     }
+
+    public function ranking() {
+        $trends = Trend::all();
+
+        return $trends->sortByDesc(function ($trend, $key) {
+            return $trend->logs()->groupBy('log_id')->sum('detail');
+        });
+    }
 }

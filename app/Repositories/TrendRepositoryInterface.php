@@ -11,4 +11,5 @@ interface TrendRepositoryInterface
     public function deleteById($trend_id);
 
     public function findSimilarColor($hex);
+    public function ranking();
 }

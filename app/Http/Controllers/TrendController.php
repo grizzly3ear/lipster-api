@@ -74,6 +74,9 @@ class TrendController extends Controller
         return $log;
 }
 
+    public function getAllTrendRanking () {
+        $trends = $this->trendRepository->ranking();
+
         return TrendResource::collection($trends);
     }
 }
