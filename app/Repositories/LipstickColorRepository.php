@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\LipstickColor;
-use App\Models\Log;
 
 class LipstickColorRepository implements LipstickColorRepositoryInterface
 {
@@ -138,8 +137,6 @@ class LipstickColorRepository implements LipstickColorRepositoryInterface
 
         return $lipstickColors->storeHasLipsticks;
     }
-
-    //LipstickColor::find(1)->logs()->groupBy('log_id')->sum('detail')
 
     public function ranking() {
         $lipstickColors = LipstickColor::all();
