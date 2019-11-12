@@ -14,6 +14,12 @@ class StoreAddressResource extends JsonResource
      */
     public function toArray($request)
     {
+        $query = explode(',', $request->query('part'));
+
+        $request->merge([
+            'part' => preg_replace('(address)', ',', $request->query('part'))
+        ]);
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -24,6 +30,7 @@ class StoreAddressResource extends JsonResource
             'tel' => $this->tel,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'lipsticks' => LipstickColorResource::collection($this->lipstickColors),
         ];
     }
 }
