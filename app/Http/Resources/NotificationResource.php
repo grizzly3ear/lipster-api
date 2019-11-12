@@ -26,7 +26,7 @@ class NotificationResource extends JsonResource
             'title' => $this->title,
             'body' => $this->body,
             'created_at' => $this->created_at,
-            'details' => $this->when(in_array('detail', $query), new TrendGroupResource($this->notification)),
+            'trend_group' => $this->when(in_array('trend_group', $query), new TrendGroupResource($this->notification)),
         ];
     }
 }

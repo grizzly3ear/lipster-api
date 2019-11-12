@@ -24,7 +24,7 @@ class LipstickBrandResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'image' => $this->image,
-            'details' => $this->when(in_array('detail', $query), LipstickDetailResource::collection($this->lipstickDetails)),
+            'details' => LipstickDetailResource::collection($this->lipstickDetails),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
