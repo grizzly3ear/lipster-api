@@ -60,4 +60,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Trend::class, 'favorite_trend', 'user_id', 'trend_id');
 
     }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'user_id');
+    }
 }
