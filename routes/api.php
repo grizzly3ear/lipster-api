@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::group(['prefix' => 'notification'], function () {
         Route::get('user', 'NotificationController@getNotificationByUserId');
+        Route::put('{notification_id}/state', 'NotificationController@changeNotificationState')->where('notification_id', '[0-9]+');
     });
 
     Route::group(['prefix' => 'trend'], function () {
@@ -177,5 +178,4 @@ Route::group(['prefix' => 'notification'], function () {
 
 	Route::put('{notification_id}', 'NotificationController@updateNotificationById')->where('notification_id', '[0-9]+');
     Route::delete('{notification_id}', 'NotificationController@deleteNotificationById')->where('notification_id', '[0-9]+');
-    Route::put('{notification_id}/state', 'NotificationController@changeNotificationState')->where('notification_id', '[0-9]+');
 });

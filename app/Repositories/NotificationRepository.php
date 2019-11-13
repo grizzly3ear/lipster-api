@@ -80,7 +80,31 @@ class NotificationRepository implements NotificationRepositoryInterface
         return $topicResponse->isSuccess();
     }
 
-    public function pushToUser($users, $title, $body, $model, $name) {
+    public function setBadge($user)
+    {
+        $optionBuilder = new OptionsBuilder();
+        $optionBuilder->setTimeToLive(2419200);
+
+        $unread_notification = count($user->notifications->where('read', 0));
+        $notificationBuilder = new PayloadNotificationBuilder('');
+        $notificationBuilder->setBody('')
+                            ->setClickAction('setBadge')
+                            ->setBadge($unread_notification);
+
+        $dataBuilder = new PayloadDataBuilder();
+
+        $option = $optionBuilder->build();
+        $notification = $notificationBuilder->build();
+        $data = $dataBuilder->build();
+
+        $token = $user->notification_token;
+
+        FCM::sendTo($token, $option, $notification, $data);
+
+        return $token;
+    }
+
+    public function pushToUsers($users, $title, $body, $model, $name) {
         
         $result;
         $optionBuilder = new OptionsBuilder();
@@ -94,7 +118,7 @@ class NotificationRepository implements NotificationRepositoryInterface
                 'user_id' => $user->id
             ];
 
-            $unread_notification = count($user->notifications);
+            $unread_notification = count($user->notifications->where('read', 0));
 
             $notificationBuilder = new PayloadNotificationBuilder($title);
             $notificationBuilder->setBody($body)

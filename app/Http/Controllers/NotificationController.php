@@ -59,6 +59,7 @@ class NotificationController extends Controller
     public function changeNotificationState(Request $request, $notification_id)
     {
         $notification = $this->notificationRepository->changeNotificationState($notification_id, $request->state);
+        $result = $this->notificationRepository->setBadge($request->user());
 
         return new NotificationResource($notification);
     }

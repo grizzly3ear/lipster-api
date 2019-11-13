@@ -11,6 +11,7 @@ interface NotificationRepositoryInterface
     public function deleteById($notification_id);
     public function findByUserId($user_id);
     public function pushAllNotification($topic, $title, $body, $name);
-    public function pushToUser($users, $title, $body, $model, $name);
+    public function pushToUsers($users, $title, $body, $model, $name);
+    public function setBadge($user);
     public function changeNotificationState($notification_id, $state = 1);
 }
