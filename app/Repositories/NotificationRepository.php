@@ -81,28 +81,11 @@ class NotificationRepository implements NotificationRepositoryInterface
     }
 
     public function pushToUser($users, $title, $body, $model, $name) {
+        
+        $result;
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
-
-        $notificationBuilder = new PayloadNotificationBuilder($title);
-        $notificationBuilder->setBody($body)
-                            ->setSound('default')
-                            ->setClickAction($name);
-
-
-        $dataBuilder = new PayloadDataBuilder();
-        $dataBuilder->addData(["data" => $model->id]);
-
-        $option = $optionBuilder->build();
-        $notification = $notificationBuilder->build();
-        $data = $dataBuilder->build();
-
-        $tokens = $users->pluck('notification_token')->toArray();
-
-        $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
-
-        $result;
-
+        
         foreach ($users as $user) {
             $notificationData = [
                 'title' => $title,
@@ -110,10 +93,33 @@ class NotificationRepository implements NotificationRepositoryInterface
                 'name' => $name,
                 'user_id' => $user->id
             ];
-            // $notification = $this->store($notificationData, $userRender);
+
+            $unread_notification = count($user->notifications);
+
+            $notificationBuilder = new PayloadNotificationBuilder($title);
+            $notificationBuilder->setBody($body)
+                                ->setSound('default')
+                                ->setClickAction($name)
+                                ->setBadge($unread_notification);
+
+            $dataBuilder = new PayloadDataBuilder();
+            $dataBuilder->addData(["data" => $model->id]);
+    
+            $option = $optionBuilder->build();
+            $notification = $notificationBuilder->build();
+            $data = $dataBuilder->build();
+    
+            // $tokens = $users->pluck('notification_token')->toArray();
+            // $token = "fL57GR6wt_s:APA91bFfvXZgwxrQHswcBmH4_qM2I0exQHOmgI6_lK6PLDiBZVqm6jwp9M81YwjOVrY3kbylVoqUdyYZ6jvta9RLfZ-uVg-Er-Df2LWpjronfaHL7hK-7zzKw3botuagHCl4VtuWER3A";
+            $token = $user->notification_token;
+            // dd($token);
+            if (!is_null($token)) {
+                $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
+            }
+            
             $result = $model->notifications()->create($notificationData);
         }
-
+        
         return $result;
     }
 
