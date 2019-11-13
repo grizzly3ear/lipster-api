@@ -33,7 +33,7 @@ class NotificationController extends Controller
     public function getNotificationByUserId (Request $request) {
         $user = $request->user();
 
-        $notifications = $this->notificationRepository->findByUserId($user->id);
+        $notifications = $this->notificationRepository->findByUser($user);
         // dd($notifications);
         return NotificationResource::collection($notifications);
     }
