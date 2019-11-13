@@ -12,4 +12,5 @@ interface NotificationRepositoryInterface
     public function findByUserId($user_id);
     public function pushAllNotification($topic, $title, $body, $name);
     public function pushToUser($users, $title, $body, $model, $name);
+    public function changeNotificationState($notification_id, $state = 1);
 }

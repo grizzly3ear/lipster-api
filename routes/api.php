@@ -176,5 +176,6 @@ Route::group(['prefix' => 'notification'], function () {
     Route::post('', 'NotificationController@createNotification');
 
 	Route::put('{notification_id}', 'NotificationController@updateNotificationById')->where('notification_id', '[0-9]+');
-	Route::delete('{notification_id}', 'NotificationController@deleteNotificationById')->where('notification_id', '[0-9]+');
+    Route::delete('{notification_id}', 'NotificationController@deleteNotificationById')->where('notification_id', '[0-9]+');
+    Route::put('{notification_id}/state', 'NotificationController@changeNotificationState')->where('notification_id', '[0-9]+');
 });

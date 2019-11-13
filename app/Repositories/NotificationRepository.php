@@ -117,6 +117,15 @@ class NotificationRepository implements NotificationRepositoryInterface
         return $result;
     }
 
+    public function changeNotificationState($notification_id, $state = 1)
+    {
+        $notification = $this->findById($notification_id);
+        $notification->read = $state;
+        $notification->save();
+
+        return $notification;
+    }
+
     public function update($notification_id, $data) {
         $notification = LipstickBrand::findOrFail($notification_id);
         $notification->name = $data['name'];

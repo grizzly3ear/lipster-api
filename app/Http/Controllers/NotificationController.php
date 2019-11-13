@@ -55,4 +55,11 @@ class NotificationController extends Controller
 
         return  $notification_id;
     }
+
+    public function changeNotificationState(Request $request, $notification_id)
+    {
+        $notification = $this->notificationRepository->changeNotificationState($notification_id, $request->state);
+
+        return new NotificationResource($notification);
+    }
 }
