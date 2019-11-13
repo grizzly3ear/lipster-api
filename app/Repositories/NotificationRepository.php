@@ -50,6 +50,7 @@ class NotificationRepository implements NotificationRepositoryInterface
 
     public function findByUserId($user_id) {
         $notifications = Notification::where('user_id', $user_id)->get();
+        $this->setBadge(User::find($user_id));
         return $notifications;
     }
 
