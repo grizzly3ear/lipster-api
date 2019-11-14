@@ -9,7 +9,7 @@ interface NotificationRepositoryInterface
     public function store($data, $user);
     public function update($notification_id, $data);
     public function deleteById($notification_id);
-    public function findByUserId($user_id);
+    public function findByUser($user);
     public function pushAllNotification($topic, $title, $body, $name);
     public function pushToUsers($users, $title, $body, $model, $name);
     public function setBadge($user);

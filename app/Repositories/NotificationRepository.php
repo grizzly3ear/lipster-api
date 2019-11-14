@@ -48,9 +48,9 @@ class NotificationRepository implements NotificationRepositoryInterface
         return Notification::findOrFail($notification_id);
     }
 
-    public function findByUserId($user_id) {
-        $notifications = Notification::where('user_id', $user_id)->get();
-        $this->setBadge(User::find($user_id));
+    public function findByUser($user) {
+        $notifications = $user->notifications;
+        $this->setBadge($user);
         return $notifications;
     }
 
@@ -119,6 +119,8 @@ class NotificationRepository implements NotificationRepositoryInterface
                 'user_id' => $user->id
             ];
 
+            $result = $model->notifications()->create($notificationData);
+
             $unread_notification = count($user->notifications->where('read', 0));
 
             $notificationBuilder = new PayloadNotificationBuilder($title);
@@ -141,8 +143,6 @@ class NotificationRepository implements NotificationRepositoryInterface
             if (!is_null($token)) {
                 $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
             }
-            
-            $result = $model->notifications()->create($notificationData);
         }
         
         return $result;
