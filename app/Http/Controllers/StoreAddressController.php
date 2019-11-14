@@ -34,8 +34,8 @@ class StoreAddressController extends Controller
         $this->validate($request, [
             'latitude' => 'required',
             'longitude' => 'required',
-            'address_detail' => 'required|String',
-            'store_id' => 'required|Integer',
+            'name' => 'unique:store_address,name,NULL,id,store_id,' . $request->store_id,
+            'store_id' => 'unique:store_address,store_id,NULL,id,name,' . $request->name,
         ]);
 
 

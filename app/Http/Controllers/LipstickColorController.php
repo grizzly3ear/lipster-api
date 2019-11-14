@@ -37,10 +37,10 @@ class LipstickColorController extends Controller
 
     public function createLipstickColor (Request $request) {
         $this->validate($request, [
-            'color_name' => 'required|max:255|String',
+            'color_name' => 'unique:lipstick_color,color_name,NULL,id,lipstick_detail_id,' . $request->lipstick_detail_id,
+            'lipstick_detail_id' => 'unique:lipstick_color,lipstick_detail_id,NULL,id,color_name,' . $request->color_name,
             'rgb' => 'required|String',
             'color_code' => 'required|String',
-            'lipstick_detail_id' => 'required|Integer'
         ]);
 
 

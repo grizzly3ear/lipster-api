@@ -32,8 +32,8 @@ class LipstickDetailController extends Controller
 
     public function createLipstickDetail (Request $request) {
         $this->validate($request, [
-            'name' => 'required|max:255',
-            'lipstick_brand_id' => 'required|Integer'
+            'name' => 'unique:lipstick_detail,name,NULL,id,lipstick_brand_id,' . $request->lipstick_brand_id,
+            'lipstick_brand_id' => 'unique:lipstick_detail,lipstick_brand_id,NULL,id,name,' . $request->name,
         ]);
 
         return $this->lipstickDetailRepository->store($request->only($this->lipstickDetailRepository->getModel()->fillable));
