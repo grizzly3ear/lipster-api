@@ -14,6 +14,7 @@ class ReviewResource extends JsonResource
      */
     public function toArray($request)
     {
+<<<<<<< Updated upstream
 
 
         return [
@@ -25,6 +26,15 @@ class ReviewResource extends JsonResource
             'updated_at' => $this->pivot->updated_at,
             'lipstick_color' => new LipstickColorResource($this),
 
+=======
+        return [
+            'id' => $this->id,
+            'skin_color' => $this->skin_color,
+            'rating' => $this->rating,
+            'comment' => $this->comment,
+            'user_id' => $this->user_id,
+            'lipstick_color_id' => $this->lipstick_color_id
+>>>>>>> Stashed changes
         ];
     }
 }

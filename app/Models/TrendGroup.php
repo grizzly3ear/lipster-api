@@ -8,6 +8,7 @@ class TrendGroup extends Model
 {
     protected $table = 'trend_group';
     protected $primaryKey = 'id';
+<<<<<<< Updated upstream
     protected $fillable = ['name', 'image', 'description', 'release_date', 'release', 'force'];
 
     public function trends() {
@@ -19,4 +20,12 @@ class TrendGroup extends Model
         return $this->morphMany(Notification::class, 'notification');
 
     }
+=======
+    protected $fillable = ['name', 'image'];
+
+    public function trends() {
+        return $this->hasMany(Trend::class, 'trend_group_id');
+      }
+
+>>>>>>> Stashed changes
 }

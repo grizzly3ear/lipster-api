@@ -22,4 +22,11 @@ class Trend extends Model
     public function logs(){
         return $this->morphMany(Log::class, 'log');
     }
+
+    public function trendGroup(){
+
+        return $this->belongsTo(trendGroup::class, 'trend_group_id');
+
+    }
+
 }
