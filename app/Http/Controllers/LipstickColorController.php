@@ -72,7 +72,6 @@ class LipstickColorController extends Controller
         return UserReviewResource::collection($userReviews);
     }
 
-<<<<<<< Updated upstream
     public function getStoreAddresses ($lipstickColor_id) {
         $storeAddresses = $this->lipstickColorRepository->getStoreAddresses($lipstickColor_id);
 
@@ -93,11 +92,5 @@ class LipstickColorController extends Controller
         $lipstickColors = $this->lipstickColorRepository->ranking();
 
         return LipstickColorResource::collection($lipstickColors);
-=======
-    public function destroyLipstickColorByIds (Request $request) {
-        $lipstickColor_ids = $this->lipstickColorRepository->destroy($request->ids);
-
-        return $lipstickColor_ids;
->>>>>>> Stashed changes
     }
 }

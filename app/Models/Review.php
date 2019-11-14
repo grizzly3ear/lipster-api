@@ -8,7 +8,6 @@ class Review extends Model
 {
     protected $table = 'review';
     protected $primaryKey = 'id';
-<<<<<<< Updated upstream
     protected $fillable = ['comment', 'rating'];
 
     public function user() {
@@ -18,9 +17,4 @@ class Review extends Model
     public function lipstickColor() {
         return $this->belongsTo(LipstickColor::class, 'lipstick_color_id');
     }
-=======
-    protected $fillable = ['comment', 'skin_color', 'rating', 'user_id', 'lipstick_color_id'];
-
-
->>>>>>> Stashed changes
 }

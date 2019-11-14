@@ -6,12 +6,7 @@ interface ReviewRepositoryInterface
 {
     public function findAll();
     public function findById($review_id);
-<<<<<<< Updated upstream
     public function store($data, $lipstickColor_id, $user);
     public function update($review_id, $lipstickColor_id, $user, $data);
-=======
-    public function store($data, $user);
-    public function update($review_id, $data);
->>>>>>> Stashed changes
     public function deleteById($review_id);
 }

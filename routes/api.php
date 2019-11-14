@@ -40,31 +40,10 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('', 'LogController@createLog');
     });
 
-<<<<<<< Updated upstream
     Route::group(['prefix' => 'notification'], function () {
         Route::get('user', 'NotificationController@getNotificationByUserId');
         Route::put('{notification_id}/state', 'NotificationController@changeNotificationState')->where('notification_id', '[0-9]+');
     });
-=======
-        Route::group(['prefix' => 'color'], function () {
-            Route::get('', 'LipstickColorController@getAllLipstickColor');
-            Route::get('{lipstickColor_id}', 'LipstickColorController@getLipstickColorById')->where('lipstickColor_id', '[0-9]+');
-            Route::post('', 'LipstickColorController@createLipstickColor');
-            Route::put('{lipstickColor_id}', 'LipstickColorController@updateLipstickColorById')->where('lipstickColor_id', '[0-9]+');
-            Route::delete('{lipstickColor_id}', 'LipstickColorController@deleteLipstickColorById')->where('lipstickColor_id', '[0-9]+');
-
-            Route::get('rgb/{hex}', 'LipstickColorController@getSimilarLipstickColor')->where('hex', '[a-fA-F0-9]{6}');
-            Route::get('{lipstickColor_id}/reviews', 'LipstickColorController@getUserReviews')->where('lipstickColor_id', '[0-9]+');
-
-            Route::group(['prefix' => '{lipstickColor_id}/review'], function () {
-                Route::get('{review_id}', 'ReviewController@getReviewById')->where('review_id', '[0-9]+');
-                Route::post('', 'ReviewController@createReview');
-                Route::put('{review_id}', 'ReviewController@updateReviewById')->where('review_id', '[0-9]+');
-                Route::delete('{review_id}', 'ReviewController@deleteReviewById')->where('review_id', '[0-9]+');
-            });
-
-        });
->>>>>>> Stashed changes
 
     Route::group(['prefix' => 'trend'], function () {
         Route::post('{trend_id}/log', 'TrendController@log');
@@ -180,7 +159,6 @@ Route::group(['prefix' => 'store'], function () {
 
 });
 
-<<<<<<< Updated upstream
 Route::group(['prefix' => 'user'], function () {
 	Route::post('', 'UserController@createUser');
 });
@@ -201,6 +179,3 @@ Route::group(['prefix' => 'notification'], function () {
 	Route::put('{notification_id}', 'NotificationController@updateNotificationById')->where('notification_id', '[0-9]+');
     Route::delete('{notification_id}', 'NotificationController@deleteNotificationById')->where('notification_id', '[0-9]+');
 });
-=======
-
->>>>>>> Stashed changes
