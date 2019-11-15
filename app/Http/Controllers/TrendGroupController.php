@@ -60,9 +60,9 @@ class TrendGroupController extends Controller
             $result = $this->notificationRepository->pushAllNotification("non_login", $request->title, $request->body, "trend_group");
             $notifications = $this->notificationRepository->pushToUsers(User::all(), $request->title, $request->body, $trend_group, "trend_group");
             $trendGroupData = [
-                'name' => $request->title,
-                'description' => $request->body,
-                'image' => $request->image,
+                'name' => $trend_group->name,
+                'description' => $trend_group->description,
+                'image' => $trend_group->image,
                 'release_date' => $notifications->created_at
             ];
             $this->trendGroupRepository->update($trend_group_id, $trendGroupData);
