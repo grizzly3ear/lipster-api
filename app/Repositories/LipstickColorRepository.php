@@ -19,13 +19,12 @@ class LipstickColorRepository implements LipstickColorRepositoryInterface
     public function findAllAvailable($lipstick_detail_id, $store_address_id) {
         $allLipstickColors = LipstickColor::all()->where('lipstick_detail_id', $lipstick_detail_id);
         $available = collect([]);
-        for($i = 0; $i < count($allLipstickColors); $i++){
-            // $count = count($allLipstickColors[$i]->storeHasLipsticks->where('id', $store_address_id)->first());
-            $count = ($allLipstickColors[$i]->storeHasLipsticks->where('id', $store_address_id)->first());
-            if(!$count) {
-                $available->push($allLipstickColors[$i]);
+        foreach ($allLipstickColors as $colors) {
+            $count = ($colors->storeHasLipsticks->where('id', $store_address_id)->first());
+                if(!$count) {
+                    $available->push($colors);
 
-            }
+                }
         }
         return $available;
     }
