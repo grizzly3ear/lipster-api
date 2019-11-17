@@ -57,7 +57,8 @@ class TrendGroupController extends Controller
         if($request->release) {
             $trend_group = $this->trendGroupRepository->findById($trend_group_id);
             //for non login user
-            $result = $this->notificationRepository->pushAllNotification("non_login", $request->title, $request->body, "trend_group");
+            $result = $this->notificationRepository->pushAllNotification("non_login", $request->title, $request->body, "trend_group", $trend_group);
+
             $notifications = $this->notificationRepository->pushToUsers(User::all(), $request->title, $request->body, $trend_group, "trend_group");
             $trendGroupData = [
                 'name' => $trend_group->name,

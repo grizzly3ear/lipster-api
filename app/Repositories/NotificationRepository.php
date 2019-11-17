@@ -65,18 +65,29 @@ class NotificationRepository implements NotificationRepositoryInterface
 
     }
 
-    public function pushAllNotification($topicGroup, $title, $body, $name) {
+    public function pushAllNotification($topicGroup, $title, $body, $name, $model) {
         $notificationBuilder = new PayloadNotificationBuilder($title);
         $notificationBuilder->setBody($body)
                             ->setSound('default')
-                            ->setClickAction($name);
+                            ->setClickAction($name)
+                            ->setBadge(0);
 
         $notification = $notificationBuilder->build();
+
+        $dataBuilder = new PayloadDataBuilder();
+        $dataBuilder->addData(["data" => $model->id]);
+
+        $optionBuilder = new OptionsBuilder();
+        $optionBuilder->setTimeToLive(60*20);
+
+        $option = $optionBuilder->build();
+        $notification = $notificationBuilder->build();
+        $data = $dataBuilder->build();
 
         $topic = new Topics();
         $topic->topic($topicGroup);
 
-        $topicResponse = FCM::sendToTopic($topic, null, $notification, null);
+        $topicResponse = FCM::sendToTopic($topic, $option, $notification, $data);
 
         return $topicResponse->isSuccess();
     }
@@ -106,11 +117,11 @@ class NotificationRepository implements NotificationRepositoryInterface
     }
 
     public function pushToUsers($users, $title, $body, $model, $name) {
-        
+
         $result;
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
-        
+
         foreach ($users as $user) {
             $notificationData = [
                 'title' => $title,
@@ -131,11 +142,11 @@ class NotificationRepository implements NotificationRepositoryInterface
 
             $dataBuilder = new PayloadDataBuilder();
             $dataBuilder->addData(["data" => $model->id]);
-    
+
             $option = $optionBuilder->build();
             $notification = $notificationBuilder->build();
             $data = $dataBuilder->build();
-    
+
             // $tokens = $users->pluck('notification_token')->toArray();
             // $token = "fL57GR6wt_s:APA91bFfvXZgwxrQHswcBmH4_qM2I0exQHOmgI6_lK6PLDiBZVqm6jwp9M81YwjOVrY3kbylVoqUdyYZ6jvta9RLfZ-uVg-Er-Df2LWpjronfaHL7hK-7zzKw3botuagHCl4VtuWER3A";
             $token = $user->notification_token;
@@ -144,7 +155,7 @@ class NotificationRepository implements NotificationRepositoryInterface
                 $downstreamResponse = FCM::sendTo($token, $option, $notification, $data);
             }
         }
-        
+
         return $result;
     }
 
