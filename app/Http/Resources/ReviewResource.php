@@ -23,7 +23,7 @@ class ReviewResource extends JsonResource
             'rating' => $this->pivot->rating,
             'created_at' => $this->pivot->created_at,
             'updated_at' => $this->pivot->updated_at,
-            'lipstick_color' => new LipstickColorResource($this),
+            'lipstick_color' => new LipstickColorForReviewResource($this),
 
         ];
     }
