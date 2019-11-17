@@ -30,10 +30,10 @@ class StoreHasLipstickController extends Controller
     }
 
     public function createStoreHasLipstick (Request $request) {
-        // $this->validate($request, [
-        //     'lipstick_color_id' => 'unique:store_has_lipstick,lipstick_color_id,NULL,id,store_address_id,' . $request->store_address_id,
-        //     'store_address_id' => 'unique:store_has_lipstick,store_address_id,NULL,id,lipstick_color_id,' . $request->lipstick_color_id,
-        // ]);
+        $this->validate($request, [
+            'lipstick_color_id' => 'unique:store_has_lipstick,lipstick_color_id,NULL,id,store_address_id,' . $request->store_address_id,
+            'store_address_id' => 'unique:store_has_lipstick,store_address_id,NULL,id,lipstick_color_id,' . $request->lipstick_color_id,
+        ]);
 
         return $this->storeHasLipstickRepository->store($request->only($this->storeHasLipstickRepository->getModel()->fillable));
     }
