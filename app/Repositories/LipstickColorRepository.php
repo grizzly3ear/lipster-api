@@ -20,8 +20,9 @@ class LipstickColorRepository implements LipstickColorRepositoryInterface
         $allLipstickColors = LipstickColor::all()->where('lipstick_detail_id', $lipstick_detail_id);
         $available = collect([]);
         for($i = 0; $i < count($allLipstickColors); $i++){
-            $count = count($allLipstickColors[$i]->storeHasLipsticks->where('id', $store_address_id)->first());
-            if($count < 1) {
+            // $count = count($allLipstickColors[$i]->storeHasLipsticks->where('id', $store_address_id)->first());
+            $count = ($allLipstickColors[$i]->storeHasLipsticks->where('id', $store_address_id)->first());
+            if(!$count) {
                 $available->push($allLipstickColors[$i]);
 
             }
