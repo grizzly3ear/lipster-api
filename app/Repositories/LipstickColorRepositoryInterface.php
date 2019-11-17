@@ -14,4 +14,5 @@ interface LipstickColorRepositoryInterface
     public function getUserReviews($lipstickColor_id);
     public function getStoreAddresses($lipstickColor_id);
     public function ranking();
+    public function findAllAvailable($lipstick_detail_id, $store_address_id);
 }

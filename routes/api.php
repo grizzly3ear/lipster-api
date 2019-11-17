@@ -97,6 +97,7 @@ Route::group(['prefix' => 'lipstick'], function () {
         Route::get('rgb/{hex}', 'LipstickColorController@getSimilarLipstickColor')->where('hex', '[a-fA-F0-9]{6}');
         Route::get('rgb/{hex}/trend', 'TrendController@getSimilarLipstickColor')->where('hex', '[a-fA-F0-9]{6}');
         Route::get('rank', 'LipstickColorController@getAllLipstickColorRanking');
+        Route::get('available/{lipstick_detail_id}/{store_address_id}', 'LipstickColorController@getAllLipstickColorAvailable');
     });
 
     Route::group(['prefix' => 'image'], function () {

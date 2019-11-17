@@ -29,6 +29,12 @@ class LipstickColorController extends Controller
         return LipstickColorResource::collection($lipstickColors);
     }
 
+    public function getAllLipstickColorAvailable ($lipstick_detail_id, $store_address_id) {
+        $lipstickColors = $this->lipstickColorRepository->findAllAvailable($lipstick_detail_id, $store_address_id);
+
+        return LipstickColorResource::collection($lipstickColors);
+    }
+
     public function getLipstickColorById ($lipstickColor_id) {
         $lipstickColor = $this->lipstickColorRepository->findById($lipstickColor_id);
 
