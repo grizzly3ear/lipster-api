@@ -34,6 +34,7 @@ class NotificationController extends Controller
         $user = $request->user();
 
         $notifications = $this->notificationRepository->findByUser($user);
+        $this->notificationRepository->setBadge($user);
         // dd($notifications);
         return NotificationResource::collection($notifications);
     }
